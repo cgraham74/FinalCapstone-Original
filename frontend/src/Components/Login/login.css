@@ -1,0 +1,9 @@
+#password, #username{
+    background-color: #1F2746;
+    color: #FBEDED;
+}
+#sign_in{
+   background-color: #171C32; 
+   color: #FBEDED;
+   border-radius: 15px;
+}
