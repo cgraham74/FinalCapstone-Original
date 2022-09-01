@@ -13,11 +13,8 @@ function Navigator () {
                     <Button id="nav_planner"><Link to='/weeklyplanner'>Planner</Link></Button>
                     <Button id="nav_recipes"><Link to='/savedrecipes'>Recipes</Link></Button>
                     <Button id="nav_pantry"><Link to='/pantry'>Pantry</Link></Button>
-<<<<<<< Updated upstream
                     <Button id="nav_shopping"><Link to='/shoppinglist'>Shopping</Link></Button>
-=======
-                    <Button id="nav_shopping"><Link to='shoppinglist'>Shopping</Link></Button>
->>>>>>> Stashed changes
+
                 </ButtonGroup>
             </div>
         </nav>
