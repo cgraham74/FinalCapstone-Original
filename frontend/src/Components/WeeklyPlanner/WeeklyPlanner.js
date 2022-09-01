@@ -7,9 +7,11 @@ import bluedot from "../../images/bluedot.png";
 import greendot from "../../images/greendot.png";
 import purpledot from "../../images/purpledot.png";
 import orangedot from "../../images/orangedot.png";
+import pinkdot from "../../images/pinkdot.png";
+import reddot from "../../images/reddot.png";
 
-export default function WeeklyPlanner() {
-  const [day, setDay] = useState("");
+export default function WeeklyPlanner(){
+  const [day, setDay] = useState();
  
   return (
     <div>
@@ -49,13 +51,13 @@ export default function WeeklyPlanner() {
             </Link>
           </li>
           <li id="saturday">
-            <img src={purpledot} alt="large purple dot" />
+            <img src={pinkdot} alt="large purple dot" />
             <Link to="/day" onClick={(e) => setDay(e.target.innerText)}>
               Saturday
             </Link>
           </li>
           <li id="sunday">
-            <img src={purpledot} alt="large purple dot" />
+            <img src={reddot} alt="large purple dot" />
             <Link to="/day" onClick={(e) => setDay(e.target.innerText)}>
               Sunday
             </Link>
