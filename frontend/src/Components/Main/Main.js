@@ -34,6 +34,7 @@ class Main extends Component {
     super(props);
   }
 
+
   handleLogout = () => {
     this.props.addToken("");
     this.props.deleteUser();
@@ -68,7 +69,6 @@ class Main extends Component {
           <Route path="/shoppinglist" component={() => <ShoppingList />} />
           <Route path="/createrecipe" component={() => <CreateRecipe />} />
           <Route path="/Day" component={() => <Day />} />
-
           <Redirect to="/login" />
         </Switch>
       </div>
