@@ -1,6 +1,7 @@
 ul{
     list-style: none;
     font-size: 64px;
+    margin-right: 35px;
 }
 li{
     max-width: 100vw;
@@ -13,5 +14,5 @@ li{
     border-radius: 15px;
 }
 li > img {
-    margin-left: 50px;
+    margin-left: 20px;
 }

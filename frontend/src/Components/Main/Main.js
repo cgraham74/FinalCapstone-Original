@@ -68,7 +68,7 @@ class Main extends Component {
           <Route path="/pantry" component={() => <Pantry />} />
           <Route path="/shoppinglist" component={() => <ShoppingList />} />
           <Route path="/createrecipe" component={() => <CreateRecipe />} />
-          <Route path="/Day" component={() => <Day />} />
+          <Route path="/day" component={() => <Day />} />
           <Redirect to="/login" />
         </Switch>
       </div>
