@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 function Navigator () {
 
     return (
-        <nav>
+        <nav id="navigation_container">
             <h1>Meal Planner</h1>
             <div id='nav_container'>
                 <ButtonGroup id="nav_btngrp">

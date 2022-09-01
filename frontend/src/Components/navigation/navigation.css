@@ -1,3 +1,10 @@
+h1{
+  text-align: center;
+}
+#navigation_container{
+  background-color:#1F2746;
+  color: #E5E8F2;
+}
 #nav_planner {
   background-color: #fff496;
   color: #171c32;
@@ -15,9 +22,13 @@
 }
 #nav_shopping {
   background-color: #7cd7f3;
+
+}
+#nav_container{
   display: flex;
   align-items: center;
   justify-content: flex-end;
-
   filter: drop-shadow(0 0 0.75rem #171c32);
+  background-color: #171c32;
+  
 }
