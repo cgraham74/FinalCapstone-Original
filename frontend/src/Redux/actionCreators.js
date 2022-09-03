@@ -17,13 +17,13 @@ export const deleteUser = () => ({
 })
 
 export const fetchRecipes = () => (dispatch) => {
-    fetch(baseUrl + '/Test/RecipeTest')
+    fetch(baseUrl + '/Test/RecipeListTest')
       .then((response) => {
         return response.json();
       })
       .then((data) => {
         console.log(data);
-        return dispatch(addRecipe([data]))});
+        return dispatch(addRecipe(data))});
 
 };
 
