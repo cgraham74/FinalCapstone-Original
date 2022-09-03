@@ -31,6 +31,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchRecipes: () => {
     dispatch(fetchRecipes());
   }
+
 });
 
 
