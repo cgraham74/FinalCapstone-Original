@@ -18,7 +18,7 @@ export default function LandingPage() {
         </li>
         <li id="li_saved">
           <img src={orangedot} alt="large orange dot" />
-         <Link to='savedrecipes'>Saved Recipes</Link> 
+         <Link to='recipes'>Saved Recipes</Link> 
         </li>
         <li id="li_pantry">
           <img src={greendot} alt="large green dot" />
