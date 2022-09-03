@@ -11,9 +11,9 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
         return(
             <>
             <li key={id} id="ingredient">
-            <p>{item.name}</p>
-            <p>{item.quantity}</p>
-            <p>{item.measurementunit}</p>
+            <p>{item.name}: {item.quantity} {item.measurementunit}</p>
+            {/* <p>{item.quantity}</p>
+            <p>{item.measurementunit}</p> */}
             </li>
             </>
         )
