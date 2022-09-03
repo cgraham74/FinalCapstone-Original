@@ -10,7 +10,7 @@ import java.util.Collection;
 @Repository
 public interface PantryIngredientRepository extends JpaRepository <PantryIngredient, Integer> {
 
-    @Query("SELECT p FROM PantryIngredient p WHERE p.user_id = :user_id")
-    Collection<PantryIngredient> findAllPantryIngredientsByUserId(@Param("user_id") Long user_id);
+    @Query("SELECT p FROM PantryIngredient p WHERE p.pantryid = :pantryid")
+    Collection<PantryIngredient> findAllPantryIngredientsByUserId(@Param("pantryid") Integer pantryid);
 
 }

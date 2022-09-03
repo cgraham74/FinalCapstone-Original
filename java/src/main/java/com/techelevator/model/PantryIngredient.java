@@ -3,6 +3,7 @@ package com.techelevator.model;
 import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "pantryingredient")
@@ -11,13 +12,13 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @ToString
-public class PantryIngredient {
+public class PantryIngredient implements Serializable {
 
-    @Id
     @Column(name = "pantryid")
     @NotNull
     private Integer pantryid;
 
+    @Id
     @Column(name = "ingredientid")
     @NotNull
     private Integer ingredientid;
@@ -33,5 +34,17 @@ public class PantryIngredient {
     @Column(name = "user_id")
     @NotNull
     private Long user_id;
+
+//    @ManyToOne
+//    @JoinColumn(name = "pantryid",
+//            insertable = false,
+//            updatable= false)
+//    private Pantry pantry;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "ingredientid",
+//            insertable = false,
+//            updatable= false)
+//    private Ingredient ingredient;
 
 }

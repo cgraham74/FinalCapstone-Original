@@ -2,6 +2,7 @@ package com.techelevator.controller;
 
 import com.techelevator.model.PantryDTO;
 import com.techelevator.model.RecipeDTO;
+import com.techelevator.model.RecipeIngredient;
 import com.techelevator.service.Services;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.security.Principal;
+import java.util.Collection;
 import java.util.List;
 
 @CrossOrigin
@@ -31,7 +33,13 @@ public class MainController {
 
     @GetMapping(path = "/RecipeTest")
     public RecipeDTO testGetRecipe() {
-        return services.testGetRecipeDTO();
+        //Hardcoded '1' until we get a back and forth
+        return services.testGetRecipeDTO(1);
+    }
+
+    @GetMapping(path = "/RecipeListTest")
+    public Collection<RecipeDTO> testGetRecipeList(){
+        return services.testListOfRecipes();
     }
 
 }

@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface RecipeIngredientRepository extends JpaRepository<RecipeIngredient, Integer> {
 
-    @Query("SELECT r FROM RecipeIngredient r WHERE r.title LIKE :title")
-    List<RecipeIngredient> testGetRecipeIngredients(@Param("title") String title);
+    @Query("SELECT r FROM RecipeIngredient r WHERE r.recipeid = :recipeid")
+    List<RecipeIngredient> testGetRecipeIngredients(@Param("recipeid") Integer recipeid);
 
 }

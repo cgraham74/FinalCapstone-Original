@@ -33,10 +33,10 @@ public class Services {
     public List<PantryDTO> testGetUserPantryDTO() {
 
         //Placeholder, this will be the id passed in above
-        Long user_id = 1L;
+        Integer recipeid = 1;
 
         List<PantryDTO> usersPantry = new ArrayList<>();
-        List<PantryIngredient> usersPantryIngredients = new ArrayList<>(pantryIngredientRepository.findAllPantryIngredientsByUserId(user_id));
+        List<PantryIngredient> usersPantryIngredients = new ArrayList<>(pantryIngredientRepository.findAllPantryIngredientsByUserId(recipeid));
 
         for (PantryIngredient usersPantryIngredient : usersPantryIngredients) {
 
@@ -52,9 +52,8 @@ public class Services {
     public List<RecipeIngredientDTO> testGetRecipeIngredients(Integer recipeid) {
 
         //Placeholder, the above id will be passed in
-        String title = recipeRepository.getOne(recipeid).getTitle();
 
-        List<RecipeIngredient> recipeIngredients = recipeIngredientRepository.testGetRecipeIngredients(title);
+        List<RecipeIngredient> recipeIngredients = recipeIngredientRepository.testGetRecipeIngredients(recipeid);
         List<RecipeIngredientDTO> recipeIngredientsDTO = new ArrayList<>();
 
         for (RecipeIngredient recipeIngredient : recipeIngredients) {
@@ -69,10 +68,9 @@ public class Services {
     }
 
     //Get the specific recipe for the DTO
-    public RecipeDTO testGetRecipeDTO() {
+    public RecipeDTO testGetRecipeDTO(Integer recipeId) {
 
         //Placeholder, this will be the id passed in above
-        Integer recipeId = 1;
 
         RecipeDTO recipeDTO = (new RecipeDTO(
                 recipeId,
@@ -85,4 +83,20 @@ public class Services {
 
         return recipeDTO;
     }
+
+    public Collection<RecipeDTO> testListOfRecipes() {
+
+        Collection<RecipeDTO> listOfRecipeDTO = new ArrayList<>();
+        Collection<Recipe> recipes = recipeRepository.findAll();
+
+        for (Recipe recipe : recipes) {
+
+            listOfRecipeDTO.add(testGetRecipeDTO(recipe.getRecipeid()));
+
+        }
+
+        return listOfRecipeDTO;
+
+    }
+
 }

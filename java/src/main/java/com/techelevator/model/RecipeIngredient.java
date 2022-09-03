@@ -14,16 +14,12 @@ import java.io.Serializable;
 @ToString
 public class RecipeIngredient implements Serializable {
 
-    @Column(name = "recipeid",
-            insertable = false,
-            updatable= false)
+    @Column(name = "recipeid")
     @NotNull
     private Integer recipeid;
 
     @Id
-    @Column(name = "ingredientid",
-            insertable = false,
-            updatable= false)
+    @Column(name = "ingredientid")
     @NotNull
     private Integer ingredientid;
 
@@ -39,13 +35,13 @@ public class RecipeIngredient implements Serializable {
     private String title;
 
 
-    @ManyToOne
-    @JoinColumn(name = "recipeid", insertable = false, updatable= false)
-    private Recipe recipe;
-
-
-    @ManyToOne
-    @JoinColumn(name = "ingredientid", insertable = false, updatable= false)
-    private Ingredient ingredient;
+//    @ManyToOne
+//    @JoinColumn(name = "recipeid", insertable = false, updatable= false)
+//    private Recipe recipe;
+//
+//
+//    @ManyToOne
+//    @JoinColumn(name = "ingredientid", insertable = false, updatable= false)
+//    private Ingredient ingredient;
 
 }
