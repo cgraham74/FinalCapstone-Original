@@ -5,22 +5,25 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "pantry")
+@Table(name = "ingredient")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
-public class Pantry {
+public class Ingredient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pantryid")
+    @Column(name = "ingredientid")
     @NotNull
-    private Integer pantryid;
+    private Integer ingredientid;
 
-    @Column(name = "user_id")
+    @Column(name = "name")
     @NotNull
-    private Long user_id;
+    private String name;
 
+    @Column(name = "category")
+    @NotNull
+    private String category;
 }
