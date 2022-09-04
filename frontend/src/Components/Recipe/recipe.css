@@ -5,3 +5,15 @@
   font-size: small;
 
 }
+.table>:not(caption)>*>* {
+  border-bottom: none;
+}
+table{
+  background-color: #171C32;
+}
+th, td, th:hover, td:hover{
+  color: #E5E8F2;
+}
+.rows:hover{
+  background-color:#1F2746;
+}
