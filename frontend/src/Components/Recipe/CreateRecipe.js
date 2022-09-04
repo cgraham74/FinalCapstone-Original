@@ -13,6 +13,9 @@ import {
   DropdownItem,
   Table,
 } from "reactstrap";
+
+// TODO Create a recipe object that gathers all of the recipe information on submit? - posts to database
+ 
 export default function CreateRecipe() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen((prevState) => !prevState);
@@ -44,13 +47,15 @@ export default function CreateRecipe() {
           measurementunit: ingredientUnit,
         },
       ]);
+      setIngredientName("");
+      setIngredientAmount("");
+      setIngredientUnit("");
     }
   }
 
   return (
     <div>
       <Navigator />
-      Placeholder for create recipes
       <Form>
         <FormGroup>
           <Label for="recipename">
@@ -73,7 +78,8 @@ export default function CreateRecipe() {
             ></Input>
           </Label>
 
-          {/* Drop down menu for meal Category */}
+          {/* Drop down menu for meal Category
+          TODO: Find a way to show what category was selected */}
           <Dropdown isOpen={dropdownOpen} toggle={toggle} direction="down">
             <DropdownToggle caret>Category</DropdownToggle>
             <DropdownMenu>
@@ -84,6 +90,9 @@ export default function CreateRecipe() {
               <DropdownItem>Snacks</DropdownItem>
             </DropdownMenu>
           </Dropdown>
+          {/* TODO: 
+          ADD: validators for Quanity to be only numbers
+          ADD: Delete function to be able to remove individual ingredient from list incase of ooopsies */}
           <FormGroup>
             <Label for="ingredients">
               Ingredients
@@ -95,11 +104,11 @@ export default function CreateRecipe() {
                 value={ingredientName}
               />
             </Label>
-            <Label for="amount">
-              Amount
+            <Label for="quantity">
+              Quantity
               <Input
-                id="amount"
-                name="amount"
+                id="quantity"
+                name="quantity"
                 type="text"
                 value={ingredientAmount}
                 onChange={(e) => setIngredientAmount(e.target.value)}
@@ -133,6 +142,9 @@ export default function CreateRecipe() {
           <Label for="instructions">Instructions</Label>
           <Input id="instructions" name="text" type="textarea" />
         </FormGroup>
+        {/* TODO: Add functionality to submit button in a POST fetch to pass information to database
+        ADD: clear form upon submit incase people add multiple recipes */}
+        <Button>Submit</Button>
       </Form>
     </div>
   );
