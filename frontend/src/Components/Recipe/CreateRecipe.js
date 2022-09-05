@@ -13,16 +13,77 @@ import {
   DropdownItem,
   Table,
 } from "reactstrap";
+import { baseUrl } from "../../Shared/baseUrl";
 
-// TODO Create a recipe object that gathers all of the recipe information on submit? - posts to database
- 
-export default function CreateRecipe() {
+export default function CreateRecipe(props) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen((prevState) => !prevState);
   const [ingredients, setIngredients] = useState([]);
   const [ingredientName, setIngredientName] = useState("");
   const [ingredientAmount, setIngredientAmount] = useState("");
   const [ingredientUnit, setIngredientUnit] = useState("");
+  const [recipeName, setRecipeName] = useState("");
+  const [servingSize, setServingSize] = useState("");
+  const [instructions, setInstruction] = useState("");
+  const [category, setCategory] = useState("Category");
+  const [recipe, setRecipe] = useState({});
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    alert(
+      recipeName +
+        " " +
+        servingSize +
+        " " +
+        instructions +
+        " " +
+        category +
+        " " +
+        JSON.stringify(ingredients) +
+        " ID " +
+        JSON.stringify(props)
+    );
+    setRecipe({
+      user_id: props.user.id,
+      title: recipeName,
+      imageUrl: "",
+      ingredientList: ingredients,
+      instructions: instructions,
+      servingSize: servingSize,
+      category: category,
+    });
+    // fetch(baseUrl, {
+    //   method: "POST",
+    //   cache: "no-cache",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //      "Authorization": `Bearer ${props.token}`
+    //   },
+    //   body: JSON.stringify(recipe),
+    // })
+    //   .then((response) => {
+    //     if (response.ok) {
+    //       alert("Saved!");
+    //       resetForm(e);
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.error(err);
+    //     alert("Could not save card!");
+    //   });
+    
+  }
+
+  function resetForm(e) {
+    setRecipe({});
+    setIngredients([]);
+    setCategory("Category");
+    e.target.reset();
+  }
+
+  const changeCategory = (e) => {
+    setCategory(e.target.value);
+  };
 
   const ingredientsList = ingredients.map((item, id) => {
     return (
@@ -52,14 +113,12 @@ export default function CreateRecipe() {
       setIngredientAmount("");
       setIngredientUnit("");
     }
-
-    console.log(ingredients)
   }
 
   return (
     <div>
       <Navigator />
-      <Form>
+      <Form onSubmit={(e) => handleSubmit(e)}>
         <FormGroup>
           <Label for="recipename">
             Recipe name:
@@ -68,6 +127,7 @@ export default function CreateRecipe() {
               name="recipename"
               placeholder="Recipe name..."
               type="text"
+              onChange={(e) => setRecipeName(e.target.value)}
             ></Input>
           </Label>
           <Label for="servingsize">
@@ -78,19 +138,27 @@ export default function CreateRecipe() {
               name="servingsize"
               placeholder="Serving size..."
               type="text"
+              onChange={(e) => setServingSize(e.target.value)}
             ></Input>
           </Label>
-
-          {/* Drop down menu for meal Category
-          TODO: Find a way to show what category was selected */}
           <Dropdown isOpen={dropdownOpen} toggle={toggle} direction="down">
-            <DropdownToggle caret>Category</DropdownToggle>
+            <DropdownToggle caret>{category}</DropdownToggle>
             <DropdownMenu>
-              <DropdownItem>Breakfast</DropdownItem>
-              <DropdownItem>Lunch</DropdownItem>
-              <DropdownItem>Dinner</DropdownItem>
-              <DropdownItem>Dessert</DropdownItem>
-              <DropdownItem>Snacks</DropdownItem>
+              <DropdownItem value="Breakfast" onClick={changeCategory}>
+                Breakfast
+              </DropdownItem>
+              <DropdownItem value="Lunch" onClick={changeCategory}>
+                Lunch
+              </DropdownItem>
+              <DropdownItem value="Dinner" onClick={changeCategory}>
+                Dinner
+              </DropdownItem>
+              <DropdownItem value="Dessert" onClick={changeCategory}>
+                Dessert
+              </DropdownItem>
+              <DropdownItem value="Snack" onClick={changeCategory}>
+                Snacks
+              </DropdownItem>
             </DropdownMenu>
           </Dropdown>
           {/* TODO: 
@@ -125,7 +193,7 @@ export default function CreateRecipe() {
                 type="text"
                 value={ingredientUnit}
                 onChange={(e) => setIngredientUnit(e.target.value)}
-                 onKeyDown={(event) => updateIngredients(event)}
+                onKeyDown={(event) => updateIngredients(event)}
               ></Input>
             </Label>
 
@@ -143,11 +211,18 @@ export default function CreateRecipe() {
           </FormGroup>
 
           <Label for="instructions">Instructions</Label>
-          <Input id="instructions" name="text" type="textarea" />
+          <Input
+            id="instructions"
+            name="instructions"
+            type="textarea"
+            onChange={(e) => setInstruction(e.target.value)}
+          />
         </FormGroup>
-        {/* TODO: Add functionality to submit button in a POST fetch to pass information to database
-        ADD: clear form upon submit incase people add multiple recipes */}
-        <Button>Submit</Button>
+        <Button
+          type="submit"
+        >
+          Submit
+        </Button>
       </Form>
     </div>
   );

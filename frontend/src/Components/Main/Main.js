@@ -77,7 +77,7 @@ componentDidMount() {
           <Route path="/recipes" component={() => <Recipes recipes={this.props.recipes.recipes}/>} />
           <Route path="/pantry" component={() => <Pantry />} />
           <Route path="/shoppinglist" component={() => <ShoppingList />} />
-          <Route path="/createrecipe" component={() => <CreateRecipe />} />
+          <Route path="/createrecipe" component={() => <CreateRecipe user={this.props.user} token={this.props.token}/>} />
           <Route path="/day" component={() => <Day />} />
           <Redirect to="/login" />
         </Switch>
