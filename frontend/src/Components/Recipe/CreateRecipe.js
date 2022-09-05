@@ -27,7 +27,7 @@ export default function CreateRecipe() {
   const ingredientsList = ingredients.map((item, id) => {
     return (
       <>
-        <tr className="rows">
+        <tr className="rows" key={id}>
           <th scope="row">{id + 1}</th>
           <td>{item.name}</td>
           <td>{item.quantity}</td>
@@ -39,6 +39,7 @@ export default function CreateRecipe() {
 
   function updateIngredients(event) {
     if (event.key === "Enter") {
+      event.preventDefault();
       setIngredients((prevIngred) => [
         ...ingredients,
         {
@@ -51,6 +52,8 @@ export default function CreateRecipe() {
       setIngredientAmount("");
       setIngredientUnit("");
     }
+
+    console.log(ingredients)
   }
 
   return (
@@ -122,7 +125,7 @@ export default function CreateRecipe() {
                 type="text"
                 value={ingredientUnit}
                 onChange={(e) => setIngredientUnit(e.target.value)}
-                onKeyDown={(event) => updateIngredients(event)}
+                 onKeyDown={(event) => updateIngredients(event)}
               ></Input>
             </Label>
 
