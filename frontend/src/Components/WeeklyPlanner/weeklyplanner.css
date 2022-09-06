@@ -1,0 +1,44 @@
+#weeklyplanner{
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+ul{
+    justify-content: space-between;
+    font-size: large;
+    
+}
+
+#meal-category{
+    font-size: x-large;
+}
+
+Link{
+    text-decoration: none;
+}
+
+
+.accordion-button {
+    background-color: rgb(203, 202, 207) !important;
+    font-size: xx-large;
+   
+  }
+  
+  .accordion-button:focus {
+    box-shadow: none;
+    
+  }
+  
+  .accordion-button:not(.collapsed) {
+    color: #1cdd66;
+    font-size: xx-large;
+    
+  }
+
+  .weeklyplanner-container{
+    display:flexbox;
+    width: 60%;
+    justify-content: center;
+    
+  }
+  
