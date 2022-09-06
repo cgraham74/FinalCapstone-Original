@@ -29,7 +29,17 @@ public class Services {
         return userDao.findIdByUsername(username);
     }
 
+    //-------------------QUERIES-------------------
+    public Object[] testGetRecipeTitleByCategory(String category) {
+
+        //PLACEHOLDER VALUE
+        category = "Breakfast";
+
+        return recipeRepository.testGetRecipeTitleByCategory(category);
+    }
+
     //Currently how we're going to get the user's pantry.
+    //-------------------PANTRY-------------------
     public List<PantryDTO> testGetUserPantryDTO() {
 
         //Placeholder, this will be the id passed in above
@@ -49,6 +59,7 @@ public class Services {
     }
 
     //Get the recipe's ingredients for the DTO
+    //-------------------RECIPES-------------------
     public List<RecipeIngredientDTO> testGetRecipeIngredients(Integer recipeid) {
 
         //Placeholder, the above id will be passed in
@@ -68,6 +79,7 @@ public class Services {
     }
 
     //Get the specific recipe for the DTO
+
     public RecipeDTO testGetRecipeDTO(Integer recipeId) {
 
         //Placeholder, this will be the id passed in above
@@ -76,6 +88,7 @@ public class Services {
                 recipeId,
                 recipeRepository.getOne(recipeId).getUser_id(),
                 recipeRepository.getOne(recipeId).getTitle(),
+                recipeRepository.getOne(recipeId).getCategory(),
                 recipeRepository.getOne(recipeId).getImagename(),
                 testGetRecipeIngredients(recipeId),
                 recipeRepository.getOne(recipeId).getInstructions(),

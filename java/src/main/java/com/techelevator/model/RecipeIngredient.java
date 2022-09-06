@@ -34,14 +34,14 @@ public class RecipeIngredient implements Serializable {
     @Column(name = "title")
     private String title;
 
+    @ManyToOne
+    @JoinColumn(name = "recipeid", insertable = false, updatable = false)
+    private Recipe recipe;
 
-//    @ManyToOne
-//    @JoinColumn(name = "recipeid", insertable = false, updatable= false)
-//    private Recipe recipe;
-//
-//
-//    @ManyToOne
-//    @JoinColumn(name = "ingredientid", insertable = false, updatable= false)
-//    private Ingredient ingredient;
+
+    @ManyToOne
+    @JoinColumn(name = "ingredientid", insertable = false, updatable = false)
+    private Ingredient ingredient;
 
 }
+

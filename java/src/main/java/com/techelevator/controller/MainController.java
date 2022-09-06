@@ -1,6 +1,7 @@
 package com.techelevator.controller;
 
 import com.techelevator.model.PantryDTO;
+import com.techelevator.model.Recipe;
 import com.techelevator.model.RecipeDTO;
 import com.techelevator.model.RecipeIngredient;
 import com.techelevator.service.Services;
@@ -25,6 +26,11 @@ public class MainController {
 //    public List<String> getUsersPantry(Principal principal) {
 //        return services.getUserPantry(services.getUserId(principal.getName()));
 //    }
+
+    @GetMapping(path = "/TestBreakfast")
+    public Object[] testGetRecipeTitleFromCategory() {
+        return services.testGetRecipeTitleByCategory("Breakfast");
+    }
 
     @GetMapping(path = "/PantryTest")
     public List<PantryDTO> testGetUsersPantry() {

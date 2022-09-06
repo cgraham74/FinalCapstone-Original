@@ -20,6 +20,9 @@ public class RecipeDTO {
     private String title;
 
     @JsonProperty
+    private String category;
+
+    @JsonProperty
     private String imageUrl;
 
     @JsonProperty
