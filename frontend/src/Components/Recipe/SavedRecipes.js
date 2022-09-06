@@ -9,7 +9,7 @@ import {
   Button,
 } from "reactstrap";
 import "./recipe.css";
-import { FadeTransform, Fade } from "react-animation-components";
+import { FadeTransform, Fade, Stagger } from "react-animation-components";
 
 function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
   const ingredients = recipeCard.ingredientList.map((item, id) => {
@@ -22,24 +22,28 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
     );
   });
   return (
+   
     <FadeTransform
       in
       transformProps={{ exitTransform: "scale(0.5) translateY(-50%)" }}
     >
-      <Card>
+      <Fade in>
+      <Card style={{width:'30rem'}}id="recipecard">
         <CardBody>
-          <CardTitle>{recipeCard.title}</CardTitle>
+          <CardTitle><h3>{recipeCard.title}</h3></CardTitle>
           <CardSubtitle>Serving Size: {recipeCard.servingSize}</CardSubtitle>
           <CardText>
-            Ingredients:
+            <h5>Ingredients:</h5>
             <ul>{ingredients}</ul>
-            Instructions: {recipeCard.instructions}
+            <h5>Instructions:</h5> {recipeCard.instructions}
           </CardText>
-          <Button onClick={editHandler}>Update</Button>
-          <Button onClick={deleteHandler}>Delete</Button>
+          <Button onClick={editHandler} id='update'>Update</Button>
+          <Button onClick={deleteHandler }id='delete'>Delete</Button>
         </CardBody>
       </Card>
+        </Fade>
     </FadeTransform>
+   
   );
 }
 
@@ -47,7 +51,7 @@ export default function SavedRecipes(props) {
   console.log("Props.recipes from: " + props.recipes[0]);
   const recipeCollections = props.recipes.map((card, id) => {
     return (
-      <Fade in>
+    <Stagger in>
         <div key={id}>
           <RenderSavedRecipes
             deleteHandler={props.deleteHandler}
@@ -55,7 +59,7 @@ export default function SavedRecipes(props) {
             recipeCard={card}
           />
         </div>
-      </Fade>
+      </Stagger>
     );
   });
   return <>{recipeCollections}</>;

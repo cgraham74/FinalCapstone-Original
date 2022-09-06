@@ -27,6 +27,15 @@ export default function CreateRecipe(props) {
   const [instructions, setInstruction] = useState("");
   const [category, setCategory] = useState("Category");
   const [recipe, setRecipe] = useState({});
+  const [required, setRequired] = useState();
+  const [maxLength, setMaxLength] = useState();
+  const [minLength, setMinLength] = useState();
+  const [isNumber, setIsNumber] = useState();
+
+  // const required = (val) => val && val.length;
+  // const maxLength = (len) => (val) => !val || val.length <= len;
+  // const minLength = (len) => (val) => val && val.length >= len;
+  // const isNumber = (val) => !isNaN(Number(val));
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -71,7 +80,6 @@ export default function CreateRecipe(props) {
     //     console.error(err);
     //     alert("Could not save card!");
     //   });
-    
   }
 
   function resetForm(e) {
@@ -81,6 +89,20 @@ export default function CreateRecipe(props) {
     e.target.reset();
   }
 
+  /**
+   * Function that validates the input field as a number
+   * Then sets the serving size
+   * @param {*} e
+   */
+  function setServing(e) {
+    if (!isNaN(Number(e.target.value))) {
+     
+      setIsNumber(false);
+    } else {
+      setIsNumber(true);
+       setServingSize(e.target.value);
+    }
+  }
   const changeCategory = (e) => {
     setCategory(e.target.value);
   };
@@ -98,8 +120,13 @@ export default function CreateRecipe(props) {
     );
   });
 
-  function updateIngredients(event) {
-    if (event.key === "Enter") {
+  function addIngredients(event) {
+    //If Ingredients fields are empty -
+    if (
+      ingredientName !== "" &&
+      ingredientAmount !== "" &&
+      ingredientUnit !== ""
+    ) {
       event.preventDefault();
       setIngredients((prevIngred) => [
         ...ingredients,
@@ -138,8 +165,11 @@ export default function CreateRecipe(props) {
               name="servingsize"
               placeholder="Serving size..."
               type="text"
-              onChange={(e) => setServingSize(e.target.value)}
+              valid={isNumber}
+              invalid={isNumber}
+              onChange={setServing}
             ></Input>
+            <FormFeedback>Needs to be a number</FormFeedback>
           </Label>
           <Dropdown isOpen={dropdownOpen} toggle={toggle} direction="down">
             <DropdownToggle caret>{category}</DropdownToggle>
@@ -193,17 +223,19 @@ export default function CreateRecipe(props) {
                 type="text"
                 value={ingredientUnit}
                 onChange={(e) => setIngredientUnit(e.target.value)}
-                onKeyDown={(event) => updateIngredients(event)}
+                // onKeyDown={(event) => updateIngredients(event)}
               ></Input>
             </Label>
-
+            <Button type="button" onClick={(event) => addIngredients(event)}>
+              Add
+            </Button>
             <Table>
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Ingredient Name</th>
-                  <th>Quantity</th>
-                  <th>Measurement Unit</th>
+                  <th>Ingredients entered</th>
+                  <th>Quantity entered</th>
+                  <th>Measurement Unit entered</th>
                 </tr>
               </thead>
               <tbody>{ingredientsList}</tbody>
@@ -218,11 +250,7 @@ export default function CreateRecipe(props) {
             onChange={(e) => setInstruction(e.target.value)}
           />
         </FormGroup>
-        <Button
-          type="submit"
-        >
-          Submit
-        </Button>
+        <Button type="submit">Submit</Button>
       </Form>
     </div>
   );
