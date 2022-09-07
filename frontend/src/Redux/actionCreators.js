@@ -15,7 +15,12 @@ export const addUser = (user) => ({
 export const deleteUser = () => ({
     type: ActionTypes.DELETE_USER
 })
+export const addRecipe = (recipes) => ({
+    type: ActionTypes.ADD_RECIPE,
+    payload: recipes,
+  });
 
+  
 export const fetchRecipes = () => (dispatch) => {
     fetch(baseUrl + '/Test/RecipeListTest')
       .then((response) => {
@@ -31,8 +36,8 @@ export const fetchRecipes = () => (dispatch) => {
 //The updated and delete as well - use this as a template
 export const fetchPantryItems = () => (dispatch) => {
   fetch(baseUrl + "/Test/PantryTest")
-  .then ((res) => {
-    return res.json();
+  .then ((response) => {
+    return response.json();
   })
   .then((data) => {
     console.log("This data is from pantry" + data);
@@ -40,7 +45,7 @@ export const fetchPantryItems = () => (dispatch) => {
   })
 };
 
-//Global CRUD ops for ingredients to global state from pantry
+//Actioncreators for ingredients
 export const addIngredient = (ingredient) => ({
   type: ActionTypes.ADD_INGREDIENT,
   payload: ingredient,
@@ -54,7 +59,27 @@ export const updateIngredient = (ingredient) => ({
   payload: ingredient,
 });
 
-export const addRecipe = (recipes) => ({
-    type: ActionTypes.ADD_RECIPE,
-    payload: recipes,
-  });
+//Action creators for Mealplan
+export const fetchMealPlan = () => (dispatch) => {
+  fetch(baseUrl + "/Test/TestBreakfast")
+  .then ((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    console.log("This data is from fetchMeals" + data);
+    return dispatch(addMealPlan(data))
+  })
+};
+
+export const addMealPlan = (mealplan) => ({
+  type: ActionTypes.ADD_MEALPLAN,
+  payload: mealplan,
+});
+export const deleteMealplan = (mealplan) => ({
+  type: ActionTypes.DELETE_MEALPLAN,
+  payload: mealplan,
+});
+export const updateMealPlan = (mealplan) => ({
+  type: ActionTypes.UPDATE_MEALPLAN,
+  payload: mealplan,
+});

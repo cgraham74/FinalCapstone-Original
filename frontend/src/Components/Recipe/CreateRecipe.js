@@ -27,10 +27,7 @@ export default function CreateRecipe(props) {
   const [instructions, setInstruction] = useState("");
   const [category, setCategory] = useState("Category");
   const [recipe, setRecipe] = useState({});
-  const [required, setRequired] = useState();
-  const [maxLength, setMaxLength] = useState();
-  const [minLength, setMinLength] = useState();
-  const [isNumber, setIsNumber] = useState();
+ 
 
   // const required = (val) => val && val.length;
   // const maxLength = (len) => (val) => !val || val.length <= len;
@@ -89,24 +86,12 @@ export default function CreateRecipe(props) {
     e.target.reset();
   }
 
-  /**
-   * Function that validates the input field as a number
-   * Then sets the serving size
-   * @param {*} e
-   */
-  function setServing(e) {
-    if (!isNaN(Number(e.target.value))) {
-     
-      setIsNumber(false);
-    } else {
-      setIsNumber(true);
-       setServingSize(e.target.value);
-    }
-  }
+
   const changeCategory = (e) => {
     setCategory(e.target.value);
   };
 
+  
   const ingredientsList = ingredients.map((item, id) => {
     return (
       <>
@@ -164,12 +149,17 @@ export default function CreateRecipe(props) {
               id="servingsize"
               name="servingsize"
               placeholder="Serving size..."
+              pattern="[0-9]*"
               type="text"
-              valid={isNumber}
-              invalid={isNumber}
-              onChange={setServing}
-            ></Input>
-            <FormFeedback>Needs to be a number</FormFeedback>
+              value={servingSize}
+              // valid={(e) => !isNaN(Number(e.target.value))}
+              // invalid={(e) => !isNaN(Number(e.target.value))}
+              // onChange={setServing}
+              onChange={(e) => 
+                setServingSize((v) => (e.target.validity.valid ? e.target.value : v))}
+               
+            ><FormFeedback>Enter a numeric value</FormFeedback></Input>
+           
           </Label>
           <Dropdown isOpen={dropdownOpen} toggle={toggle} direction="down">
             <DropdownToggle caret>{category}</DropdownToggle>
@@ -201,6 +191,7 @@ export default function CreateRecipe(props) {
                 id="ingredients"
                 name="ingredients"
                 type="text"
+                placeholder="Ingredient name..."
                 onChange={(e) => setIngredientName(e.target.value)}
                 value={ingredientName}
               />
@@ -211,8 +202,15 @@ export default function CreateRecipe(props) {
                 id="quantity"
                 name="quantity"
                 type="text"
+                pattern="[0-9]*"
+                placeholder="Amount needed..."
                 value={ingredientAmount}
-                onChange={(e) => setIngredientAmount(e.target.value)}
+                //  valid={(e) => !isNaN(Number(e.target.value))}
+                //  invalid={(e) => !isNaN(Number(e.target.value))}
+                // onChange={(e) => setIngredientAmount(e.target.value)}
+                onChange={(e) => 
+                  setIngredientAmount((v) => (e.target.validity.valid ? e.target.value : v))}
+                
               />
             </Label>
             <Label for="measurement">
@@ -221,6 +219,7 @@ export default function CreateRecipe(props) {
                 id="measurement"
                 name="measurement"
                 type="text"
+                placeholder="Large, Tsp, Cup etc..."
                 value={ingredientUnit}
                 onChange={(e) => setIngredientUnit(e.target.value)}
                 // onKeyDown={(event) => updateIngredients(event)}
@@ -247,6 +246,7 @@ export default function CreateRecipe(props) {
             id="instructions"
             name="instructions"
             type="textarea"
+            placeholder="Cooking instructions..."
             onChange={(e) => setInstruction(e.target.value)}
           />
         </FormGroup>
