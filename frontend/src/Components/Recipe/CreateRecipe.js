@@ -113,7 +113,7 @@ export default function CreateRecipe(props) {
         <h3>Create Recipe</h3>
       </div>
       <div className="col-12 col-md-9" id="create-recipe-form">
-        <Form onSubmit={(e) => handleSubmit(e)}>
+        <Form onSubmit={(e) => handleSubmit(e)} id='createrecipe'>
           <Row className="form-group">
             <Label htmlFor="recipename" md={2}>
               Recipe name:
@@ -154,7 +154,7 @@ export default function CreateRecipe(props) {
             </Col>
         
 <Col md={3}>
-          <Dropdown isOpen={dropdownOpen} toggle={toggle} direction="down">
+          <Dropdown isOpen={dropdownOpen} toggle={toggle} direction="down" id="category-dropdown">
             <DropdownToggle caret>{category}</DropdownToggle>
             <DropdownMenu>
               <DropdownItem value="Breakfast" onClick={changeCategory}>
@@ -222,7 +222,7 @@ export default function CreateRecipe(props) {
               ></Input>
             </Col>
             <Col md={1}>
-              <Button type="button" onClick={(event) => addIngredients(event)}>
+              <Button type="button" onClick={(event) => addIngredients(event)} id='add-ingredient'>
                 Add
               </Button>
             </Col>
@@ -248,7 +248,7 @@ export default function CreateRecipe(props) {
             rows="8"
             onChange={(e) => setInstruction(e.target.value)}
           />
-          <Button type="submit">Submit</Button>
+          <Button type="submit" id="submit-recipe">Submit</Button>
         </Form>
       </div>
     </div>

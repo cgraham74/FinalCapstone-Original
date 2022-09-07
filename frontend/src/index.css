@@ -8,6 +8,7 @@ body {
 
   background-color:#1F2746;
 color: #E5E8F2;
+padding: 20px;
 }
 
 code {
@@ -15,3 +16,7 @@ code {
     monospace;
 }
 
+ul{
+  margin: 0px;
+  padding: 0px
+}

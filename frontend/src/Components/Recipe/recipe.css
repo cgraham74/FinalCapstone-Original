@@ -17,3 +17,11 @@ th, td, th:hover, td:hover{
 .rows:hover{
   background-color:#1F2746;
 }
+Form{
+  background: rgb(23,28,50);
+  background: linear-gradient(90deg, rgba(23,28,50,1) 30%, rgba(23,28,50,0) 100%);
+}
+#add-ingredient, #submit-recipe, button.dropdown-toggle.btn.btn-secondary{
+background-color: #171C32;
+border-color: #171C32;
+}

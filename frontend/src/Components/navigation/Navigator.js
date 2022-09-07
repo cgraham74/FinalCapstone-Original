@@ -8,9 +8,9 @@ function Navigator() {
     <nav id="navigation_container">
       <h1>Meal Planner</h1>
       <div id="nav_container">
-        <ButtonGroup id="nav_btngrp">
+        
           <Button id="nav_home">
-            <Link to="/">Home</Link>
+            <Link to="/home">Home</Link>
           </Button>
           <Button id="nav_planner">
             <Link to="/weeklyplanner">Planner</Link>
@@ -25,7 +25,7 @@ function Navigator() {
             <Link to="/shoppinglist">Shopping</Link>
           </Button>
           <Button id="nav_createrecipe"><Link to='/createrecipe'>CreateRecipe</Link></Button>
-        </ButtonGroup>
+        
       </div>
     </nav>
   );

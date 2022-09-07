@@ -11,26 +11,26 @@ import { Link } from "react-router-dom";
 export default function LandingPage() {
   return (
     <div>
-      <ul>
+      <ul id="landing-page">
         <li id="li_weekly">
           <img src={yellowdot} alt="large yellow ellipse" />
-          <Link to="/weeklyplanner">Weekly Planner</Link>
+          <Link to="/weeklyplanner" className="landing-page">Weekly Planner</Link>
         </li>
         <li id="li_saved">
           <img src={orangedot} alt="large orange dot" />
-         <Link to='recipes'>Saved Recipes</Link> 
+         <Link to='recipes' className="landing-page">Saved Recipes</Link> 
         </li>
         <li id="li_pantry">
           <img src={greendot} alt="large green dot" />
-          <Link to='Pantry' >Pantry</Link>
+          <Link to='Pantry'  className="landing-page">Pantry</Link>
         </li>
         <li id="li_shopping">
           <img src={bluedot} alt="large blue dot" />
-          <Link to='shoppinglist'>Shopping List</Link>
+          <Link to='shoppinglist' className="landing-page">Shopping List</Link>
         </li>
         <li id="li_create">
           <img src={purpledot} alt="large purple dot" />
-         <Link to='createrecipe'>Create Recipe</Link> 
+         <Link to='createrecipe' className="landing-page">Create Recipe</Link> 
         </li>
       </ul>
     </div>
