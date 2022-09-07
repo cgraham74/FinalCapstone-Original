@@ -12,8 +12,9 @@ import {
   DropdownMenu,
   DropdownItem,
   Table,
+  Col,
+  Row,
 } from "reactstrap";
-import { baseUrl } from "../../Shared/baseUrl";
 
 export default function CreateRecipe(props) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -27,7 +28,6 @@ export default function CreateRecipe(props) {
   const [instructions, setInstruction] = useState("");
   const [category, setCategory] = useState("Category");
   const [recipe, setRecipe] = useState({});
- 
 
   // const required = (val) => val && val.length;
   // const maxLength = (len) => (val) => !val || val.length <= len;
@@ -58,25 +58,6 @@ export default function CreateRecipe(props) {
       servingSize: servingSize,
       category: category,
     });
-    // fetch(baseUrl, {
-    //   method: "POST",
-    //   cache: "no-cache",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //      "Authorization": `Bearer ${props.token}`
-    //   },
-    //   body: JSON.stringify(recipe),
-    // })
-    //   .then((response) => {
-    //     if (response.ok) {
-    //       alert("Saved!");
-    //       resetForm(e);
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.error(err);
-    //     alert("Could not save card!");
-    //   });
   }
 
   function resetForm(e) {
@@ -86,12 +67,10 @@ export default function CreateRecipe(props) {
     e.target.reset();
   }
 
-
   const changeCategory = (e) => {
     setCategory(e.target.value);
   };
 
-  
   const ingredientsList = ingredients.map((item, id) => {
     return (
       <>
@@ -130,37 +109,51 @@ export default function CreateRecipe(props) {
   return (
     <div>
       <Navigator />
-      <Form onSubmit={(e) => handleSubmit(e)}>
-        <FormGroup>
-          <Label for="recipename">
-            Recipe name:
-            <Input
-              id="recipename"
-              name="recipename"
-              placeholder="Recipe name..."
-              type="text"
-              onChange={(e) => setRecipeName(e.target.value)}
-            ></Input>
-          </Label>
-          <Label for="servingsize">
-            Serving Size
-            {/*TODO Put number validators on here */}
-            <Input
-              id="servingsize"
-              name="servingsize"
-              placeholder="Serving size..."
-              pattern="[0-9]*"
-              type="text"
-              value={servingSize}
-              // valid={(e) => !isNaN(Number(e.target.value))}
-              // invalid={(e) => !isNaN(Number(e.target.value))}
-              // onChange={setServing}
-              onChange={(e) => 
-                setServingSize((v) => (e.target.validity.valid ? e.target.value : v))}
-               
-            ><FormFeedback>Enter a numeric value</FormFeedback></Input>
-           
-          </Label>
+      <div className="col-12">
+        <h3>Create Recipe</h3>
+      </div>
+      <div className="col-12 col-md-9" id="create-recipe-form">
+        <Form onSubmit={(e) => handleSubmit(e)}>
+          <Row className="form-group">
+            <Label htmlFor="recipename" md={2}>
+              Recipe name:
+            </Label>
+            <Col md={10}>
+              <Input
+                id="recipename"
+                name="recipename"
+                placeholder="Recipe name..."
+                type="text"
+                onChange={(e) => setRecipeName(e.target.value)}
+              ></Input>
+            </Col>
+          </Row>
+          <Row className="form-group">
+            <Col md={2}>
+            <Label htmlFor="servingsize">
+              Serving Size
+            </Label>
+            </Col>
+            <Col md={7}>
+              {/*TODO Put number validators on here */}
+              <Input
+                id="servingsize"
+                name="servingsize"
+                placeholder="Serving size..."
+                pattern="[0-9]*"
+                type="text"
+                value={servingSize}
+                onChange={(e) =>
+                  setServingSize((v) =>
+                    e.target.validity.valid ? e.target.value : v
+                  )
+                }
+              >
+                <FormFeedback>Enter a numeric value</FormFeedback>
+              </Input>
+            </Col>
+        
+<Col md={3}>
           <Dropdown isOpen={dropdownOpen} toggle={toggle} direction="down">
             <DropdownToggle caret>{category}</DropdownToggle>
             <DropdownMenu>
@@ -181,12 +174,15 @@ export default function CreateRecipe(props) {
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
+          </Col>
+  </Row>
           {/* TODO: 
           ADD: validators for Quanity to be only numbers
           ADD: Delete function to be able to remove individual ingredient from list incase of ooopsies */}
-          <FormGroup>
-            <Label for="ingredients">
-              Ingredients
+          <Row className="form-group">
+            <Col md={4}>
+              <Label htmlFor="ingredients">Ingredient</Label>
+
               <Input
                 id="ingredients"
                 name="ingredients"
@@ -195,9 +191,10 @@ export default function CreateRecipe(props) {
                 onChange={(e) => setIngredientName(e.target.value)}
                 value={ingredientName}
               />
-            </Label>
-            <Label for="quantity">
-              Quantity
+            </Col>
+            <Col md={3}>
+              <Label htmlFor="quantity">Quantity</Label>
+
               <Input
                 id="quantity"
                 name="quantity"
@@ -205,16 +202,16 @@ export default function CreateRecipe(props) {
                 pattern="[0-9]*"
                 placeholder="Amount needed..."
                 value={ingredientAmount}
-                //  valid={(e) => !isNaN(Number(e.target.value))}
-                //  invalid={(e) => !isNaN(Number(e.target.value))}
-                // onChange={(e) => setIngredientAmount(e.target.value)}
-                onChange={(e) => 
-                  setIngredientAmount((v) => (e.target.validity.valid ? e.target.value : v))}
-                
+                onChange={(e) =>
+                  setIngredientAmount((v) =>
+                    e.target.validity.valid ? e.target.value : v
+                  )
+                }
               />
-            </Label>
-            <Label for="measurement">
-              Measurement
+            </Col>
+            <Col md={4}>
+              <Label for="measurement">Measurement</Label>
+
               <Input
                 id="measurement"
                 name="measurement"
@@ -222,24 +219,25 @@ export default function CreateRecipe(props) {
                 placeholder="Large, Tsp, Cup etc..."
                 value={ingredientUnit}
                 onChange={(e) => setIngredientUnit(e.target.value)}
-                // onKeyDown={(event) => updateIngredients(event)}
               ></Input>
-            </Label>
-            <Button type="button" onClick={(event) => addIngredients(event)}>
-              Add
-            </Button>
-            <Table>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Ingredients entered</th>
-                  <th>Quantity entered</th>
-                  <th>Measurement Unit entered</th>
-                </tr>
-              </thead>
-              <tbody>{ingredientsList}</tbody>
-            </Table>
-          </FormGroup>
+            </Col>
+            <Col md={1}>
+              <Button type="button" onClick={(event) => addIngredients(event)}>
+                Add
+              </Button>
+            </Col>
+          </Row>
+          <Table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Ingredients entered</th>
+                <th>Quantity entered</th>
+                <th>Measurement Unit entered</th>
+              </tr>
+            </thead>
+            <tbody>{ingredientsList}</tbody>
+          </Table>
 
           <Label for="instructions">Instructions</Label>
           <Input
@@ -247,11 +245,12 @@ export default function CreateRecipe(props) {
             name="instructions"
             type="textarea"
             placeholder="Cooking instructions..."
+            rows="8"
             onChange={(e) => setInstruction(e.target.value)}
           />
-        </FormGroup>
-        <Button type="submit">Submit</Button>
-      </Form>
+          <Button type="submit">Submit</Button>
+        </Form>
+      </div>
     </div>
   );
 }

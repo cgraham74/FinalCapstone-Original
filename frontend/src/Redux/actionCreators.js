@@ -31,6 +31,25 @@ export const fetchRecipes = () => (dispatch) => {
         return dispatch(addRecipe(data))});
 
 };
+  // fetch(baseUrl, {
+    //   method: "POST",
+    //   cache: "no-cache",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //      "Authorization": `Bearer ${props.token}`
+    //   },
+    //   body: JSON.stringify(recipe),
+    // })
+    //   .then((response) => {
+    //     if (response.ok) {
+    //       alert("Saved!");
+    //       resetForm(e);
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.error(err);
+    //     alert("Could not save card!");
+    //   });
 
 //Calls the fetch to add the ingredients at launch - will need to implmenent
 //The updated and delete as well - use this as a template
