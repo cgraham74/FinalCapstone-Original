@@ -1,9 +1,4 @@
-h1{
-  text-align: left;
-  font-style: italic;
-  color: antiquewhite;
-  text-shadow: #08ce04;
-}
+
 #navigation_container{
   background-color:#1F2746;
   color: #E5E8F2;
@@ -12,26 +7,65 @@ h1{
   background-color: #fff496;
   color: #171c32;
   margin-right: 10px;
+  width: 100%;
+}
+#nav_planner:hover{
+  opacity: .6;
 }
 #nav_recipes {
   background-color: #ffac60;
   color: #171c32;
   margin-right: 10px;
+  width: 100%;
+}
+#nav_recipes:hover{
+  opacity: .6;
 }
 #nav_pantry {
   background-color: #80f57e;
   color: #171c32;
   margin-right: 10px;
+  width: 100%;
+}
+#nav_pantry:hover{
+  opacity: .7;
 }
 #nav_shopping {
   background-color: #7cd7f3;
+  color: #171c32;
+  margin-right: 10px;
+  width: 100%;
+}
+#nav_shopping:hover{
+  opacity: .6;
+}
+#nav_home {
+  background-color: #fa57df98;
+  color: #171c32;
+  margin-right: 10px;
+  width: 100%;
+  
+}
+#nav_home:hover{
+  opacity: .8;
+}
+#nav_createrecipe {
+  background-color: #f729298f;
+  margin-right: 10px;
+  font-style:oblique;
+  text-decoration: none;
+  width: 100%;
+}
 
+#nav_createrecipe:hover{
+  opacity: .8;
 }
 #nav_container{
   display: flex;
   align-items: center;
   justify-content: flex-end;
   filter: drop-shadow(0 0 0.75rem #171c32);
-  background-color: #171c32;
+  /* background-color: #171c32; */
   
 }
+
