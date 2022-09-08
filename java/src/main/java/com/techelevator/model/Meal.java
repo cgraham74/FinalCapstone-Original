@@ -1,0 +1,40 @@
+package com.techelevator.model;
+
+
+import lombok.*;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
+@Entity
+@Table(name = "meal")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
+
+public class Meal {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "mealid")
+    @NotNull
+    private Long mealid;
+
+    @Column(name = "user_id")
+    @NotNull
+    private Long user_id;
+
+    @Column(name = "name")
+    @NotNull
+    private String name;
+
+    @Column(name = "category")
+    @NotNull
+    private String category;
+
+    @Column(name = "imagefilename")
+    @NotNull
+    private String imagefilename;
+}
