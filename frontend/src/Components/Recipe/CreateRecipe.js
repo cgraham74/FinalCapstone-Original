@@ -67,10 +67,6 @@ export default function CreateRecipe(props) {
     setCategory("Category");
     e.target.reset();
   }
-
-  function onImageChange(e){
-    setImage([...e.target.files])
-  }
   const changeCategory = (e) => {
     setCategory(e.target.value);
   };
@@ -193,7 +189,6 @@ export default function CreateRecipe(props) {
           </Col>
   </Row>
           {/* TODO: 
-          ADD: validators for Quanity to be only numbers
           ADD: Delete function to be able to remove individual ingredient from list incase of ooopsies */}
           <Row className="form-group">
             <Col md={4}>
