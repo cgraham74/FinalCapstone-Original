@@ -15,52 +15,62 @@ import { FadeTransform, Fade, Stagger } from "react-animation-components";
 function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
   const ingredients = recipeCard.ingredientList.map((item, index) => {
     return (
-      <>
-        <li key={index} id="ingredient">
-          {item.name}: {item.quantity} {item.measurementunit}
-        </li>
-      </>
+      <li key={index} id="ingredient">
+        {item.name}: {item.quantity} {item.measurementunit}
+      </li>
     );
   });
   return (
-   
-    <FadeTransform
-      in 
-      transformProps={{ exitTransform: "scale(0.5) translateY(-50%)" }}
-    >
-      <Fade in>
-      <Card style={{width:'30rem'}} id="recipecard">
+    // <FadeTransform
+    //   in
+    //   transformProps={{ exitTransform: "scale(0.5) translateY(-50%)" }}
+    // >
+    <Fade in>
+      <Card style={{ width: "30rem" }} id="recipecard">
         <CardBody>
-          <CardTitle><h3>{recipeCard.title}</h3></CardTitle>
-          {recipeCard.imageUrl && <CardImg alt="not found" src={require(`../../RecipeImages/${recipeCard.imageUrl}`).default} />}
+          <CardTitle>
+            <h3>{recipeCard.title}</h3>
+          </CardTitle>
+          {recipeCard.imageUrl && (
+            <CardImg
+              alt="not found"
+              src={require(`../../RecipeImages/${recipeCard.imageUrl}`).default}
+            />
+          )}
           <CardSubtitle>Serving Size: {recipeCard.servingSize}</CardSubtitle>
-          <CardText>
-            <h5>Ingredients:</h5>
-            <ul >{ingredients}</ul>
-            <h5>Instructions:</h5> {recipeCard.instructions}
-          </CardText>
-          <Button onClick={editHandler} id='update'>Update</Button>
-          <Button onClick={deleteHandler }id='delete'>Delete</Button>
+          {/* <CardText> */}
+          <h5>Ingredients:</h5>
+          <ul>{ingredients}</ul>
+          <h5>Instructions:</h5> {recipeCard.instructions}
+          {/* </CardText> */}
+          <div id="recipe-update-delete">
+            <Button onClick={editHandler} id="update">
+              Update
+            </Button>
+            <Button onClick={deleteHandler} id="delete">
+              Delete
+            </Button>
+          </div>
         </CardBody>
       </Card>
-        </Fade>
-    </FadeTransform>
-   
+    </Fade>
+    // </FadeTransform>
   );
 }
 
 export default function SavedRecipes(props) {
   const recipeCollections = props.recipes.map((card, id) => {
     return (
-    <Stagger in>
-        <div>
-          <RenderSavedRecipes key={id}
+      <>
+        <Stagger in>
+          <RenderSavedRecipes
+            key={id}
             deleteHandler={props.deleteHandler}
             editHandler={props.editHandler}
             recipeCard={card}
           />
-        </div>
-      </Stagger>
+        </Stagger>
+      </>
     );
   });
   return <>{recipeCollections}</>;

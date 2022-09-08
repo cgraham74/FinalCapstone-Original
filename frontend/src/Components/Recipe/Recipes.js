@@ -2,7 +2,7 @@ import React from 'react';
 import SavedRecipes from './SavedRecipes'
 import Navigator from '../navigation/Navigator';
 import RecipeCard from './RecipeCard';
-
+import "./recipe.css";
 export default function Recipes(props) {
     return(
         <div>

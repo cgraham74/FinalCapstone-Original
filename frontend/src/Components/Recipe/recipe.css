@@ -5,6 +5,10 @@
   font-size: small;
 
 }
+li#ingredient{
+  list-style:circle;
+  margin-left: 20px;
+}
 .table>:not(caption)>*>* {
   border-bottom: none;
 }
@@ -24,4 +28,12 @@ Form{
 #add-ingredient, #submit-recipe, button.dropdown-toggle.btn.btn-secondary{
 background-color: #171C32;
 border-color: #171C32;
+}
+div#recipe-update-delete{
+  padding-top: 20px;
+  display: flex;
+  justify-content:space-around;
+}
+#recipecard{
+margin-top: 20px;
 }
