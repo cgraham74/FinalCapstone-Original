@@ -15,6 +15,7 @@ import Day from "../Day/Day";
 
 const mapStateToProps = (state) => {
   return {
+    shopplinglist: state.shoppinglist,
     mealplan: state.mealplan,
     ingredient: state.ingredient,
     recipes: state.recipes,
@@ -90,7 +91,7 @@ componentDidMount() {
           <Route path="/weeklyplanner" component={() => <WeeklyPlanner mealplan={this.props.mealplan.mealplan} />} />
           <Route path="/recipes" component={() => <Recipes recipes={this.props.recipes.recipes}/>} />
           <Route path="/pantry" component={() => <Pantry ingredient={this.props.ingredient.ingredient} />} />
-          <Route path="/shoppinglist" component={() => <ShoppingList />} />
+          <Route path="/shoppinglist" component={() => <ShoppingList ingredient={this.props.ingredient.ingredient}/>} />
          
           <Route path="/createrecipe" component={() => <CreateRecipe user={this.props.user} token={this.props.token}/>} />
           <Route path="/day" component={() => <Day />} />
