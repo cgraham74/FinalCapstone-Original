@@ -14,4 +14,7 @@ public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
     @Query("SELECT r.title FROM Recipe r WHERE r.category LIKE :category")
     Object[] testGetRecipeTitleByCategory(@Param("category") String category);
 
+    @Query("SELECT r.title FROM Recipe r WHERE r.title LIKE :title")
+    Recipe recipeByTitle(@Param("title") String title);
+
 }

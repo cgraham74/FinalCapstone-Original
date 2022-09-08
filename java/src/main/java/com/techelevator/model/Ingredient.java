@@ -24,6 +24,8 @@ public class Ingredient {
     private String name;
 
     @Column(name = "category")
-    @NotNull
     private String category;
+
+    public Ingredient(String name) {
+    }
 }

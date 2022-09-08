@@ -31,17 +31,17 @@ public class RecipeIngredient implements Serializable {
     @NotNull
     private String measurementunit;
 
-    @Column(name = "title")
-    private String title;
+    //Not Needed
+//    @Column(name = "title")
+//    private String title;
 
-    @ManyToOne
-    @JoinColumn(name = "recipeid", insertable = false, updatable = false)
-    private Recipe recipe;
-
-
-    @ManyToOne
-    @JoinColumn(name = "ingredientid", insertable = false, updatable = false)
-    private Ingredient ingredient;
+//    @ManyToOne
+//    @JoinColumn(name = "recipeid", insertable = false, updatable = false)
+//    private Recipe recipe;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "ingredientid", insertable = false, updatable = false)
+//    private Ingredient ingredient;
 
 }
 

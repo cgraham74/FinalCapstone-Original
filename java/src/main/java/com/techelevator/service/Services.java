@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -110,6 +111,88 @@ public class Services {
 
         return listOfRecipeDTO;
 
+    }
+
+    //-------------------DELETE-------------------
+    public void deleteRecipe (Integer recipeId, String name) {
+        recipeRepository.deleteById(recipeId);
+
+        System.out.println(name + ": DELETED EVERYTHING OH NO");
+    }
+
+
+    //-------------------CREATE-------------------
+
+    public Ingredient checkOrCreateIngredient (String name) {
+
+        if (ingredientRepository.getIngredientByName(name) == null) {
+            Ingredient tempIngredient = new Ingredient(name);
+            ingredientRepository.save(tempIngredient);
+        }
+
+        return ingredientRepository.getIngredientByName(name);
+    }
+
+    public Recipe checkOrCreateRecipeId(String title) {
+
+        if (recipeRepository.recipeByTitle(title) == null) {
+            Recipe tempRecipe = new Recipe();
+            recipeRepository.save(tempRecipe);
+        }
+
+        return recipeRepository.recipeByTitle(title);
+
+    }
+
+    public void createRecipeIngredients (RecipeDTO recipeDTO) {
+
+           List<RecipeIngredientDTO> tempIngredients = new ArrayList<>(recipeDTO.getIngredientList());
+           List<RecipeIngredient> recipeIngredients = new ArrayList<>();
+
+           for (RecipeIngredientDTO tempIngredient : tempIngredients) {
+
+               if (ingredientRepository.getIngredientByName(tempIngredient.getName()) == null) {
+                   checkOrCreateIngredient(tempIngredient.getName());
+               }
+
+               RecipeIngredient recipeIngredient = new RecipeIngredient();
+
+               recipeIngredient.setRecipeid(checkOrCreateRecipeId(recipeDTO.getTitle()).getRecipeid());
+               recipeIngredient.setIngredientid(checkOrCreateIngredient(tempIngredient.getName()).getIngredientid());
+               recipeIngredient.setQuantity(tempIngredient.getQuantity());
+               recipeIngredient.setMeasurementunit(tempIngredient.getMeasurementunit());
+
+               recipeIngredients.add(recipeIngredient);
+
+           }
+
+           System.out.println(recipeIngredients);
+
+    }
+
+    public void createRecipe (RecipeDTO recipeDTO, String name) {
+
+        Recipe incomingRecipe = new Recipe();
+
+        incomingRecipe.setRecipeid(checkOrCreateRecipeId(recipeDTO.getTitle()).getRecipeid());
+        incomingRecipe.setUser_id(userDao.findIdByUsername(name));
+        incomingRecipe.setTitle(recipeDTO.getTitle());
+        incomingRecipe.setCategory(recipeDTO.getCategory());
+        incomingRecipe.setInstructions(recipeDTO.getInstructions());
+        incomingRecipe.setServingsize(recipeDTO.getServingSize());
+        incomingRecipe.setImagename(recipeDTO.getImageUrl());
+
+        recipeRepository.save(incomingRecipe);
+
+        System.out.println(incomingRecipe);
+    }
+
+    public void saveRecipeAndIngredients (RecipeDTO recipeDTO, String name) {
+
+        createRecipe(recipeDTO, name);
+        createRecipeIngredients(recipeDTO);
+
+        System.out.println("HUZZAH");
     }
 
 }

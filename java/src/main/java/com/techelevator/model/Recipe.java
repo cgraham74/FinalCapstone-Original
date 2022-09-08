@@ -14,6 +14,8 @@ import java.util.Date;
 @ToString
 public class Recipe {
 
+    //Generated and Not Null data tables.
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "recipeid")
@@ -32,18 +34,6 @@ public class Recipe {
     @NotNull
     private String category;
 
-    @Column(name = "difficultylevel")
-    @NotNull
-    private String difficultylevel;
-
-    @Column(name = "preptime")
-    @NotNull
-    private Integer preptime;
-
-    @Column(name = "cooktime")
-    @NotNull
-    private Integer cooktime;
-
     @Column(name = "servingsize")
     @NotNull
     private Integer servingsize;
@@ -52,12 +42,21 @@ public class Recipe {
     @NotNull
     private String instructions;
 
+    // Would be nice but not needed.
+
+    @Column(name = "difficultylevel")
+    private String difficultylevel;
+
+    @Column(name = "preptime")
+    private Integer preptime;
+
+    @Column(name = "cooktime")
+    private Integer cooktime;
+
     @Column(name = "datecreated")
-    @NotNull
     private Date date;
 
     @Column(name = "imagename")
-    @NotNull
     private String imagename;
 
 

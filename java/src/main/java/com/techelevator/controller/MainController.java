@@ -6,10 +6,8 @@ import com.techelevator.model.RecipeDTO;
 import com.techelevator.model.RecipeIngredient;
 import com.techelevator.service.Services;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.security.Principal;
 import java.util.Collection;
 import java.util.List;
@@ -46,6 +44,17 @@ public class MainController {
     @GetMapping(path = "/RecipeListTest")
     public Collection<RecipeDTO> testGetRecipeList(){
         return services.testListOfRecipes();
+    }
+
+    @GetMapping(path = "/RecipeSaveTest")
+    public void saveRecipe(@RequestBody RecipeDTO recipeDTO, Principal principal) {
+        services.saveRecipeAndIngredients(recipeDTO,principal.getName());
+
+    }
+
+    @GetMapping(path = "/RecipeDeleteTest")
+    public void deleteRecipe(@RequestBody Integer id, Principal principal) {
+        services.deleteRecipe(id, principal.getName());
     }
 
 }
