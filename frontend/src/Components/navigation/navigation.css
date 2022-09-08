@@ -1,0 +1,33 @@
+#nav_planner {
+  background-color: #fff496;
+  color: #171c32;
+  margin-right: 10px;
+  
+}
+#nav_recipes {
+  background-color: #ffac60;
+  color: #171c32;
+  margin-right: 10px;
+}
+#nav_pantry {
+  background-color: #80f57e;
+  color: #171c32;
+  margin-right: 10px;
+}
+#nav_shopping {
+  background-color: #7cd7f3;
+  color: #171c32;
+}
+h1{
+ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+}
+#nav_container {
+    padding: 15px;
+  background-color: #171c32;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  
+  filter: drop-shadow(0 0 0.75rem #171c32);
+}
