@@ -5,10 +5,12 @@ import {User} from './user'
 import { Recipes } from "./recipes"
 import { Ingredient } from './ingredient'
 import { Mealplan } from './mealplan'
+import { ShoppingList } from './shoppinglist'
 
 export const ConfigureStore = () => {
     const store = createStore(
         combineReducers({
+            shoppinglist: ShoppingList,
             mealplan: Mealplan,
             ingredient: Ingredient,
             recipes: Recipes,

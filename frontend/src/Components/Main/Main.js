@@ -3,7 +3,7 @@ import { Switch, Route, Redirect, Link } from "react-router-dom";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import Home from "../Home/Home";
-import { addToken, deleteUser, fetchMealPlan, fetchPantryItems, fetchRecipes } from "../../Redux/actionCreators";
+import { addToken, deleteUser, fetchMealPlan, fetchPantryItems, fetchRecipes, fetchShoppingList } from "../../Redux/actionCreators";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import WeeklyPlanner from "../WeeklyPlanner/WeeklyPlanner";
@@ -39,6 +39,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   fetchMealPlan: () => {
     dispatch(fetchMealPlan());
+  },
+  fetchShoppingList: () => {
+    dispatch(fetchShoppingList());
   }
 });
 
@@ -53,6 +56,7 @@ componentDidMount() {
   this.props.fetchRecipes();
   this.props.fetchPantryItems();
   this.props.fetchMealPlan();
+  this.props.fetchShoppingList();
 }
 
   handleLogout = () => {
