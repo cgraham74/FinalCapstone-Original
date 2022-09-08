@@ -1,7 +1,7 @@
 import React from "react";
 import Navigator from "../navigation/Navigator";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+// import { useState } from "react";
 import yellowdot from "../../images/yellowdot.png";
 import bluedot from "../../images/bluedot.png";
 import greendot from "../../images/greendot.png";
@@ -10,8 +10,7 @@ import orangedot from "../../images/orangedot.png";
 import pinkdot from "../../images/pinkdot.png";
 import reddot from "../../images/reddot.png";
 import "./weeklyplanner.css";
-import Calendar from "react-calendar";
-import MovingText from "react-moving-text";
+// import MovingText from "react-moving-text";
 import Accordion from "react-bootstrap/Accordion";
 
 export default function WeeklyPlanner() {
@@ -19,7 +18,7 @@ export default function WeeklyPlanner() {
     <div  >
       <Navigator/>
       <div >
-        <MovingText
+        {/* <MovingText
           type="effect3D"
           duration="1000ms"
           delay="0s"
@@ -28,8 +27,9 @@ export default function WeeklyPlanner() {
           iteration="infinite"
           fillMode="none"
         >
+         </MovingText> */}
           <h1 id="weeklyplanner"> Weekly Planner</h1>
-        </MovingText>
+       
         </div>
       <div className="weeklyplanner-container" >
         <Accordion defaultActiveKey="1">
@@ -39,7 +39,7 @@ export default function WeeklyPlanner() {
               targetId="monday"
             >
               <img src={yellowdot} alt="large yellow dot" />
-              &nbsp; &nbsp; Monsday
+              &nbsp; &nbsp; Monday
             </Accordion.Header>
             <Accordion.Body accordionId="monday">
               <ul>

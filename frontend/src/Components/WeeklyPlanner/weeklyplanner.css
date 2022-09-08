@@ -17,13 +17,29 @@ Link{
     text-decoration: none;
 }
 
-
+.accordion-item{
+  border-radius: 15px;
+  border-color: #1f2746;
+  padding: 10px;
+  background-color: #1f2746;
+}
+.accordion-body{
+  background-color: #1f2746;
+}
 .accordion-button {
-    background-color: rgb(203, 202, 207) !important;
-    font-size: xx-large;
-   
+  background: rgb(23, 28, 50);
+  background: linear-gradient(
+    90deg,
+    rgba(23, 28, 50, 1) 30%,
+    rgba(23, 28, 50, 0) 100%
+  );
+  font-size: calc(1.5rem + 1.5vw);
+    background-color: #1f2746;
   }
-  
+  button.accordion-button{
+    background-color: #1f2746;
+    color: aliceblue;
+  }
   .accordion-button:focus {
     box-shadow: none;
     
@@ -31,8 +47,8 @@ Link{
   
   .accordion-button:not(.collapsed) {
     color: #1cdd66;
-    font-size: xx-large;
-    
+    font-size: calc(1.5rem + 1.5vw);
+    background-color: #1f2746;
   }
 
   .weeklyplanner-container{
