@@ -10,12 +10,13 @@ import {
 } from "reactstrap";
 import "./recipe.css";
 import { FadeTransform, Fade, Stagger } from "react-animation-components";
+// import img from '../../RecipeImages/chickenFriedSteak.jpg'
 
 function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
-  const ingredients = recipeCard.ingredientList.map((item, id) => {
+  const ingredients = recipeCard.ingredientList.map((item, index) => {
     return (
       <>
-        <li key={id} id="ingredient">
+        <li key={index} id="ingredient">
           {item.name}: {item.quantity} {item.measurementunit}
         </li>
       </>
@@ -24,17 +25,18 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
   return (
    
     <FadeTransform
-      in
+      in 
       transformProps={{ exitTransform: "scale(0.5) translateY(-50%)" }}
     >
       <Fade in>
-      <Card style={{width:'30rem'}}id="recipecard">
+      <Card style={{width:'30rem'}} id="recipecard">
         <CardBody>
           <CardTitle><h3>{recipeCard.title}</h3></CardTitle>
+          {recipeCard.imageUrl && <CardImg alt="not found" src={require(`../../RecipeImages/${recipeCard.imageUrl}`).default} />}
           <CardSubtitle>Serving Size: {recipeCard.servingSize}</CardSubtitle>
           <CardText>
             <h5>Ingredients:</h5>
-            <ul>{ingredients}</ul>
+            <ul >{ingredients}</ul>
             <h5>Instructions:</h5> {recipeCard.instructions}
           </CardText>
           <Button onClick={editHandler} id='update'>Update</Button>
@@ -48,12 +50,11 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
 }
 
 export default function SavedRecipes(props) {
-  console.log("Props.recipes from: " + props.recipes[0]);
   const recipeCollections = props.recipes.map((card, id) => {
     return (
     <Stagger in>
-        <div key={id}>
-          <RenderSavedRecipes
+        <div>
+          <RenderSavedRecipes key={id}
             deleteHandler={props.deleteHandler}
             editHandler={props.editHandler}
             recipeCard={card}

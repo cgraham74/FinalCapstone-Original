@@ -1,6 +1,7 @@
 import React from 'react';
 import SavedRecipes from './SavedRecipes'
 import Navigator from '../navigation/Navigator';
+import RecipeCard from './RecipeCard';
 
 export default function Recipes(props) {
     return(
@@ -8,6 +9,7 @@ export default function Recipes(props) {
             <Navigator />
             <div className="col-12 col-md-5 m-1">
             <SavedRecipes recipes={props.recipes}/>
+
             </div>
         </div>
     )

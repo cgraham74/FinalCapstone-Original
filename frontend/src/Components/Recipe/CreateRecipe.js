@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import Navigator from "../navigation/Navigator";
 import {
   Form,
-  FormGroup,
-  FormFeedback,
   Button,
   Label,
   Input,
@@ -28,6 +26,7 @@ export default function CreateRecipe(props) {
   const [instructions, setInstruction] = useState("");
   const [category, setCategory] = useState("Category");
   const [recipe, setRecipe] = useState({});
+  const [image, setImage] = useState(null);
 
   // const required = (val) => val && val.length;
   // const maxLength = (len) => (val) => !val || val.length <= len;
@@ -41,6 +40,8 @@ export default function CreateRecipe(props) {
         " " +
         servingSize +
         " " +
+        image +
+        " " +
         instructions +
         " " +
         category +
@@ -52,7 +53,7 @@ export default function CreateRecipe(props) {
     setRecipe({
       user_id: props.user.id,
       title: recipeName,
-      imageUrl: "",
+      imageUrl: image,
       ingredientList: ingredients,
       instructions: instructions,
       servingSize: servingSize,
@@ -67,6 +68,9 @@ export default function CreateRecipe(props) {
     e.target.reset();
   }
 
+  function onImageChange(e){
+    setImage([...e.target.files])
+  }
   const changeCategory = (e) => {
     setCategory(e.target.value);
   };
@@ -134,8 +138,7 @@ export default function CreateRecipe(props) {
               Serving Size
             </Label>
             </Col>
-            <Col md={7}>
-              {/*TODO Put number validators on here */}
+            <Col md={10}>
               <Input
                 id="servingsize"
                 name="servingsize"
@@ -149,11 +152,12 @@ export default function CreateRecipe(props) {
                   )
                 }
               >
-                <FormFeedback>Enter a numeric value</FormFeedback>
+              
               </Input>
             </Col>
-        
-<Col md={3}>
+        </Row>
+        <Row className="form-group">
+<Col md={4}>
           <Dropdown isOpen={dropdownOpen} toggle={toggle} direction="down" id="category-dropdown">
             <DropdownToggle caret>{category}</DropdownToggle>
             <DropdownMenu>
@@ -174,6 +178,18 @@ export default function CreateRecipe(props) {
               </DropdownItem>
             </DropdownMenu>
           </Dropdown>
+          </Col>
+          <Col md={8}>
+        <Input
+        id="create-recipe-image"
+          type="file"
+          accept="image/*"
+          onChange={(e) => {
+            console.log(e.target.files[0])
+            setImage(e.target.files[0])}
+          } 
+        />
+         {image && <img alt="not found" width={"25px"} src={URL.createObjectURL(image)} />}
           </Col>
   </Row>
           {/* TODO: 
