@@ -90,6 +90,7 @@ componentDidMount() {
          
           <Route path="/createrecipe" component={() => <CreateRecipe user={this.props.user} token={this.props.token}/>} />
           <Route path="/day" component={() => <Day />} />
+          <Route path="/home" component={() => <Home />} />
           <Redirect to="/login" />
         </Switch>
       </div>
