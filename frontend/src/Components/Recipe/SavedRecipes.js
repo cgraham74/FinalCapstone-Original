@@ -34,7 +34,7 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
           {recipeCard.imageUrl && (
             <CardImg
               alt="not found"
-              src={require(`../../RecipeImages/${recipeCard.imageUrl}`).default}
+              src={require(`../../images/${recipeCard.imageUrl}`).default}
             />
           )}
           <CardSubtitle>Serving Size: {recipeCard.servingSize}</CardSubtitle>
