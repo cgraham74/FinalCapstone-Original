@@ -41,7 +41,7 @@ Link{
   }
   
   .accordion-button:not(.collapsed) {
-    color: #1cdd66;
+    color: #80F57E;
     font-size: calc(1.5rem + 1.5vw);
     background-color: #1f2746;
   }
@@ -54,4 +54,7 @@ Link{
   }
   .weeklyplanner-accordion-links > a {
     color:#e5e8f2;
+  }
+  .weeklyplanner-accordion-links > a:hover {
+    color:#80F57E;
   }
