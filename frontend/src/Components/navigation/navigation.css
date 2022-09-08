@@ -11,6 +11,7 @@ button#nav_shopping.btn.btn-secondary > a,
 button#nav_createrecipe.btn.btn-secondary > a {
   text-decoration: none;
   color: #171c32;
+  
 }
 
 button#nav_home.btn.btn-secondary,
@@ -75,4 +76,30 @@ button#nav_createrecipe.btn.btn-secondary {
   background-color: #171c32;
   max-width: 100%;
   border-radius: 10px;
+}
+@media screen and (min-width: 900px) {
+ 
+  button#nav_home.btn.btn-secondary > a,
+button#nav_planner.btn.btn-secondary > a,
+button#nav_recipes.btn.btn-secondary > a,
+button#nav_pantry.btn.btn-secondary > a,
+button#nav_shopping.btn.btn-secondary > a,
+button#nav_createrecipe.btn.btn-secondary > a {
+  text-decoration: none;
+  color: #171c32;
+  font-size: 19px;
+}
+}
+@media screen and (max-width: 900px) {
+ 
+  button#nav_home.btn.btn-secondary > a,
+button#nav_planner.btn.btn-secondary > a,
+button#nav_recipes.btn.btn-secondary > a,
+button#nav_pantry.btn.btn-secondary > a,
+button#nav_shopping.btn.btn-secondary > a,
+button#nav_createrecipe.btn.btn-secondary > a {
+  text-decoration: none;
+  color: #171c32;
+  font-size: 2vw;
+}
 }
