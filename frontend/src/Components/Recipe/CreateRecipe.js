@@ -113,7 +113,7 @@ export default function CreateRecipe(props) {
         <h3>Create Recipe</h3>
       </div>
       <div className="col-12 col-md-9" id="create-recipe-form">
-        <Form onSubmit={(e) => handleSubmit(e)} id='createrecipe'>
+        <Form onSubmit={(e) => handleSubmit(e)} id="createrecipe">
           <Row className="form-group">
             <Label htmlFor="recipename" md={2}>
               Recipe name:
@@ -130,9 +130,7 @@ export default function CreateRecipe(props) {
           </Row>
           <Row className="form-group">
             <Col md={2}>
-            <Label htmlFor="servingsize">
-              Serving Size
-            </Label>
+              <Label htmlFor="servingsize">Serving Size</Label>
             </Col>
             <Col md={10}>
               <Input
@@ -147,47 +145,56 @@ export default function CreateRecipe(props) {
                     e.target.validity.valid ? e.target.value : v
                   )
                 }
-              >
-              
-              </Input>
+              ></Input>
             </Col>
-        </Row>
-        <Row className="form-group">
-<Col md={4}>
-          <Dropdown isOpen={dropdownOpen} toggle={toggle} direction="down" id="category-dropdown">
-            <DropdownToggle caret>{category}</DropdownToggle>
-            <DropdownMenu>
-              <DropdownItem value="Breakfast" onClick={changeCategory}>
-                Breakfast
-              </DropdownItem>
-              <DropdownItem value="Lunch" onClick={changeCategory}>
-                Lunch
-              </DropdownItem>
-              <DropdownItem value="Dinner" onClick={changeCategory}>
-                Dinner
-              </DropdownItem>
-              <DropdownItem value="Dessert" onClick={changeCategory}>
-                Dessert
-              </DropdownItem>
-              <DropdownItem value="Snack" onClick={changeCategory}>
-                Snacks
-              </DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-          </Col>
-          <Col md={8}>
-        <Input
-        id="create-recipe-image"
-          type="file"
-          accept="image/*"
-          onChange={(e) => {
-            console.log(e.target.files[0])
-            setImage(e.target.files[0])}
-          } 
-        />
-         {image && <img alt="not found" width={"25px"} src={URL.createObjectURL(image)} />}
-          </Col>
-  </Row>
+          </Row>
+          <Row className="form-group">
+            <Col md={4}>
+              <Dropdown
+                isOpen={dropdownOpen}
+                toggle={toggle}
+                direction="down"
+                id="category-dropdown"
+              >
+                <DropdownToggle caret>{category}</DropdownToggle>
+                <DropdownMenu>
+                  <DropdownItem value="Breakfast" onClick={changeCategory}>
+                    Breakfast
+                  </DropdownItem>
+                  <DropdownItem value="Lunch" onClick={changeCategory}>
+                    Lunch
+                  </DropdownItem>
+                  <DropdownItem value="Dinner" onClick={changeCategory}>
+                    Dinner
+                  </DropdownItem>
+                  <DropdownItem value="Dessert" onClick={changeCategory}>
+                    Dessert
+                  </DropdownItem>
+                  <DropdownItem value="Snack" onClick={changeCategory}>
+                    Snacks
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+            </Col>
+            <Col md={8}>
+              <Input
+                id="create-recipe-image"
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  console.log(e.target.files[0]);
+                  setImage(e.target.files[0]);
+                }}
+              />
+              {image && (
+                <img
+                  alt="not found"
+                  width={"25px"}
+                  src={URL.createObjectURL(image)}
+                />
+              )}
+            </Col>
+          </Row>
           {/* TODO: 
           ADD: Delete function to be able to remove individual ingredient from list incase of ooopsies */}
           <Row className="form-group" id="ingredient-add-text-btn">
@@ -233,7 +240,11 @@ export default function CreateRecipe(props) {
               ></Input>
             </Col>
             <Col md={1}>
-              <Button type="button" onClick={(event) => addIngredients(event)} id='add-ingredient'>
+              <Button
+                type="button"
+                onClick={(event) => addIngredients(event)}
+                id="add-ingredient"
+              >
                 Add
               </Button>
             </Col>
@@ -249,17 +260,20 @@ export default function CreateRecipe(props) {
             </thead>
             <tbody>{ingredientsList}</tbody>
           </Table>
-
-          <Label for="instructions">Instructions</Label>
-          <Input
-            id="instructions"
-            name="instructions"
-            type="textarea"
-            placeholder="Cooking instructions..."
-            rows="8"
-            onChange={(e) => setInstruction(e.target.value)}
-          />
-          <Button type="submit" id="submit-recipe">Submit</Button>
+          <Row className="form-group">
+            <Label for="instructions">Instructions</Label>
+            <Input
+              id="instructions"
+              name="instructions"
+              type="textarea"
+              placeholder="Cooking instructions..."
+              rows="8"
+              onChange={(e) => setInstruction(e.target.value)}
+            />
+          </Row>
+          <Button type="submit" id="submit-recipe">
+            Submit
+          </Button>
         </Form>
       </div>
     </div>
