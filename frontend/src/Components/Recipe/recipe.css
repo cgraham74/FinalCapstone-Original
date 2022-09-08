@@ -28,6 +28,7 @@ Form{
 #add-ingredient, #submit-recipe, button.dropdown-toggle.btn.btn-secondary{
 background-color: #171C32;
 border-color: #171C32;
+border-radius: 15px;
 }
 div#recipe-update-delete{
   padding-top: 20px;
@@ -36,4 +37,20 @@ div#recipe-update-delete{
 }
 #recipecard{
 margin-top: 20px;
+}
+#ingredient-add-text-btn{
+  display: flex;
+  align-items: flex-end;
+
+}
+/* #ingredient-add-text-btn.form-group.row{
+ 
+  padding: 10px;
+
+} */
+.form-group{
+  padding: 10px;
+}
+form#createrecipe{
+  border-radius: 15px;
 }

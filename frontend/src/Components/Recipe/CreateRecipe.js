@@ -190,7 +190,7 @@ export default function CreateRecipe(props) {
   </Row>
           {/* TODO: 
           ADD: Delete function to be able to remove individual ingredient from list incase of ooopsies */}
-          <Row className="form-group">
+          <Row className="form-group" id="ingredient-add-text-btn">
             <Col md={4}>
               <Label htmlFor="ingredients">Ingredient</Label>
 
