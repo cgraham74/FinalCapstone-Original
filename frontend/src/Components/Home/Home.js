@@ -6,6 +6,7 @@ function Home(props) {
     return(
         <div>
             <Navigator/>
+            <h3>Home</h3>
             <LandingPage />
         </div>
        

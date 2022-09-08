@@ -7,23 +7,20 @@
  #li_weekly, #li_saved, #li_pantry, #li_shopping, #li_create{
     display: flex;
     max-width: 100vw;
-    max-height: 150px;
-    min-height: 130px; 
+    max-height: 102px;
+    min-height: 100px; 
     background: rgb(23,28,50);
     background: linear-gradient(90deg, rgba(23,28,50,1) 20%, rgba(23,28,50,0) 100%);
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom: 10px;
     border-radius: 15px;
     font-size: calc(1.5rem + 1.5vw);
 justify-items: center;
 align-items: center;
 }
-li > img {
-   
-    
-}
+
 #li_weekly > img, #li_saved > img, #li_pantry > img, #li_shopping > img, #li_create > img{
- margin-left: 20px;
+    margin-left: 20px;
     margin-right: 20px;
 
 }

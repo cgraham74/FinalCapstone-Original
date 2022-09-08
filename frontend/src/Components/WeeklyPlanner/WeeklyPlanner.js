@@ -28,7 +28,7 @@ export default function WeeklyPlanner() {
           fillMode="none"
         >
          </MovingText> */}
-          <h1 id="weeklyplanner"> Weekly Planner</h1>
+          <h3 id="weeklyplanner"> Weekly Planner</h3>
        
         </div>
       <div className="weeklyplanner-container" >
@@ -42,7 +42,7 @@ export default function WeeklyPlanner() {
               &nbsp; &nbsp; Monday
             </Accordion.Header>
             <Accordion.Body accordionId="monday">
-              <ul>
+              <ul className='weeklyplanner-accordion-links'>
                 <Link
                   style={{ textDecoration: "none" }}
                   to={{
@@ -87,7 +87,7 @@ export default function WeeklyPlanner() {
               &nbsp; &nbsp; Tuesday
             </Accordion.Header>
             <Accordion.Body accordionId="tuesday">
-              <ul>
+              <ul className='weeklyplanner-accordion-links'>
                 <Link
                   style={{ textDecoration: "none" }}
                   to={{
@@ -132,7 +132,7 @@ export default function WeeklyPlanner() {
               &nbsp; &nbsp; Wednesday
             </Accordion.Header>
             <Accordion.Body accordionId="wednesday">
-              <ul>
+              <ul className='weeklyplanner-accordion-links'>
                 <Link
                   style={{ textDecoration: "none" }}
                   to={{
@@ -177,7 +177,7 @@ export default function WeeklyPlanner() {
               &nbsp; &nbsp; Thursday
             </Accordion.Header>
             <Accordion.Body accordionId="thursday">
-              <ul>
+              <ul className='weeklyplanner-accordion-links'>
                 <Link
                   style={{ textDecoration: "none" }}
                   to={{
@@ -222,7 +222,7 @@ export default function WeeklyPlanner() {
               &nbsp; &nbsp; Friday
             </Accordion.Header>
             <Accordion.Body accordionId="friday">
-              <ul>
+              <ul className='weeklyplanner-accordion-links'>
                 <Link
                   style={{ textDecoration: "none" }}
                   to={{
@@ -267,7 +267,7 @@ export default function WeeklyPlanner() {
               &nbsp; &nbsp; Saturday
             </Accordion.Header>
             <Accordion.Body accordionId="saturday">
-              <ul>
+              <ul className='weeklyplanner-accordion-links'>
                 <Link
                   style={{ textDecoration: "none" }}
                   to={{
@@ -312,7 +312,7 @@ export default function WeeklyPlanner() {
               &nbsp; &nbsp; Sunday
             </Accordion.Header>
             <Accordion.Body accordionId="sunday">
-              <ul>
+              <ul className='weeklyplanner-accordion-links'>
                 <Link
                   style={{ textDecoration: "none" }}
                   to={{

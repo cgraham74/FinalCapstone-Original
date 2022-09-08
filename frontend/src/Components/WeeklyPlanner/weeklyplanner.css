@@ -1,12 +1,7 @@
-#weeklyplanner{
-    text-align: center;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
 
 ul{
-    justify-content: space-between;
-    font-size: large;
-    
+  
+    font-size: large;   
 }
 
 #meal-category{
@@ -20,7 +15,7 @@ Link{
 .accordion-item{
   border-radius: 15px;
   border-color: #1f2746;
-  padding: 10px;
+  padding-bottom: 10px;
   background-color: #1f2746;
 }
 .accordion-body{
@@ -38,7 +33,7 @@ Link{
   }
   button.accordion-button{
     background-color: #1f2746;
-    color: aliceblue;
+    color:#e5e8f2;
   }
   .accordion-button:focus {
     box-shadow: none;
@@ -53,8 +48,10 @@ Link{
 
   .weeklyplanner-container{
     display:flexbox;
-    width: 60%;
+    width: 100%;
     justify-content: center;
     
   }
-  
+  .weeklyplanner-accordion-links > a {
+    color:#e5e8f2;
+  }

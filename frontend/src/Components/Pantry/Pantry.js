@@ -18,7 +18,7 @@ export default function Pantry(props) {
   return (
     <>
       <Navigator />
-      <h2>Pantry</h2>
+      <h3>Pantry</h3>
       <ul id="pantry-items">
         {pantryItems}
       
