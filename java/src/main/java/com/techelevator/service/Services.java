@@ -138,44 +138,44 @@ public class Services {
         if (recipeRepository.recipeByTitle(title) == null) {
             Recipe tempRecipe = new Recipe();
             recipeRepository.save(tempRecipe);
+            System.out.println(tempRecipe.getRecipeid());
         }
-
         return recipeRepository.recipeByTitle(title);
 
     }
 
     public void createRecipeIngredients (RecipeDTO recipeDTO) {
 
-           List<RecipeIngredientDTO> tempIngredients = new ArrayList<>(recipeDTO.getIngredientList());
-           List<RecipeIngredient> recipeIngredients = new ArrayList<>();
+        List<RecipeIngredientDTO> tempIngredients = new ArrayList<>(recipeDTO.getIngredientList());
+        List<RecipeIngredient> recipeIngredients = new ArrayList<>();
 
-           for (RecipeIngredientDTO tempIngredient : tempIngredients) {
+        for (RecipeIngredientDTO tempIngredient : tempIngredients) {
 
-               if (ingredientRepository.getIngredientByName(tempIngredient.getName()) == null) {
-                   checkOrCreateIngredient(tempIngredient.getName());
-               }
+            if (ingredientRepository.getIngredientByName(tempIngredient.getName()) == null) {
+                checkOrCreateIngredient(tempIngredient.getName());
+            }
 
-               RecipeIngredient recipeIngredient = new RecipeIngredient();
+            RecipeIngredient recipeIngredient = new RecipeIngredient();
 
-               recipeIngredient.setRecipeid(checkOrCreateRecipeId(recipeDTO.getTitle()).getRecipeid());
-               recipeIngredient.setIngredientid(checkOrCreateIngredient(tempIngredient.getName()).getIngredientid());
-               recipeIngredient.setQuantity(tempIngredient.getQuantity());
-               recipeIngredient.setMeasurementunit(tempIngredient.getMeasurementunit());
+            recipeIngredient.setRecipeid(checkOrCreateRecipeId(recipeDTO.getTitle()).getRecipeid());
+            recipeIngredient.setIngredientid(checkOrCreateIngredient(tempIngredient.getName()).getIngredientid());
+            recipeIngredient.setQuantity(tempIngredient.getQuantity());
+            recipeIngredient.setMeasurementunit(tempIngredient.getMeasurementunit());
 
-               recipeIngredients.add(recipeIngredient);
+            recipeIngredients.add(recipeIngredient);
+            recipeIngredientRepository.save(recipeIngredient);
 
-           }
+        }
 
-           System.out.println(recipeIngredients);
+        System.out.println(recipeIngredients);
 
     }
 
     public void createRecipe (RecipeDTO recipeDTO, String name) {
 
         Recipe incomingRecipe = new Recipe();
-
         incomingRecipe.setRecipeid(checkOrCreateRecipeId(recipeDTO.getTitle()).getRecipeid());
-        incomingRecipe.setUser_id(userDao.findIdByUsername(name));
+        incomingRecipe.setUser_id(recipeDTO.getUser_id());
         incomingRecipe.setTitle(recipeDTO.getTitle());
         incomingRecipe.setCategory(recipeDTO.getCategory());
         incomingRecipe.setInstructions(recipeDTO.getInstructions());

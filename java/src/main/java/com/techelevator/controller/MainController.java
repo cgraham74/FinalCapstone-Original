@@ -6,6 +6,8 @@ import com.techelevator.model.RecipeDTO;
 import com.techelevator.model.RecipeIngredient;
 import com.techelevator.service.Services;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -16,6 +18,8 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/Test")
 @AllArgsConstructor
+@EnableWebSecurity
+@Secured({"ROLE_USER", "ROLE_ADMIN"})
 public class MainController {
 
     private final Services services;
@@ -46,7 +50,7 @@ public class MainController {
         return services.testListOfRecipes();
     }
 
-    @GetMapping(path = "/RecipeSaveTest")
+    @PostMapping(path = "/RecipeSaveTest")
     public void saveRecipe(@RequestBody RecipeDTO recipeDTO, Principal principal) {
         services.saveRecipeAndIngredients(recipeDTO,principal.getName());
 
