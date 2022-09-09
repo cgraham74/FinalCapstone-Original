@@ -14,6 +14,7 @@ import {
   Row,
 } from "reactstrap";
 
+
 export default function CreateRecipe(props) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen((prevState) => !prevState);
@@ -21,7 +22,7 @@ export default function CreateRecipe(props) {
   const [ingredientName, setIngredientName] = useState("");
   const [ingredientAmount, setIngredientAmount] = useState("");
   const [ingredientUnit, setIngredientUnit] = useState("");
-  const [recipeName, setRecipeName] = useState("");
+  const [title, setTitle] = useState("");
   const [servingSize, setServingSize] = useState("");
   const [instructions, setInstruction] = useState("");
   const [category, setCategory] = useState("Category");
@@ -33,39 +34,35 @@ export default function CreateRecipe(props) {
   // const minLength = (len) => (val) => val && val.length >= len;
   // const isNumber = (val) => !isNaN(Number(val));
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    alert(
-      recipeName +
-        " " +
-        servingSize +
-        " " +
-        image +
-        " " +
-        instructions +
-        " " +
-        category +
-        " " +
-        JSON.stringify(ingredients) +
-        " ID " +
-        JSON.stringify(props)
+  function handleSubmit(values) {
+    values.preventDefault();
+    
+    // console.log("Current State is: " + JSON.stringify(values));
+    // alert("Current State is: " + JSON.stringify(values));
+    // alert(
+    //     JSON.stringify(props.user.id)
+    // );
+    props.saveRecipe(
+      values.user_id,
+      values.title,
+      values.imageUrl,
+      values.ingredientsList,
+      values.instructions,
+      values.servingSize,
+      values.category,
     );
-    setRecipe({
-      user_id: props.user.id,
-      title: recipeName,
-      imageUrl: image,
-      ingredientList: ingredients,
-      instructions: instructions,
-      servingSize: servingSize,
-      category: category,
-    });
+    
+    // props.saveRecipe(recipe, props.token.token);
+    resetForm(values)
   }
 
-  function resetForm(e) {
+  
+  function resetForm(values) {
     setRecipe({});
     setIngredients([]);
+    setServingSize();
     setCategory("Category");
-    e.target.reset();
+    values.target.reset();
   }
   const changeCategory = (e) => {
     setCategory(e.target.value);
@@ -92,7 +89,7 @@ export default function CreateRecipe(props) {
       ingredientUnit !== ""
     ) {
       event.preventDefault();
-      setIngredients((prevIngred) => [
+      setIngredients(() => [
         ...ingredients,
         {
           name: ingredientName,
@@ -113,18 +110,20 @@ export default function CreateRecipe(props) {
         <h3>Create Recipe</h3>
       </div>
       <div className="col-12 col-md-9" id="create-recipe-form">
-        <Form onSubmit={(e) => handleSubmit(e)} id="createrecipe">
+        <Form 
+        model="recipeform"
+        onSubmit={(values) => handleSubmit(values)} id="createrecipe">
           <Row className="form-group">
-            <Label htmlFor="recipename" md={2}>
+            <Label htmlFor="title" md={2}>
               Recipe name:
             </Label>
             <Col md={10}>
               <Input
-                id="recipename"
-                name="recipename"
+                id="title"
+                name="title"
                 placeholder="Recipe name..."
                 type="text"
-                onChange={(e) => setRecipeName(e.target.value)}
+                onChange={(e) => setTitle(e.target.value)}
               ></Input>
             </Col>
           </Row>

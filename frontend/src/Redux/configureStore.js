@@ -6,6 +6,8 @@ import { Recipes } from "./recipes"
 import { Ingredient } from './ingredient'
 import { Mealplan } from './mealplan'
 import { ShoppingList } from './shoppinglist'
+import { createForms } from 'react-redux-form';
+import { CreatedRecipe } from './forms'
 
 export const ConfigureStore = () => {
     const store = createStore(
@@ -15,7 +17,9 @@ export const ConfigureStore = () => {
             ingredient: Ingredient,
             recipes: Recipes,
             token: Token,
-            user: User
+            user: User,
+            ...createForms({recipe: CreatedRecipe})
+            
         }),
         applyMiddleware(thunk)
     );

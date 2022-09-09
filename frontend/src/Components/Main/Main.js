@@ -3,7 +3,15 @@ import { Switch, Route, Redirect, Link } from "react-router-dom";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import Home from "../Home/Home";
-import { addToken, deleteUser, fetchMealPlan, fetchPantryItems, fetchRecipes, fetchShoppingList } from "../../Redux/actionCreators";
+import {
+  addToken,
+  deleteUser,
+  fetchMealPlan,
+  fetchPantryItems,
+  fetchRecipes,
+  saveRecipe,
+  fetchShoppingList,
+} from "../../Redux/actionCreators";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import WeeklyPlanner from "../WeeklyPlanner/WeeklyPlanner";
@@ -21,6 +29,7 @@ const mapStateToProps = (state) => {
     recipes: state.recipes,
     token: state.token,
     user: state.user,
+    saveRecipe: state.saveRecipe,
   };
 };
 
@@ -43,22 +52,38 @@ const mapDispatchToProps = (dispatch) => ({
   },
   fetchShoppingList: () => {
     dispatch(fetchShoppingList());
-  }
-});
-
-
+  },
+  saveRecipe: (
+    user_id,
+    title,
+    imageUrl,
+    ingredientList,
+    instructions,
+    servingSize,
+    category
+  ) => 
+      dispatch(saveRecipe(
+        user_id,
+        title,
+        imageUrl,
+        ingredientList,
+        instructions,
+        servingSize,
+        category
+       )),
+  });
 
 class Main extends Component {
   constructor(props) {
     super(props);
   }
 
-componentDidMount() {
-  this.props.fetchRecipes();
-  this.props.fetchPantryItems();
-  this.props.fetchMealPlan();
-  this.props.fetchShoppingList();
-}
+  componentDidMount() {
+    this.props.fetchRecipes();
+    this.props.fetchPantryItems();
+    this.props.fetchMealPlan();
+    this.props.fetchShoppingList();
+  }
 
   handleLogout = () => {
     this.props.addToken("");
@@ -88,12 +113,39 @@ componentDidMount() {
               this.props.token.token !== undefined ? () => <Home /> : null
             }
           />
-          <Route path="/weeklyplanner" component={() => <WeeklyPlanner mealplan={this.props.mealplan.mealplan} />} />
-          <Route path="/recipes" component={() => <Recipes recipes={this.props.recipes.recipes}/>} />
-          <Route path="/pantry" component={() => <Pantry ingredient={this.props.ingredient.ingredient} />} />
-          <Route path="/shoppinglist" component={() => <ShoppingList ingredient={this.props.ingredient.ingredient}/>} />
-         
-          <Route path="/createrecipe" component={() => <CreateRecipe user={this.props.user} token={this.props.token}/>} />
+          <Route
+            path="/weeklyplanner"
+            component={() => (
+              <WeeklyPlanner mealplan={this.props.mealplan.mealplan} />
+            )}
+          />
+          <Route
+            path="/recipes"
+            component={() => <Recipes recipes={this.props.recipes.recipes} />}
+          />
+          <Route
+            path="/pantry"
+            component={() => (
+              <Pantry ingredient={this.props.ingredient.ingredient} />
+            )}
+          />
+          <Route
+            path="/shoppinglist"
+            component={() => (
+              <ShoppingList ingredient={this.props.ingredient.ingredient} />
+            )}
+          />
+
+          <Route
+            path="/createrecipe"
+            component={() => (
+              <CreateRecipe
+                user={this.props.user}
+                token={this.props.token}
+                saveRecipe={this.props.saveRecipe}
+              />
+            )}
+          />
           <Route path="/day" component={() => <Day />} />
           <Route path="/home" component={() => <Home />} />
           <Redirect to="/login" />

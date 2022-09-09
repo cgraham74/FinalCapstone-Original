@@ -14,10 +14,12 @@ export const addUser = (user) => ({
 export const deleteUser = () => ({
   type: ActionTypes.DELETE_USER,
 });
+
 export const addRecipe = (recipes) => ({
   type: ActionTypes.ADD_RECIPE,
   payload: recipes,
 });
+
 
 export const fetchRecipes = () => (dispatch) => {
   fetch(baseUrl + "/Test/RecipeListTest")
@@ -29,25 +31,59 @@ export const fetchRecipes = () => (dispatch) => {
       return dispatch(addRecipe(data));
     });
 };
-// fetch(baseUrl, {
-//   method: "POST",
-//   cache: "no-cache",
-//   headers: {
-//     "Content-Type": "application/json",
-//      "Authorization": `Bearer ${props.token}`
-//   },
-//   body: JSON.stringify(recipe),
-// })
-//   .then((response) => {
-//     if (response.ok) {
-//       alert("Saved!");
-//       resetForm(e);
-//     }
-//   })
-//   .catch((err) => {
-//     console.error(err);
-//     alert("Could not save card!");
-//   });
+
+export const createRecipe = (recipe) => ({
+  type:ActionTypes.CREATE_RECIPE,
+  payload: recipe,
+});
+
+export const saveRecipe = (
+  user_id,
+  title,
+  imageUrl,
+  ingredientList,
+  instructions,
+  servingSize,
+  category
+) => (dispatch) => {
+  
+  const newRecipe = {
+    user_id: user_id,
+    title: title,
+    imageUrl: imageUrl,
+    ingredientList: ingredientList,
+    instructions: instructions,
+    servingSize: servingSize,
+    category: category,
+  };
+
+  return fetch(baseUrl + "/Test/RecipeSaveTest", {
+    method: "POST",
+    body: JSON.stringify(newRecipe),
+    headers: {
+      "Content-Type": "application/json",
+      
+      // "Authorization": `Bearer ${token}`,
+    },
+    
+  })
+    .then((response) => {
+      if (response.ok) {
+        alert("Saved!" + newRecipe);
+        console.log(response)
+        return response;
+        
+        // resetForm(e);
+      } 
+    },
+    )
+    .then ((response)=> response.json())
+    .then((response)=> dispatch(createRecipe(response)))
+    .catch((err) => {
+      console.error(err);
+      alert("Could not save card!" + newRecipe);
+    });
+};
 
 //Calls the fetch to add the ingredients at launch - will need to implmenent
 //The updated and delete as well - use this as a template
