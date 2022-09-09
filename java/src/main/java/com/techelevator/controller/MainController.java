@@ -11,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.PermitAll;
 import java.security.Principal;
 import java.util.Collection;
 import java.util.List;
@@ -29,25 +30,25 @@ public class MainController {
 //    public List<String> getUsersPantry(Principal principal) {
 //        return services.getUserPantry(services.getUserId(principal.getName()));
 //    }
-@PreAuthorize("hasRole('')")
+    @PermitAll
     @GetMapping(path = "/TestBreakfast")
     public Object[] testGetRecipeTitleFromCategory() {
         return services.testGetRecipeTitleByCategory("Breakfast");
     }
-    @PreAuthorize("hasRole('')")
+    @PermitAll
     @GetMapping(path = "/PantryTest")
     public List<PantryDTO> testGetUsersPantry() {
         return services.testGetUserPantryDTO();
     }
 
-    @PreAuthorize("hasRole('')")
+    @PermitAll
     @GetMapping(path = "/RecipeTest")
     public RecipeDTO testGetRecipe() {
         //Hardcoded '1' until we get a back and forth
         return services.testGetRecipeDTO(1);
     }
 
-    @PreAuthorize("hasRole('')")
+    @PermitAll
     @GetMapping(path = "/RecipeListTest")
     public Collection<RecipeDTO> testGetRecipeList(){
         return services.testListOfRecipes();
