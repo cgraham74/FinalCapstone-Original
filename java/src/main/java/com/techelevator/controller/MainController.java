@@ -7,6 +7,7 @@ import com.techelevator.model.RecipeIngredient;
 import com.techelevator.service.Services;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,23 +29,25 @@ public class MainController {
 //    public List<String> getUsersPantry(Principal principal) {
 //        return services.getUserPantry(services.getUserId(principal.getName()));
 //    }
-
+@PreAuthorize("hasRole('')")
     @GetMapping(path = "/TestBreakfast")
     public Object[] testGetRecipeTitleFromCategory() {
         return services.testGetRecipeTitleByCategory("Breakfast");
     }
-
+    @PreAuthorize("hasRole('')")
     @GetMapping(path = "/PantryTest")
     public List<PantryDTO> testGetUsersPantry() {
         return services.testGetUserPantryDTO();
     }
 
+    @PreAuthorize("hasRole('')")
     @GetMapping(path = "/RecipeTest")
     public RecipeDTO testGetRecipe() {
         //Hardcoded '1' until we get a back and forth
         return services.testGetRecipeDTO(1);
     }
 
+    @PreAuthorize("hasRole('')")
     @GetMapping(path = "/RecipeListTest")
     public Collection<RecipeDTO> testGetRecipeList(){
         return services.testListOfRecipes();
