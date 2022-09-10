@@ -14,7 +14,6 @@ import {
   Row,
 } from "reactstrap";
 
-
 export default function CreateRecipe(props) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const toggle = () => setDropdownOpen((prevState) => !prevState);
@@ -29,34 +28,30 @@ export default function CreateRecipe(props) {
   const [recipe, setRecipe] = useState({});
   const [image, setImage] = useState(null);
 
-  // const required = (val) => val && val.length;
-  // const maxLength = (len) => (val) => !val || val.length <= len;
-  // const minLength = (len) => (val) => val && val.length >= len;
-  // const isNumber = (val) => !isNaN(Number(val));
-
+  //corrected the input to saveRecipes so object can be created
   function handleSubmit(values) {
     values.preventDefault();
-    
-    // console.log("Current State is: " + JSON.stringify(values));
-    // alert("Current State is: " + JSON.stringify(values));
-    // alert(
-    //     JSON.stringify(props.user.id)
-    // );
     props.saveRecipe(
-      values.user_id,
-      values.title,
-      values.imageUrl,
-      values.ingredientsList,
-      values.instructions,
-      values.servingSize,
-      values.category,
+      props.user.id,
+      values.target.title.value,
+      values.target.image.files[0].name,
+      ingredients,
+      values.target.instructions.value,
+      values.target.servingsize.value,
+      category
     );
-    
-    // props.saveRecipe(recipe, props.token.token);
-    resetForm(values)
+
+    // resetForm(values)
   }
 
-  
+  const imgFileHandler=(e) =>{
+    let selected = e.target.files[0];
+    if (selected){
+      setImage(selected);
+    }
+  }
+
+
   function resetForm(values) {
     setRecipe({});
     setIngredients([]);
@@ -82,7 +77,6 @@ export default function CreateRecipe(props) {
   });
 
   function addIngredients(event) {
-    //If Ingredients fields are empty -
     if (
       ingredientName !== "" &&
       ingredientAmount !== "" &&
@@ -110,9 +104,11 @@ export default function CreateRecipe(props) {
         <h3>Create Recipe</h3>
       </div>
       <div className="col-12 col-md-9" id="create-recipe-form">
-        <Form 
-        model="recipeform"
-        onSubmit={(values) => handleSubmit(values)} id="createrecipe">
+        <Form
+          model="recipeform"
+          onSubmit={(values) => handleSubmit(values)}
+          id="createrecipe"
+        >
           <Row className="form-group">
             <Label htmlFor="title" md={2}>
               Recipe name:
@@ -177,13 +173,16 @@ export default function CreateRecipe(props) {
             </Col>
             <Col md={8}>
               <Input
-                id="create-recipe-image"
+                className="image"
+                id="image"
                 type="file"
                 accept="image/*"
-                onChange={(e) => {
-                  console.log(e.target.files[0]);
-                  setImage(e.target.files[0]);
-                }}
+                onChange={imgFileHandler
+               
+                    // localStorage.setItem(image, reader.result);
+                    // "src/images",
+                 
+                }
               />
               {image && (
                 <img

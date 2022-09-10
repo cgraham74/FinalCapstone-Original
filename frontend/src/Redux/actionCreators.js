@@ -20,7 +20,6 @@ export const addRecipe = (recipes) => ({
   payload: recipes,
 });
 
-
 export const fetchRecipes = () => (dispatch) => {
   fetch(baseUrl + "/Test/RecipeListTest")
     .then((response) => {
@@ -33,57 +32,57 @@ export const fetchRecipes = () => (dispatch) => {
 };
 
 export const createRecipe = (recipe) => ({
-  type:ActionTypes.CREATE_RECIPE,
+  type: ActionTypes.CREATE_RECIPE,
   payload: recipe,
 });
 
-export const saveRecipe = (
-  user_id,
-  title,
-  imageUrl,
-  ingredientList,
-  instructions,
-  servingSize,
-  category
-) => (dispatch) => {
-  
-  const newRecipe = {
-    user_id: user_id,
-    title: title,
-    imageUrl: imageUrl,
-    ingredientList: ingredientList,
-    instructions: instructions,
-    servingSize: servingSize,
-    category: category,
-  };
+export const saveRecipe =
+  (
+    user_id,
+    title,
+    imageUrl,
+    ingredientList,
+    instructions,
+    servingSize,
+    category
+  ) =>
+  async (dispatch) => {
+    const newRecipe = {
+      user_id: user_id,
+      title: title,
+      imageUrl: imageUrl,
+      ingredientList: ingredientList,
+      instructions: instructions,
+      servingSize: servingSize,
+      category: category,
+    };
+   
+    //This works for adding to the databse but it also causes an error at response.json becasue the database does not return the new recipe
+    //changed createRecipes to addRecipes since it already does this work
+    return await fetch(baseUrl + "/Test/RecipeSaveTest", {
+      method: "POST",
+      body: JSON.stringify(newRecipe),
+      headers: {
+        "Content-Type": "application/json",
 
-  return fetch(baseUrl + "/Test/RecipeSaveTest", {
-    method: "POST",
-    body: JSON.stringify(newRecipe),
-    headers: {
-      "Content-Type": "application/json",
-      
-      // "Authorization": `Bearer ${token}`,
-    },
-    
-  })
-    .then((response) => {
+        // "Authorization": `Bearer ${token}`,
+      },
+    }).then((response) => {
       if (response.ok) {
         alert("Saved!" + newRecipe);
-        console.log(response)
+        //    console.log(response.json());
         return response;
-        
+
         // resetForm(e);
-      } 
-    },
-    )
-    .then ((response)=> response.json())
-    .then((response)=> dispatch(createRecipe(response)))
-    .catch((err) => {
-      console.error(err);
-      alert("Could not save card!" + newRecipe);
+      }
     });
-};
+    // .then((response) => response.json())
+    // .then((data) => dispatch(addRecipe(data)))
+    // .catch((err) => {
+    //   console.error(err);
+    //   alert("Could not save card!" + JSON.stringify(newRecipe));
+    // });
+  };
 
 //Calls the fetch to add the ingredients at launch - will need to implmenent
 //The updated and delete as well - use this as a template
