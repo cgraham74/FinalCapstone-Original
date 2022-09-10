@@ -20,8 +20,8 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/Test")
 @AllArgsConstructor
-@EnableWebSecurity
-@Secured({"ROLE_USER", "ROLE_ADMIN"})
+//@EnableWebSecurity
+//@Secured({"ROLE_USER", "ROLE_ADMIN"})
 public class MainController {
 
     private final Services services;
@@ -55,14 +55,16 @@ public class MainController {
     }
 
     @PostMapping(path = "/RecipeSaveTest")
-    public void saveRecipe(@RequestBody RecipeDTO recipeDTO, Principal principal) {
-        services.saveRecipeAndIngredients(recipeDTO,principal.getName());
+    @ResponseBody
+    public void saveRecipe(@RequestBody RecipeDTO recipeDTO) {
+        System.out.println("The recipeDTO: " + recipeDTO.getTitle());
+        services.saveRecipeAndIngredients(recipeDTO);
 
     }
 
     @GetMapping(path = "/RecipeDeleteTest")
-    public void deleteRecipe(@RequestBody Integer id, Principal principal) {
-        services.deleteRecipe(id, principal.getName());
+    public void deleteRecipe(@RequestBody Integer id) {
+        services.deleteRecipe(id);
     }
 
 }

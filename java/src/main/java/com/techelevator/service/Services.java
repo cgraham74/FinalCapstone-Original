@@ -4,11 +4,11 @@ import com.techelevator.dao.UserDao;
 import com.techelevator.model.*;
 import com.techelevator.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+
+import java.sql.SQLOutput;
+import java.util.*;
 
 @Service
 public class Services {
@@ -114,55 +114,66 @@ public class Services {
     }
 
     //-------------------DELETE-------------------
-    public void deleteRecipe (Integer recipeId, String name) {
+    public void deleteRecipe(Integer recipeId) {
         recipeRepository.deleteById(recipeId);
 
-        System.out.println(name + ": DELETED EVERYTHING OH NO");
+        System.out.println("Ed" + ": DELETED EVERYTHING OH NO");
     }
 
 
     //-------------------CREATE-------------------
 
-    public Ingredient checkOrCreateIngredient (String name) {
+    public Ingredient checkOrCreateIngredient(String name) {
+        Ingredient tempIngredient = new Ingredient();
 
         if (ingredientRepository.getIngredientByName(name) == null) {
-            Ingredient tempIngredient = new Ingredient(name);
+            tempIngredient.setName(name);
             ingredientRepository.save(tempIngredient);
-        }
-
-        return ingredientRepository.getIngredientByName(name);
+            return tempIngredient;
+        } else return ingredientRepository.getIngredientByName(name);
     }
 
-    public Recipe checkOrCreateRecipeId(String title) {
+//    public void checkOrCreateRecipeId(RecipeDTO recipeDTO) {
+//
+//        if (recipeRepository.recipeByTitle(recipeDTO.getTitle()) == null) {
+//            createRecipe(recipeDTO);
+//        }
+//    }
 
-        if (recipeRepository.recipeByTitle(title) == null) {
-            Recipe tempRecipe = new Recipe();
-            recipeRepository.save(tempRecipe);
-            System.out.println(tempRecipe.getRecipeid());
+    public void createRecipeIngredients(RecipeDTO recipeDTO) {
+
+        //TRIPLE MAKING SURE YOU HAVE A RECIPE FIRST!
+        if (Objects.isNull(recipeRepository.recipeByTitle(recipeDTO.getTitle()))) {
+            createRecipe(recipeDTO);
         }
-        return recipeRepository.recipeByTitle(title);
-
-    }
-
-    public void createRecipeIngredients (RecipeDTO recipeDTO) {
 
         List<RecipeIngredientDTO> tempIngredients = new ArrayList<>(recipeDTO.getIngredientList());
         List<RecipeIngredient> recipeIngredients = new ArrayList<>();
+        RecipeIngredient recipeIngredient = new RecipeIngredient();
 
         for (RecipeIngredientDTO tempIngredient : tempIngredients) {
 
-            if (ingredientRepository.getIngredientByName(tempIngredient.getName()) == null) {
-                checkOrCreateIngredient(tempIngredient.getName());
-            }
+            //MAKING SURE THE INGREDIENT IS CREATED
+            if (Objects.isNull(ingredientRepository.getIngredientByName(tempIngredient.getName()))) {
+                Ingredient newIngredient = checkOrCreateIngredient(tempIngredient.getName());
 
-            RecipeIngredient recipeIngredient = new RecipeIngredient();
+                recipeIngredient.setRecipeid(recipeRepository.recipeByTitle(recipeDTO.getTitle()).getRecipeid());
+                recipeIngredient.setIngredientid(newIngredient.getIngredientid());
+                recipeIngredient.setQuantity(tempIngredient.getQuantity());
+                recipeIngredient.setMeasurementunit(tempIngredient.getMeasurementunit());
+                recipeIngredients.add(recipeIngredient);
 
-            recipeIngredient.setRecipeid(checkOrCreateRecipeId(recipeDTO.getTitle()).getRecipeid());
-            recipeIngredient.setIngredientid(checkOrCreateIngredient(tempIngredient.getName()).getIngredientid());
+                recipeIngredientRepository.save(recipeIngredient);
+
+            } else
+                recipeIngredient.setRecipeid(
+                        recipeRepository.recipeByTitle(recipeDTO.getTitle()).getRecipeid());
+            recipeIngredient.setIngredientid(
+                    ingredientRepository.getIngredientByName(tempIngredient.getName()).getIngredientid());
             recipeIngredient.setQuantity(tempIngredient.getQuantity());
             recipeIngredient.setMeasurementunit(tempIngredient.getMeasurementunit());
-
             recipeIngredients.add(recipeIngredient);
+
             recipeIngredientRepository.save(recipeIngredient);
 
         }
@@ -171,25 +182,35 @@ public class Services {
 
     }
 
-    public void createRecipe (RecipeDTO recipeDTO, String name) {
+    public void createRecipe(RecipeDTO recipeDTO) {
 
         Recipe incomingRecipe = new Recipe();
-        incomingRecipe.setRecipeid(checkOrCreateRecipeId(recipeDTO.getTitle()).getRecipeid());
-        incomingRecipe.setUser_id(recipeDTO.getUser_id());
-        incomingRecipe.setTitle(recipeDTO.getTitle());
-        incomingRecipe.setCategory(recipeDTO.getCategory());
-        incomingRecipe.setInstructions(recipeDTO.getInstructions());
-        incomingRecipe.setServingsize(recipeDTO.getServingSize());
-        incomingRecipe.setImagename(recipeDTO.getImageUrl());
 
-        recipeRepository.save(incomingRecipe);
+        if (Objects.isNull(recipeRepository.recipeByTitle(recipeDTO.getTitle()))) {
 
-        System.out.println(incomingRecipe);
+            incomingRecipe.setUser_id(recipeDTO.getUser_id());
+            incomingRecipe.setTitle(recipeDTO.getTitle());
+            incomingRecipe.setCategory(recipeDTO.getCategory());
+            incomingRecipe.setInstructions(recipeDTO.getInstructions());
+            incomingRecipe.setServingsize(recipeDTO.getServingSize());
+            incomingRecipe.setImagename(recipeDTO.getImageUrl());
+
+            System.out.println("THIS IS INCOMING RECIPE! " + incomingRecipe);
+
+            recipeRepository.save(incomingRecipe);
+        }
+
+//        if (Objects.equals(recipeDTO.getTitle(), recipeRepository.recipeByTitle(recipeDTO.getTitle()).getTitle())) {
+//
+//            System.out.println("Recipe Already Exists!");
+//
+//        }
+
     }
 
-    public void saveRecipeAndIngredients (RecipeDTO recipeDTO, String name) {
+    public void saveRecipeAndIngredients(RecipeDTO recipeDTO) {
 
-        createRecipe(recipeDTO, name);
+        createRecipe(recipeDTO);
         createRecipeIngredients(recipeDTO);
 
         System.out.println("HUZZAH");

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IngredientRepository extends JpaRepository<Ingredient, Integer> {
 
-    @Query("SELECT r.ingredientid FROM Ingredient r WHERE r.name LIKE :name")
+    @Query("SELECT r FROM Ingredient r WHERE r.name LIKE :name")
     Ingredient getIngredientByName(@Param("name") String name);
 
 

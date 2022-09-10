@@ -19,7 +19,6 @@ public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "recipeid")
-    @NotNull
     private Integer recipeid;
 
     @Column(name = "user_id")
