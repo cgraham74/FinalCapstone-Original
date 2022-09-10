@@ -13,6 +13,8 @@ import { FadeTransform, Fade, Stagger } from "react-animation-components";
 // import img from '../../RecipeImages/chickenFriedSteak.jpg'
 
 function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
+// function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
+  
   const ingredients = recipeCard.ingredientList.map((item, index) => {
     return (
       <li key={index} id="ingredient">
@@ -21,10 +23,7 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
     );
   });
   return (
-    // <FadeTransform
-    //   in
-    //   transformProps={{ exitTransform: "scale(0.5) translateY(-50%)" }}
-    // >
+  
     <Fade in>
       <Card style={{ width: "30rem" }} id="recipecard">
         <CardBody>
@@ -47,27 +46,27 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
             <Button onClick={editHandler} id="update">
               Update
             </Button>
-            <Button onClick={deleteHandler} id="delete">
+            <Button onClick={() => deleteHandler(recipeCard.recipeid)} id="delete">
               Delete
             </Button>
           </div>
         </CardBody>
       </Card>
     </Fade>
-    // </FadeTransform>
   );
 }
 
 export default function SavedRecipes(props) {
-  const recipeCollections = props.recipes.map((card, id) => {
+  const recipeCollections = props.recipes.map((item, id) => {
     return (
       <>
         <Stagger in>
           <RenderSavedRecipes
             key={id}
-            deleteHandler={props.deleteHandler}
-            editHandler={props.editHandler}
-            recipeCard={card}
+            deleteHandler={props.deleteRecipe}
+            // editHandler={props.editHandler}
+            recipeCard={item}
+          
           />
         </Stagger>
       </>

@@ -21,7 +21,7 @@ export const addRecipe = (recipes) => ({
 });
 
 export const fetchRecipes = () => (dispatch) => {
-  fetch(baseUrl + "/Test/RecipeListTest")
+  fetch(baseUrl + "/recipe/list")
     .then((response) => {
       return response.json();
     })
@@ -30,6 +30,11 @@ export const fetchRecipes = () => (dispatch) => {
       return dispatch(addRecipe(data));
     });
 };
+
+export const updateRecipe = (recipe) => ({
+  type: ActionTypes.UPDATE_RECIPE,
+  payload: recipe,
+});
 
 export const createRecipe = (recipe) => ({
   type: ActionTypes.CREATE_RECIPE,
@@ -56,10 +61,8 @@ export const saveRecipe =
       servingSize: servingSize,
       category: category,
     };
-   
-    //This works for adding to the databse but it also causes an error at response.json becasue the database does not return the new recipe
-    //changed createRecipes to addRecipes since it already does this work
-    return await fetch(baseUrl + "/Test/RecipeSaveTest", {
+
+    return await fetch(baseUrl + "/recipe/save", {
       method: "POST",
       body: JSON.stringify(newRecipe),
       headers: {
@@ -70,7 +73,6 @@ export const saveRecipe =
     }).then((response) => {
       if (response.ok) {
         alert("Saved!" + newRecipe);
-        //    console.log(response.json());
         return response;
 
         // resetForm(e);
@@ -84,10 +86,44 @@ export const saveRecipe =
     // });
   };
 
+export const deleteRecipe = (id) => (dispatch) => {
+  console.log("Is this working " + id);
+  fetch(baseUrl + "/recipe/delete/" + id, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((response) => {
+    if (response.ok) {
+      alert("Recipe Deleted");
+      return dispatch(deleteRecipe());
+    }
+    
+  });
+  
+ 
+  
+};
+// export const deleteRecipe = (id) => ({
+//   type: ActionTypes.DELETE_RECIPE,
+//   payload: id
+// })
+// .fetch(baseUrl + "/recipe/delete/" + id, {
+//   method: "DELETE",
+//   headers: {
+//     "Content-Type": "application/json"
+//   },
+// })
+// .then((response)=>{
+//   if (response.ok){
+//     alert("Recipe Deleted");
+//   }
+// });
+
 //Calls the fetch to add the ingredients at launch - will need to implmenent
 //The updated and delete as well - use this as a template
 export const fetchPantryItems = () => (dispatch) => {
-  fetch(baseUrl + "/Test/PantryTest")
+  fetch(baseUrl + "/recipe/pantry")
     .then((response) => {
       return response.json();
     })
@@ -114,7 +150,7 @@ export const updateIngredient = (ingredient) => ({
 //Action creators for Shopping List - change endpoint when shoppinglist endpoint
 //is available - using pantry endpoint for now
 export const fetchShoppingList = () => (dispatch) => {
-  fetch(baseUrl + "/Test/PantryTest")
+  fetch(baseUrl + "/recipe/pantry")
     .then((response) => {
       return response.json();
     })
@@ -139,7 +175,7 @@ export const updateShoppingList = (shoppingList) => ({
 
 //Action creators for Mealplan
 export const fetchMealPlan = () => (dispatch) => {
-  fetch(baseUrl + "/Test/TestBreakfast")
+  fetch(baseUrl + "/recipe/breakfast")
     .then((response) => {
       return response.json();
     })

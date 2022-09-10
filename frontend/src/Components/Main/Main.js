@@ -11,6 +11,8 @@ import {
   fetchRecipes,
   saveRecipe,
   fetchShoppingList,
+  deleteRecipe,
+  updateRecipe,
 } from "../../Redux/actionCreators";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -61,8 +63,9 @@ const mapDispatchToProps = (dispatch) => ({
     instructions,
     servingSize,
     category
-  ) => 
-      dispatch(saveRecipe(
+  ) =>
+    dispatch(
+      saveRecipe(
         user_id,
         title,
         imageUrl,
@@ -70,8 +73,31 @@ const mapDispatchToProps = (dispatch) => ({
         instructions,
         servingSize,
         category
-       )),
-  });
+      )
+    ),
+
+  deleteRecipe: (id) => dispatch(deleteRecipe(id)),
+  updateRecipe: (
+    user_id,
+    title,
+    imageUrl,
+    ingredientList,
+    instructions,
+    servingSize,
+    category
+  ) =>
+    dispatch(
+      updateRecipe(
+        user_id,
+        title,
+        imageUrl,
+        ingredientList,
+        instructions,
+        servingSize,
+        category
+      )
+    ),
+});
 
 class Main extends Component {
   constructor(props) {
@@ -121,7 +147,13 @@ class Main extends Component {
           />
           <Route
             path="/recipes"
-            component={() => <Recipes recipes={this.props.recipes.recipes} />}
+            component={() => (
+              <Recipes
+                recipes={this.props.recipes.recipes}
+                deleteRecipe={this.props.deleteRecipe}
+                updateRecipe={this.props.updateRecipe}
+              />
+            )}
           />
           <Route
             path="/pantry"

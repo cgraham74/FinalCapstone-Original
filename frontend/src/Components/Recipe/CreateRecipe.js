@@ -13,6 +13,7 @@ import {
   Col,
   Row,
 } from "reactstrap";
+import { useLocation } from "react-router";
 
 export default function CreateRecipe(props) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -45,9 +46,19 @@ export default function CreateRecipe(props) {
   }
 
   const imgFileHandler=(e) =>{
+    e.preventDefault();
     let selected = e.target.files[0];
     if (selected){
       setImage(selected);
+      // console.log("Logging Image"+ image.name + " Where from? " + image.URL);
+      // File.Copy(image, `../../images/${image.name}`)
+      const fileReader = new FileReader();
+      fileReader.onChange = (e) =>{
+        const { result } = selected;
+        console.log(result);
+      }
+      fileReader.readAsDataURL(image);
+      
     }
   }
 
