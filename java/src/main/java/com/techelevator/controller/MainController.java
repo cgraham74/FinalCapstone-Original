@@ -18,7 +18,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping(path = "/Test")
+@RequestMapping(path = "/recipe")
 @AllArgsConstructor
 //@EnableWebSecurity
 //@Secured({"ROLE_USER", "ROLE_ADMIN"})
@@ -30,31 +30,40 @@ public class MainController {
 //    public List<String> getUsersPantry(Principal principal) {
 //        return services.getUserPantry(services.getUserId(principal.getName()));
 //    }
+
     @PermitAll
-    @GetMapping(path = "/TestBreakfast")
+    @GetMapping(path = "/breakfast")
     public Object[] testGetRecipeTitleFromCategory() {
         return services.testGetRecipeTitleByCategory("Breakfast");
     }
     @PermitAll
-    @GetMapping(path = "/PantryTest")
+    @GetMapping(path = "/pantry")
     public List<PantryDTO> testGetUsersPantry() {
         return services.testGetUserPantryDTO();
     }
 
     @PermitAll
-    @GetMapping(path = "/RecipeTest")
-    public RecipeDTO testGetRecipe() {
-        //Hardcoded '1' until we get a back and forth
-        return services.testGetRecipeDTO(1);
+    @GetMapping(path = "/get/{recipeid}")
+    public RecipeDTO testGetRecipeById(@PathVariable("recipeid") Integer recipeid) {
+        return services.getRecipeById(recipeid);
     }
 
     @PermitAll
-    @GetMapping(path = "/RecipeListTest")
+    @PutMapping(path = "/update/{id}")
+    public void update(@RequestBody RecipeDTO recipeDTO, @PathVariable int id) {
+        recipeDTO.setRecipeid(id);
+
+        services.updateRecipe(recipeDTO);
+
+    }
+
+    @PermitAll
+    @GetMapping(path = "/list")
     public Collection<RecipeDTO> testGetRecipeList(){
         return services.testListOfRecipes();
     }
 
-    @PostMapping(path = "/RecipeSaveTest")
+    @PostMapping(path = "/save")
     @ResponseBody
     public void saveRecipe(@RequestBody RecipeDTO recipeDTO) {
         System.out.println("The recipeDTO: " + recipeDTO.getTitle());
@@ -62,8 +71,8 @@ public class MainController {
 
     }
 
-    @GetMapping(path = "/RecipeDeleteTest")
-    public void deleteRecipe(@RequestBody Integer id) {
+    @DeleteMapping(path = "/delete/{id}")
+    public void deleteRecipe(@PathVariable("id") int id) {
         services.deleteRecipe(id);
     }
 

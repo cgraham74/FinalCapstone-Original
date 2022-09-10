@@ -26,6 +26,7 @@ public class Services {
     UserDao userDao;
 
     //For when we're using Principle names.
+    //-------------------USERS-------------------
     public Long getUserId(String username) {
         return userDao.findIdByUsername(username);
     }
@@ -39,12 +40,19 @@ public class Services {
         return recipeRepository.testGetRecipeTitleByCategory(category);
     }
 
+    public RecipeDTO getRecipeById(Integer recipeId) {
+
+        return testGetRecipeDTO(recipeId);
+
+    }
+
     //Currently how we're going to get the user's pantry.
     //-------------------PANTRY-------------------
     public List<PantryDTO> testGetUserPantryDTO() {
 
         //Placeholder, this will be the id passed in above
         Integer recipeid = 1;
+
 
         List<PantryDTO> usersPantry = new ArrayList<>();
         List<PantryIngredient> usersPantryIngredients = new ArrayList<>(pantryIngredientRepository.findAllPantryIngredientsByUserId(recipeid));
@@ -114,10 +122,34 @@ public class Services {
     }
 
     //-------------------DELETE-------------------
+
     public void deleteRecipe(Integer recipeId) {
+
+        recipeIngredientRepository.deleteById(recipeId);
         recipeRepository.deleteById(recipeId);
 
-        System.out.println("Ed" + ": DELETED EVERYTHING OH NO");
+        System.out.println("DELETED RECIPE WITH THE ID OF: " + recipeId);
+    }
+
+    //-------------------UPDATE-------------------
+
+    public void updateRecipe(RecipeDTO recipeDTO) {
+
+        Recipe updatedRecipe = new Recipe();
+        RecipeDTO updatedRecipeDTO = new RecipeDTO();
+
+        updatedRecipe.setRecipeid(recipeDTO.getRecipeid());
+        updatedRecipe.setUser_id(recipeDTO.getUser_id());
+        updatedRecipe.setTitle(recipeDTO.getTitle());
+        updatedRecipe.setCategory(recipeDTO.getCategory());
+        updatedRecipe.setInstructions(recipeDTO.getInstructions());
+        updatedRecipe.setServingsize(recipeDTO.getServingSize());
+        updatedRecipe.setImagename(recipeDTO.getImageUrl());
+
+            System.out.println("UPDATING A RECIPE " + updatedRecipe);
+
+            recipeRepository.save(updatedRecipe);
+
     }
 
 
@@ -200,20 +232,17 @@ public class Services {
             recipeRepository.save(incomingRecipe);
         }
 
-//        if (Objects.equals(recipeDTO.getTitle(), recipeRepository.recipeByTitle(recipeDTO.getTitle()).getTitle())) {
-//
-//            System.out.println("Recipe Already Exists!");
-//
-//        }
-
     }
 
-    public void saveRecipeAndIngredients(RecipeDTO recipeDTO) {
+    public Recipe saveRecipeAndIngredients(RecipeDTO recipeDTO) {
 
         createRecipe(recipeDTO);
         createRecipeIngredients(recipeDTO);
 
         System.out.println("HUZZAH");
+
+        return recipeRepository.recipeByTitle(recipeDTO.getTitle());
+
     }
 
 }

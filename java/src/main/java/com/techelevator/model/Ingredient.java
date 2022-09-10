@@ -26,5 +26,7 @@ public class Ingredient {
     private String category;
 
     public Ingredient(String name) {
+        this.name = name;
     }
+
 }
