@@ -54,7 +54,7 @@ import {fetchMealPlan} from '../../Redux/actionCreators'
           </div> 
           );
         })}
-         <aside><Cart/></aside>
+       
       </div>
       
     </>

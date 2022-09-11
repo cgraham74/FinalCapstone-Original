@@ -155,7 +155,28 @@ export default function CreateRecipe(props) {
             </Col>
           </Row>
           <Row className="form-group">
-            <Col md={4}>
+          <Col md={10}>
+              <Input
+                className="image"
+                id="image"
+                type="file"
+                accept="image/*"
+                onChange={imgFileHandler
+               
+                    // localStorage.setItem(image, reader.result);
+                    // "src/images",
+                 
+                }
+              />
+              {image && (
+                <img
+                  alt="not found"
+                  width={"25px"}
+                  src={URL.createObjectURL(image)}
+                />
+              )}
+            </Col>
+            <Col md={2}>
               <Dropdown
                 isOpen={dropdownOpen}
                 toggle={toggle}
@@ -182,34 +203,13 @@ export default function CreateRecipe(props) {
                 </DropdownMenu>
               </Dropdown>
             </Col>
-            <Col md={8}>
-              <Input
-                className="image"
-                id="image"
-                type="file"
-                accept="image/*"
-                onChange={imgFileHandler
-               
-                    // localStorage.setItem(image, reader.result);
-                    // "src/images",
-                 
-                }
-              />
-              {image && (
-                <img
-                  alt="not found"
-                  width={"25px"}
-                  src={URL.createObjectURL(image)}
-                />
-              )}
-            </Col>
+         
           </Row>
           {/* TODO: 
           ADD: Delete function to be able to remove individual ingredient from list incase of ooopsies */}
           <Row className="form-group" id="ingredient-add-text-btn">
             <Col md={4}>
               <Label htmlFor="ingredients">Ingredient</Label>
-
               <Input
                 id="ingredients"
                 name="ingredients"
@@ -238,7 +238,6 @@ export default function CreateRecipe(props) {
             </Col>
             <Col md={4}>
               <Label for="measurement">Measurement</Label>
-
               <Input
                 id="measurement"
                 name="measurement"
@@ -248,7 +247,7 @@ export default function CreateRecipe(props) {
                 onChange={(e) => setIngredientUnit(e.target.value)}
               ></Input>
             </Col>
-            <Col md={1}>
+            <Col md={1} id="col-add-btn">
               <Button
                 type="button"
                 onClick={(event) => addIngredients(event)}
@@ -256,6 +255,7 @@ export default function CreateRecipe(props) {
               >
                 Add
               </Button>
+
             </Col>
           </Row>
           <Table>
@@ -280,9 +280,11 @@ export default function CreateRecipe(props) {
               onChange={(e) => setInstruction(e.target.value)}
             />
           </Row>
-          <Button type="submit" id="submit-recipe">
+          <div id="submit-button-container">
+            <Button type="submit" id="submit-recipe">
             Submit
           </Button>
+          </div> 
         </Form>
       </div>
     </div>

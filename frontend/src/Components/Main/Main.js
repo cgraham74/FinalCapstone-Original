@@ -22,6 +22,7 @@ import ShoppingList from "../ShoppingList/ShoppingList";
 import Pantry from "../Pantry/Pantry";
 import CreateRecipe from "../Recipe/CreateRecipe";
 import Day from "../Day/Day";
+import DayTest from "../Meal/DayTest";
 
 const mapStateToProps = (state) => {
   return {
@@ -178,6 +179,8 @@ class Main extends Component {
               />
             )}
           />
+        testing functionality of day component
+          <Route path="/daytest" component={() => <DayTest ingredient={this.props.ingredient.ingredient}  />} />
           <Route path="/day" component={() => <Day />} />
           <Route path="/home" component={() => <Home />} />
           <Redirect to="/login" />

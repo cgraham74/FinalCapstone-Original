@@ -46,7 +46,8 @@ export default function WeeklyPlanner() {
                 <Link
                   style={{ textDecoration: "none" }}
                   to={{
-                    pathname: "/day",
+                    //testing day component
+                    pathname: "/daytest",
                     state: { day: "Monday", meal: "breakfast" },
                   }}
                 >

@@ -34,6 +34,7 @@ Form {
 #add-ingredient,
 #submit-recipe,
 button.dropdown-toggle.btn.btn-secondary {
+  
   background-color: #171c32;
   border-color: #171c32;
   border-radius: 15px;
@@ -49,6 +50,8 @@ div#recipe-update-delete {
 #ingredient-add-text-btn {
   display: flex;
   align-items: flex-end;
+  justify-self: flex-end;
+  padding-right: 0px;
 }
 
 .form-group {
@@ -60,4 +63,19 @@ form#createrecipe {
 #instructions {
   margin-left: 12px;
   flex-shrink: inherit;
+}
+#submit-button-container{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+/* div.col-md-2 > div#category-dropdown.dropdown{
+  display: flex;
+  align-self: flex-end;
+  justify-self: flex-end;
+} */
+button.dropdown-toggle.btn.btn-secondary{
+  display: flex;
+  align-self: flex-end;
+  justify-self: flex-end;
 }
