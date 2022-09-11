@@ -26,7 +26,7 @@ import DayTest from "../Meal/DayTest";
 
 const mapStateToProps = (state) => {
   return {
-    shopplinglist: state.shoppinglist,
+    shoppinglist: state.shoppinglist,
     mealplan: state.mealplan,
     ingredient: state.ingredient,
     recipes: state.recipes,
@@ -169,7 +169,7 @@ class Main extends Component {
             path="/shoppinglist"
             component={() => (
               <ShoppingList
-                ingredient={this.props.ingredient.ingredient}
+                shoppingList={this.props.shoppinglist.shoppinglist}
                 user={this.props.user}
               />
             )}

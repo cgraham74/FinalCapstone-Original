@@ -46,9 +46,9 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
             <Button onClick={editHandler} id="update">
               Update
             </Button>
-            <Button onClick={() => deleteHandler(recipeCard.recipeid)} id="delete">
+            {/* <Button onClick={() => deleteHandler(recipeCard.recipeid)} id="delete">
               Delete
-            </Button>
+            </Button> */}
           </div>
         </CardBody>
       </Card>

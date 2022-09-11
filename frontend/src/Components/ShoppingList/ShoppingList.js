@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import Navigator from "../navigation/Navigator";
-import { Card, CardBody, CardText, CardTitle, CardSubTitle } from "reactstrap";
-import { baseUrl } from "../../Shared/baseUrl";
 import "./shoppinglist.css";
-import { Table } from "reactstrap";
 import {FaRegTrashAlt, FaRegCheckCircle, FaRegCheckSquare, FaRegTimesCircle} from "react-icons/fa"
 
 
 export default function ShoppingList(props) {
 
-  const shoppingItems = props.ingredient.map((item, index) => {
+  const shoppingItem = props.shoppingList.map((item, index) => {
     return (
       <>
         {/* <tr className="rows" key={index}>
@@ -23,9 +20,9 @@ export default function ShoppingList(props) {
         </tr> */}
         <li key={index} id="shopping-list">
        <div><FaRegCheckCircle id="checkcircle"/> 
-          {item.ingredient}  
+          {item.ingredientName}  
        </div> 
-        <div>{item.quantity}</div>
+        <div>{item.recipeTitle}</div>
          <div>{item.measurementUnit}</div>
         {/* <div className="trash"><FaRegTrashAlt id="trash"/></div> */}
         <FaRegTrashAlt id="trash"/>
@@ -46,7 +43,7 @@ export default function ShoppingList(props) {
           </tr>
         </thead> */}
        
-        {props.ingredient.length !== 0 &&  <ul id="shopping-items">{shoppingItems} </ul>}
+        {props.shoppingList.length !== 0 &&  <ul id="shopping-items">{shoppingItem} </ul>}
        
       {/* </Table> */}
     </>

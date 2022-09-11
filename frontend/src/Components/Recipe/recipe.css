@@ -79,3 +79,7 @@ button.dropdown-toggle.btn.btn-secondary{
   align-self: flex-end;
   justify-self: flex-end;
 }
+
+#update {
+  background-color: #1f2746;
+}
