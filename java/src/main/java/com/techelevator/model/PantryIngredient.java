@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
-public class PantryIngredient implements Serializable {
+public class PantryIngredient {
 
     @Column(name = "pantryid")
     @NotNull

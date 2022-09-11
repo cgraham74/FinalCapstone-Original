@@ -20,7 +20,7 @@ public class Meal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mealid")
     @NotNull
-    private Long mealid;
+    private Integer mealid;
 
     @Column(name = "user_id")
     @NotNull

@@ -19,9 +19,9 @@ public class RecipeMeal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "recipeid")
     @NotNull
-    private Long recipeid;
+    private Integer recipeid;
 
     @Column(name = "mealid")
     @NotNull
-    private Long mealid;
+    private Integer mealid;
 }

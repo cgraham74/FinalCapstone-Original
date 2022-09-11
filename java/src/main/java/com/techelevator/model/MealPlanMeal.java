@@ -7,24 +7,22 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "meal")
+@Table(name = "mealplanmeal")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
-
 public class MealPlanMeal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mealplanid")
-    @NotNull
-    private Long mealplanid;
+    private Integer mealplanid;
 
     @Column(name = "mealid")
     @NotNull
-    private Long mealid;
+    private Integer mealid;
 
     @Column(name = "dayofweek")
     @NotNull

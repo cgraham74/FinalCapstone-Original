@@ -1,9 +1,6 @@
 package com.techelevator.controller;
 
-import com.techelevator.model.PantryDTO;
-import com.techelevator.model.Recipe;
-import com.techelevator.model.RecipeDTO;
-import com.techelevator.model.RecipeIngredient;
+import com.techelevator.model.*;
 import com.techelevator.service.Services;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
@@ -37,9 +34,9 @@ public class MainController {
         return services.testGetRecipeTitleByCategory("Breakfast");
     }
     @PermitAll
-    @GetMapping(path = "/pantry")
-    public List<PantryDTO> testGetUsersPantry() {
-        return services.testGetUserPantryDTO();
+    @GetMapping(path = "/pantry/{user_id}")
+    public List<PantryDTO> testGetUsersPantry(@PathVariable("user_id") String user_id) {
+        return services.testGetUserPantryDTO(user_id);
     }
 
     @PermitAll
@@ -68,12 +65,22 @@ public class MainController {
     public void saveRecipe(@RequestBody RecipeDTO recipeDTO) {
         System.out.println("The recipeDTO: " + recipeDTO.getTitle());
         services.saveRecipeAndIngredients(recipeDTO);
-
     }
 
-    @DeleteMapping(path = "/delete/{id}")
-    public void deleteRecipe(@PathVariable("id") int id) {
-        services.deleteRecipe(id);
+    @PermitAll
+    @GetMapping(path = "/shoppinglist")
+    public List<ShoppingListDTO> shoppingList(String name) {
+        name = "Ed";
+        return services.getMealPlanSHoppingListFromUser(name);
     }
+
+
+    //UNCOMMENT IF YOU DARE!
+
+//    @PermitAll
+//    @DeleteMapping(path = "/delete/{id}")
+//    public void deleteRecipe(@PathVariable("id") int id) {
+//        services.deleteRecipe(id);
+//    }
 
 }

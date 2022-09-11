@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class RecipeMealDTO {
 
     @JsonProperty
-    private Long recipeid;
+    private Integer recipeid;
 
     @JsonProperty
-    private Long mealid;
+    private Integer mealid;
 }

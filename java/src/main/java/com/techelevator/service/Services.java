@@ -13,16 +13,15 @@ import java.util.*;
 @Service
 public class Services {
 
-    @Autowired
-    PantryRepository pantryRepository;
-    @Autowired
-    PantryIngredientRepository pantryIngredientRepository;
-    @Autowired
-    IngredientRepository ingredientRepository;
-    @Autowired
-    RecipeRepository recipeRepository;
-    @Autowired
-    RecipeIngredientRepository recipeIngredientRepository;
+    @Autowired PantryRepository pantryRepository;
+    @Autowired PantryIngredientRepository pantryIngredientRepository;
+    @Autowired IngredientRepository ingredientRepository;
+    @Autowired RecipeRepository recipeRepository;
+    @Autowired RecipeIngredientRepository recipeIngredientRepository;
+    @Autowired MealPlanRepository mealPlanRepository;
+    @Autowired MealRepository mealRepository;
+    @Autowired RecipeMealRepository recipeMealRepository;
+    @Autowired MealPlanMealRepository mealPlanMealRepository;
     UserDao userDao;
 
     //For when we're using Principle names.
@@ -33,29 +32,58 @@ public class Services {
 
     //-------------------QUERIES-------------------
     public Object[] testGetRecipeTitleByCategory(String category) {
-
         //PLACEHOLDER VALUE
         category = "Breakfast";
-
         return recipeRepository.testGetRecipeTitleByCategory(category);
     }
 
     public RecipeDTO getRecipeById(Integer recipeId) {
-
         return testGetRecipeDTO(recipeId);
+    }
 
+
+    public List<ShoppingListDTO> getMealPlanSHoppingListFromUser(String name) {
+
+        String ingredientName;
+        String recipeTitle;
+        List<ShoppingListDTO> recipeShoppingList = new ArrayList<>();
+//        MealPlan mealplan = mealPlanRepository.getMealPlanFromId(7L);
+
+        List<MealPlan> mealPlanList = new ArrayList<>(mealPlanRepository.getMealPlanListFromUserId(7L));
+
+        for (MealPlan mealPlans : mealPlanList) {
+
+            List<MealPlanMeal> mealPlanMealList = new ArrayList<>(mealPlanMealRepository.getMealPlanMealList(mealPlans.getMealplanid()));
+
+            for (MealPlanMeal mealPlanMeal : mealPlanMealList) {
+
+                List<RecipeIngredient> recipeIngredients = new ArrayList<>(
+                        recipeIngredientRepository.getRecipeIngredients(recipeMealRepository.getRecipeIdFromMealId(mealPlanMeal.getMealid())));
+
+
+                for (RecipeIngredient recipeIngredient : recipeIngredients) {
+
+                    ingredientName = ingredientRepository.getOne(recipeIngredient.getIngredientid()).getName();
+                    recipeTitle = recipeRepository.getOne(recipeIngredient.getRecipeid()).getTitle();
+
+                    ShoppingListDTO shoppingListDTO = new ShoppingListDTO(ingredientName, recipeTitle);
+                    recipeShoppingList.add(shoppingListDTO);
+                }
+            }
+        }
+        return recipeShoppingList;
     }
 
     //Currently how we're going to get the user's pantry.
     //-------------------PANTRY-------------------
-    public List<PantryDTO> testGetUserPantryDTO() {
+    public List<PantryDTO> testGetUserPantryDTO(String name) {
 
         //Placeholder, this will be the id passed in above
-        Integer recipeid = 1;
-
+        name = "Ed";
 
         List<PantryDTO> usersPantry = new ArrayList<>();
-        List<PantryIngredient> usersPantryIngredients = new ArrayList<>(pantryIngredientRepository.findAllPantryIngredientsByUserId(recipeid));
+        List<PantryIngredient> usersPantryIngredients = new ArrayList<>(pantryIngredientRepository.
+                pantryIngredientsByUserId(userDao.findIdByUsername(name)));
 
         for (PantryIngredient usersPantryIngredient : usersPantryIngredients) {
 
@@ -73,7 +101,7 @@ public class Services {
 
         //Placeholder, the above id will be passed in
 
-        List<RecipeIngredient> recipeIngredients = recipeIngredientRepository.testGetRecipeIngredients(recipeid);
+        List<RecipeIngredient> recipeIngredients = recipeIngredientRepository.getRecipeIngredients(recipeid);
         List<RecipeIngredientDTO> recipeIngredientsDTO = new ArrayList<>();
 
         for (RecipeIngredient recipeIngredient : recipeIngredients) {
@@ -123,13 +151,17 @@ public class Services {
 
     //-------------------DELETE-------------------
 
-    public void deleteRecipe(Integer recipeId) {
+    //THIS IS WAY TOO SCARY, DON'T USE DELETE RECIPE
+//    public void deleteRecipe(Integer recipeId) {
+//        List<RecipeIngredient> listOfRecipeIngredients = recipeIngredientRepository.getRecipeIngredients(recipeId);
+//        for (RecipeIngredient recipeIngredient : listOfRecipeIngredients) {
+//            recipeIngredientRepository.deleteById(recipeId);
+//        }
+//        recipeRepository.deleteById(recipeId);
+//        System.out.println("DELETED RECIPE WITH THE ID OF: " + recipeId);
+//    }
 
-        recipeIngredientRepository.deleteById(recipeId);
-        recipeRepository.deleteById(recipeId);
 
-        System.out.println("DELETED RECIPE WITH THE ID OF: " + recipeId);
-    }
 
     //-------------------UPDATE-------------------
 
@@ -233,6 +265,12 @@ public class Services {
         }
 
     }
+
+    //-------------------HELPERS-------------------
+
+
+
+    //-------------------FINAL STRAWS-------------------
 
     public Recipe saveRecipeAndIngredients(RecipeDTO recipeDTO) {
 

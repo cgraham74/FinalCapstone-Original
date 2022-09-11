@@ -5,10 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class MealPlanMealDTO {
 
     @JsonProperty
-    private Long mealplanid;
+    private Integer mealplanid;
 
     @JsonProperty
-    private Long mealid;
+    private Integer mealid;
 
     @JsonProperty
     private String dayofweek;
