@@ -122,8 +122,9 @@ export const deleteRecipe = (id) => (dispatch) => {
 
 //Calls the fetch to add the ingredients at launch - will need to implmenent
 //The updated and delete as well - use this as a template
-export const fetchPantryItems = () => (dispatch) => {
+export const fetchPantryItems = (user) => (dispatch) => {
   fetch(baseUrl + "/recipe/pantry")
+  
     .then((response) => {
       return response.json();
     })
@@ -149,8 +150,8 @@ export const updateIngredient = (ingredient) => ({
 
 //Action creators for Shopping List - change endpoint when shoppinglist endpoint
 //is available - using pantry endpoint for now
-export const fetchShoppingList = () => (dispatch) => {
-  fetch(baseUrl + "/recipe/pantry")
+export const fetchShoppingList = (user) => (dispatch) => {
+  fetch(baseUrl + "/recipe/shoppinglist")
     .then((response) => {
       return response.json();
     })

@@ -47,14 +47,14 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchRecipes());
   },
 
-  fetchPantryItems: () => {
-    dispatch(fetchPantryItems());
+  fetchPantryItems: (user) => {
+    dispatch(fetchPantryItems(user));
   },
-  fetchMealPlan: () => {
-    dispatch(fetchMealPlan());
+  fetchMealPlan: (user) => {
+    dispatch(fetchMealPlan(user));
   },
-  fetchShoppingList: () => {
-    dispatch(fetchShoppingList());
+  fetchShoppingList: (user) => {
+    dispatch(fetchShoppingList(user));
   },
   saveRecipe: (
     user_id,
@@ -106,10 +106,10 @@ class Main extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchRecipes();
-    this.props.fetchPantryItems();
-    this.props.fetchMealPlan();
-    this.props.fetchShoppingList();
+    this.props.fetchRecipes(this.props.user);
+    this.props.fetchPantryItems(this.props.user);
+    this.props.fetchMealPlan(this.props.user);
+    this.props.fetchShoppingList(this.props.user);
   }
 
   handleLogout = () => {
@@ -143,7 +143,7 @@ class Main extends Component {
           <Route
             path="/weeklyplanner"
             component={() => (
-              <WeeklyPlanner mealplan={this.props.mealplan.mealplan} />
+              <WeeklyPlanner mealplan={this.props.mealplan.mealplan} user={this.props.user} />
             )}
           />
           <Route
@@ -159,16 +159,21 @@ class Main extends Component {
           <Route
             path="/pantry"
             component={() => (
-              <Pantry ingredient={this.props.ingredient.ingredient} />
+              <Pantry
+                ingredient={this.props.ingredient.ingredient}
+                user={this.props.user}
+              />
             )}
           />
           <Route
             path="/shoppinglist"
             component={() => (
-              <ShoppingList ingredient={this.props.ingredient.ingredient} />
+              <ShoppingList
+                ingredient={this.props.ingredient.ingredient}
+                user={this.props.user}
+              />
             )}
           />
-
           <Route
             path="/createrecipe"
             component={() => (
@@ -179,8 +184,13 @@ class Main extends Component {
               />
             )}
           />
-        testing functionality of day component
-          <Route path="/daytest" component={() => <DayTest ingredient={this.props.ingredient.ingredient}  />} />
+          testing functionality of day component
+          <Route
+            path="/daytest"
+            component={() => (
+              <DayTest ingredient={this.props.ingredient.ingredient} />
+            )}
+          />
           <Route path="/day" component={() => <Day />} />
           <Route path="/home" component={() => <Home />} />
           <Redirect to="/login" />

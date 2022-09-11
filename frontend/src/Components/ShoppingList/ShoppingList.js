@@ -12,7 +12,7 @@ export default function ShoppingList(props) {
   const shoppingItems = props.ingredient.map((item, index) => {
     return (
       <>
-        <tr className="rows" key={index}>
+        {/* <tr className="rows" key={index}>
           <td>{item.ingredient}</td>
           <td>{item.quantity}</td>
           <td>{item.measurementunit}</td>
@@ -20,7 +20,17 @@ export default function ShoppingList(props) {
           <td><FaRegCheckSquare id="checksquare" /></td>
           <td><FaRegTrashAlt id="trash"/></td>
           <td><FaRegTimesCircle/></td>
-        </tr>
+        </tr> */}
+        <li key={index} id="shopping-list">
+        <FaRegCheckCircle id="checkcircle"/> 
+        <div>
+         {item.ingredient}  
+        </div>
+        <div>{item.quantity}</div>
+         <div>{item.measurementunit}</div>
+        {/* <div className="trash"><FaRegTrashAlt id="trash"/></div> */}
+        <FaRegTrashAlt id="trash"/>
+        </li>
       </>
     );
   });
@@ -29,15 +39,17 @@ export default function ShoppingList(props) {
     <>
       <Navigator />
       <h3>ShoppingList</h3>
-      <Table>
+      {/* <Table>
         <thead>
           <tr>
             <th>Ingredient</th>
             <th>Quantity</th>
           </tr>
-        </thead>
-        <tbody>{shoppingItems}</tbody>
-      </Table>
+        </thead> */}
+       
+        {props.ingredient.length !== 0 &&  <ul id="shopping-items">{shoppingItems} </ul>}
+       
+      {/* </Table> */}
     </>
   );
   //function to remove pantry items

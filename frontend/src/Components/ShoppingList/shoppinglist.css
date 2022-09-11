@@ -5,10 +5,18 @@ li#shopping-list {
     background: rgb(23,28,50);
     background: linear-gradient(90deg, rgba(23,28,50,1) 30%, rgba(23,28,50,0) 100%);
      border-radius: 15px;
+     display: flex;
+    align-items: center;
 }
-#shopping-items{
-   
+
+#checkcircle {
+  margin-right: 20px;
 }
+
+#trash {
+    text-right: 40px;
+}
+
 #trash:hover{
     color:rgb(144, 12, 12)
 }
