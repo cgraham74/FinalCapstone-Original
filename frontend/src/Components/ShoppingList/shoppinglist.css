@@ -1,0 +1,17 @@
+li#shopping-list {
+    padding: 10px 20px;
+    margin-top: 10px;
+    list-style: none;
+    background: rgb(23,28,50);
+    background: linear-gradient(90deg, rgba(23,28,50,1) 30%, rgba(23,28,50,0) 100%);
+     border-radius: 15px;
+}
+#shopping-items{
+   
+}
+#trash:hover{
+    color:rgb(144, 12, 12)
+}
+#checkcircle:hover{
+    color:greenyellow
+}
