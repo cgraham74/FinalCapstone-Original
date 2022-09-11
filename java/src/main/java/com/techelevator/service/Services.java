@@ -82,8 +82,11 @@ public class Services {
         name = "Ed";
 
         List<PantryDTO> usersPantry = new ArrayList<>();
+//        List<PantryIngredient> usersPantryIngredients = new ArrayList<>(pantryIngredientRepository.
+//                pantryIngredientsByUserId(userDao.findIdByUsername(name)));
+
         List<PantryIngredient> usersPantryIngredients = new ArrayList<>(pantryIngredientRepository.
-                pantryIngredientsByUserId(userDao.findIdByUsername(name)));
+                pantryIngredientsByUserId(1L));
 
         for (PantryIngredient usersPantryIngredient : usersPantryIngredients) {
 
