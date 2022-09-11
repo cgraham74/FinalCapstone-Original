@@ -33,8 +33,9 @@ public class MainController {
     public Object[] testGetRecipeTitleFromCategory() {
         return services.testGetRecipeTitleByCategory("Breakfast");
     }
+    //  @GetMapping(path = "/pantry/{user_id}")  This broke the code!
     @PermitAll
-    @GetMapping(path = "/pantry/{user_id}")
+    @GetMapping(path = "/pantry")
     public List<PantryDTO> testGetUsersPantry(@PathVariable("user_id") String user_id) {
         return services.testGetUserPantryDTO(user_id);
     }
