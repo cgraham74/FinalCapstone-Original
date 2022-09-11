@@ -57,7 +57,7 @@ export default function CreateRecipe(props) {
         const { result } = selected;
         console.log(result);
       }
-      fileReader.readAsDataURL(image);
+      // fileReader.readAsDataURL(image);
       
     }
   }
