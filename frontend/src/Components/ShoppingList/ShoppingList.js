@@ -22,12 +22,11 @@ export default function ShoppingList(props) {
           <td><FaRegTimesCircle/></td>
         </tr> */}
         <li key={index} id="shopping-list">
-        <FaRegCheckCircle id="checkcircle"/> 
-        <div>
-         {item.ingredient}  
-        </div>
+       <div><FaRegCheckCircle id="checkcircle"/> 
+          {item.ingredient}  
+       </div> 
         <div>{item.quantity}</div>
-         <div>{item.measurementunit}</div>
+         <div>{item.measurementUnit}</div>
         {/* <div className="trash"><FaRegTrashAlt id="trash"/></div> */}
         <FaRegTrashAlt id="trash"/>
         </li>
