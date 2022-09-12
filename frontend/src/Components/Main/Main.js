@@ -23,7 +23,7 @@ import ShoppingList from "../ShoppingList/ShoppingList";
 import Pantry from "../Pantry/Pantry";
 import CreateRecipe from "../Recipe/CreateRecipe";
 import Day from "../Day/Day";
-import DayTest from "../Meal/DayTest";
+// import DayTest from "../Meal/DayTest";
 
 const mapStateToProps = (state) => {
   return {
@@ -188,11 +188,11 @@ class Main extends Component {
               />
             )}
           />
-          testing functionality of day component
+          {/* testing functionality of day component */}
           <Route
-            path="/daytest"
+            path="/day"
             component={() => (
-              <DayTest newMealSelection={this.props.newMealSelection} />
+              <Day newMealSelection={this.props.newMealSelection} />
             )}
           />
           <Route path="/day" component={() => <Day />} />
