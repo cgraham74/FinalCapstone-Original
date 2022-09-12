@@ -67,7 +67,7 @@ export default function WeeklyPlanner(props) {
                     state: { day: "Monday", meal: "dinner" },
                   }}
                 >
-                  Dinner
+                  Dinner: {props.mealselection.recipename}
                 </Link>
               </ul>
             </Accordion.Body>
@@ -80,7 +80,7 @@ export default function WeeklyPlanner(props) {
               targetid="tuesday"
             >
               <img src={orangedot} alt="large orange dot" />
-              &nbsp; &nbsp; Tuesday
+              &nbsp; &nbsp; Tuesday 
             </Accordion.Header>
             <Accordion.Body accordionid="tuesday">
               <ul className='weeklyplanner-accordion-links'>
@@ -91,7 +91,7 @@ export default function WeeklyPlanner(props) {
                     state: { day: "Tuesday", meal: "breakfast" },
                   }}
                 >
-                  Breakfast 
+                  Breakfast :{props.mealselection.recipename}
                 </Link>
                 <br />
 
@@ -102,7 +102,7 @@ export default function WeeklyPlanner(props) {
                     state: { day: "Tuesday", meal: "lunch" },
                   }}
                 >
-                  Lunch
+                  Lunch : {props.mealselection.recipename}
                 </Link>
                 <br />
                 <Link
@@ -112,7 +112,7 @@ export default function WeeklyPlanner(props) {
                     state: { day: "Tuesday", meal: "dinner" },
                   }}
                 >
-                  Dinner
+                  Dinner : {props.mealselection.recipename}
                 </Link>
               </ul>
             </Accordion.Body>
@@ -136,7 +136,7 @@ export default function WeeklyPlanner(props) {
                     state: { day: "Wednesday", meal: "breakfast" },
                   }}
                 >
-                  Breakfast
+                  Breakfast : {props.mealselection.recipename}
                 </Link>
                 <br />
 
@@ -147,7 +147,7 @@ export default function WeeklyPlanner(props) {
                     state: { day: "Wednesday", meal: "lunch" },
                   }}
                 >
-                  Lunch
+                  Lunch : {props.mealselection.recipename}
                 </Link>
                 <br />
                 <Link
@@ -157,7 +157,7 @@ export default function WeeklyPlanner(props) {
                     state: { day: "Wednesday", meal: "dinner" },
                   }}
                 >
-                  Dinner
+                  Dinner : {props.mealselection.recipename}
                 </Link>
               </ul>
             </Accordion.Body>
@@ -181,7 +181,7 @@ export default function WeeklyPlanner(props) {
                     state: { day: "Thursday", meal: "breakfast" },
                   }}
                 >
-                  Breakfast
+                  Breakfast : {props.mealselection.recipename}
                 </Link>
                 <br />
 
@@ -192,7 +192,7 @@ export default function WeeklyPlanner(props) {
                     state: { day: "Thursday", meal: "lunch" },
                   }}
                 >
-                  Lunch
+                  Lunch : {props.mealselection.recipename}
                 </Link>
                 <br />
                 <Link
@@ -202,7 +202,7 @@ export default function WeeklyPlanner(props) {
                     state: { day: "Thursday", meal: "dinner" },
                   }}
                 >
-                  Dinner
+                  Dinner : {props.mealselection.recipename}
                 </Link>
               </ul>
             </Accordion.Body>
@@ -226,7 +226,7 @@ export default function WeeklyPlanner(props) {
                     state: { day: "friday", meal: "breakfast" },
                   }}
                 >
-                  Breakfast
+                  Breakfast : {props.mealselection.recipename}
                 </Link>
                 <br />
 
@@ -237,7 +237,7 @@ export default function WeeklyPlanner(props) {
                     state: { day: "friday", meal: "lunch" },
                   }}
                 >
-                  Lunch
+                  Lunch : {props.mealselection.recipename}
                 </Link>
                 <br />
                 <Link
@@ -247,7 +247,7 @@ export default function WeeklyPlanner(props) {
                     state: { day: "friday", meal: "dinner" },
                   }}
                 >
-                  Dinner
+                  Dinner : {props.mealselection.recipename}
                 </Link>
               </ul>
             </Accordion.Body>
@@ -271,7 +271,7 @@ export default function WeeklyPlanner(props) {
                     state: { day: "saturday", meal: "breakfast" },
                   }}
                 >
-                  Breakfast
+                  Breakfast : {props.mealselection.recipename}
                 </Link>
                 <br />
 
@@ -282,7 +282,7 @@ export default function WeeklyPlanner(props) {
                     state: { day: "saturday", meal: "lunch" },
                   }}
                 >
-                  Lunch
+                  Lunch : {props.mealselection.recipename}
                 </Link>
                 <br />
                 <Link
@@ -292,7 +292,7 @@ export default function WeeklyPlanner(props) {
                     state: { day: "saturday", meal: "dinner" },
                   }}
                 >
-                  Dinner
+                  Dinner : {props.mealselection.recipename}
                 </Link>
               </ul>
             </Accordion.Body>
@@ -316,7 +316,7 @@ export default function WeeklyPlanner(props) {
                     state: { day: "sunday", meal: "breakfast" },
                   }}
                 >
-                  Breakfast
+                  Breakfast : {props.mealselection.recipename}
                 </Link>
                 <br />
 
@@ -327,7 +327,7 @@ export default function WeeklyPlanner(props) {
                     state: { day: "sunday", meal: "lunch" },
                   }}
                 >
-                  Lunch
+                  Lunch : {props.mealselection.recipename}
                 </Link>
                 <br />
                 <Link
@@ -337,7 +337,7 @@ export default function WeeklyPlanner(props) {
                     state: { day: "sunday", meal: "dinner" },
                   }}
                 >
-                  Dinner
+                  Dinner : {props.mealselection.recipename}
                 </Link>
               </ul>
             </Accordion.Body>
