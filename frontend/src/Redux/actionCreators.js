@@ -198,3 +198,17 @@ export const updateMealPlan = (mealplan) => ({
   type: ActionTypes.UPDATE_MEALPLAN,
   payload: mealplan,
 });
+
+//can change this to fetch
+export const newMealSelection = (day, mealtime, recipename) => (dispatch) => {
+  const newMeal = {
+    day: day, 
+    mealtime: mealtime,
+    recipename: recipename
+  };
+  dispatch(addMealSelection(newMeal));
+}
+export const addMealSelection = (newMeal) => ({
+  type: ActionTypes.ADD_MEALSELECTION,
+  payload: newMeal
+});

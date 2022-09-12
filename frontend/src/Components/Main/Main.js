@@ -13,6 +13,7 @@ import {
   fetchShoppingList,
   deleteRecipe,
   updateRecipe,
+  newMealSelection
 } from "../../Redux/actionCreators";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -26,6 +27,7 @@ import DayTest from "../Meal/DayTest";
 
 const mapStateToProps = (state) => {
   return {
+    mealselection: state.mealselection,
     shoppinglist: state.shoppinglist,
     mealplan: state.mealplan,
     ingredient: state.ingredient,
@@ -98,13 +100,14 @@ const mapDispatchToProps = (dispatch) => ({
         category
       )
     ),
+    newMealSelection: (day, mealtime, recipename) => dispatch(newMealSelection(day, mealtime, recipename))
 });
 
 class Main extends Component {
   constructor(props) {
     super(props);
   }
-
+  
   componentDidMount() {
     this.props.fetchRecipes(this.props.user);
     this.props.fetchPantryItems(this.props.user);
@@ -143,7 +146,8 @@ class Main extends Component {
           <Route
             path="/weeklyplanner"
             component={() => (
-              <WeeklyPlanner mealplan={this.props.mealplan.mealplan} user={this.props.user} />
+              <WeeklyPlanner mealplan={this.props.mealplan.mealplan} user={this.props.user} 
+              mealselection={this.props.mealselection.mealselection}  />
             )}
           />
           <Route
@@ -188,7 +192,7 @@ class Main extends Component {
           <Route
             path="/daytest"
             component={() => (
-              <DayTest ingredient={this.props.ingredient.ingredient} />
+              <DayTest newMealSelection={this.props.newMealSelection} />
             )}
           />
           <Route path="/day" component={() => <Day />} />

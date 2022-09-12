@@ -8,10 +8,12 @@ import { Mealplan } from './mealplan'
 import { ShoppingList } from './shoppinglist'
 import { createForms } from 'react-redux-form';
 import { CreatedRecipe } from './forms'
+import { MealSelection } from './mealselection'
 
 export const ConfigureStore = () => {
     const store = createStore(
         combineReducers({
+            mealselection: MealSelection,
             shoppinglist: ShoppingList,
             mealplan: Mealplan,
             ingredient: Ingredient,

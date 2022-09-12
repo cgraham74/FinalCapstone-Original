@@ -1,7 +1,6 @@
 import React from "react";
 import Navigator from "../navigation/Navigator";
 import { Link } from "react-router-dom";
-// import { useState } from "react";
 import yellowdot from "../../images/yellowdot.png";
 import bluedot from "../../images/bluedot.png";
 import greendot from "../../images/greendot.png";
@@ -10,59 +9,55 @@ import orangedot from "../../images/orangedot.png";
 import pinkdot from "../../images/pinkdot.png";
 import reddot from "../../images/reddot.png";
 import "./weeklyplanner.css";
-// import MovingText from "react-moving-text";
 import Accordion from "react-bootstrap/Accordion";
 
-export default function WeeklyPlanner() {
+export default function WeeklyPlanner(props) {
+  console.log("Meal: " + JSON.stringify(props.mealselection));
+  // const displayMondayBreakfast = props.mealselection.map((item) => {
+  //   if(item.day === "Monday" && item.mealtime === "breakfast") {
+  //       return (<>{item.recipename}</>);
+  //   }
+  // });
+    
+
   return (
     <div  >
       <Navigator/>
       <div >
-        {/* <MovingText
-          type="effect3D"
-          duration="1000ms"
-          delay="0s"
-          direction="normal"
-          timing="ease"
-          iteration="infinite"
-          fillMode="none"
-        >
-         </MovingText> */}
-          <h3 id="weeklyplanner"> Weekly Planner</h3>
-       
+        <h3 id="weeklyplanner"> Weekly Planner</h3>
         </div>
       <div className="weeklyplanner-container" >
         <Accordion defaultActiveKey="1">
           <Accordion.Item>
             <Accordion.Header
               style={{ backgroundColor: "#343a41" }}
-              targetId="monday"
+              targetid="monday"
             >
               <img src={yellowdot} alt="large yellow dot" />
               &nbsp; &nbsp; Monday
             </Accordion.Header>
-            <Accordion.Body accordionId="monday">
+            <Accordion.Body accordionid="monday">
               <ul className='weeklyplanner-accordion-links'>
                 <Link
                   style={{ textDecoration: "none" }}
                   to={{
                     //testing day component
                     pathname: "/daytest",
-                    state: { day: "Monday", meal: "breakfast" },
+                    state: { day: "Monday", meal: "breakfast"}  
                   }}
                 >
-                  Breakfast
+                  Breakfast: {props.mealselection.recipename}
                 </Link>
                 <br />
 
                 <Link
                   style={{ textDecoration: "none" }}
                   to={{
-                    pathname: "/day",
+                    pathname: "/daytest",
                     state: { day: "Monday", meal: "lunch" },
                   }}
                 >
-                  Lunch
+                  Lunch: {props.mealselection.recipename}
                 </Link>
                 <br />
                 <Link
@@ -82,12 +77,12 @@ export default function WeeklyPlanner() {
           <Accordion.Item>
             <Accordion.Header
               style={{ backgroundColor: "#343a41" }}
-              targetId="tuesday"
+              targetid="tuesday"
             >
               <img src={orangedot} alt="large orange dot" />
               &nbsp; &nbsp; Tuesday
             </Accordion.Header>
-            <Accordion.Body accordionId="tuesday">
+            <Accordion.Body accordionid="tuesday">
               <ul className='weeklyplanner-accordion-links'>
                 <Link
                   style={{ textDecoration: "none" }}
@@ -96,7 +91,7 @@ export default function WeeklyPlanner() {
                     state: { day: "Tuesday", meal: "breakfast" },
                   }}
                 >
-                  Breakfast
+                  Breakfast 
                 </Link>
                 <br />
 
@@ -127,12 +122,12 @@ export default function WeeklyPlanner() {
           <Accordion.Item>
             <Accordion.Header
               style={{ backgroundColor: "#343a41" }}
-              targetId="wednesday"
+              targetid="wednesday"
             >
               <img src={greendot} alt="large green dot" />
               &nbsp; &nbsp; Wednesday
             </Accordion.Header>
-            <Accordion.Body accordionId="wednesday">
+            <Accordion.Body accordionid="wednesday">
               <ul className='weeklyplanner-accordion-links'>
                 <Link
                   style={{ textDecoration: "none" }}
@@ -172,12 +167,12 @@ export default function WeeklyPlanner() {
           <Accordion.Item>
             <Accordion.Header
               style={{ backgroundColor: "#343a41" }}
-              targetId="thursday"
+              targetid="thursday"
             >
               <img src={bluedot} alt="large blue dot" />
               &nbsp; &nbsp; Thursday
             </Accordion.Header>
-            <Accordion.Body accordionId="thursday">
+            <Accordion.Body accordionid="thursday">
               <ul className='weeklyplanner-accordion-links'>
                 <Link
                   style={{ textDecoration: "none" }}
@@ -217,12 +212,12 @@ export default function WeeklyPlanner() {
           <Accordion.Item>
             <Accordion.Header
               style={{ backgroundColor: "#343a41" }}
-              targetId="friday"
+              targetid="friday"
             >
               <img src={purpledot} alt="large purple dot" />
               &nbsp; &nbsp; Friday
             </Accordion.Header>
-            <Accordion.Body accordionId="friday">
+            <Accordion.Body accordionid="friday">
               <ul className='weeklyplanner-accordion-links'>
                 <Link
                   style={{ textDecoration: "none" }}
@@ -262,12 +257,12 @@ export default function WeeklyPlanner() {
           <Accordion.Item>
             <Accordion.Header
               style={{ backgroundColor: "#343a41" }}
-              targetId="saturday"
+              targetid="saturday"
             >
               <img src={pinkdot} alt="large pink dot"  />
               &nbsp; &nbsp; Saturday
             </Accordion.Header>
-            <Accordion.Body accordionId="saturday">
+            <Accordion.Body accordionid="saturday">
               <ul className='weeklyplanner-accordion-links'>
                 <Link
                   style={{ textDecoration: "none" }}
@@ -307,12 +302,12 @@ export default function WeeklyPlanner() {
           <Accordion.Item>
             <Accordion.Header
               style={{ backgroundColor: "#343a41" }}
-              targetId="sunday"
+              targetid="sunday"
             >
               <img src={reddot} alt="large red dot" />
               &nbsp; &nbsp; Sunday
             </Accordion.Header>
-            <Accordion.Body accordionId="sunday">
+            <Accordion.Body accordionid="sunday">
               <ul className='weeklyplanner-accordion-links'>
                 <Link
                   style={{ textDecoration: "none" }}
