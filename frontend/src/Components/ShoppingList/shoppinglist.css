@@ -21,8 +21,21 @@ li#shopping-list {
 }
 
 #trash:hover{
-    color:rgb(144, 12, 12)
+    color:rgb(144, 12, 12);
+    
 }
 #checkcircle:hover{
     color:greenyellow
 }
+
+
+.hidebutton{
+    display: none
+}
+
+#shopping-list:hover .hidebutton{
+    
+    display: inline-block; 
+
+}
+

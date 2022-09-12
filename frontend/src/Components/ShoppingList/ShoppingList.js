@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import Navigator from "../navigation/Navigator";
 import "./shoppinglist.css";
-import {FaRegTrashAlt, FaRegCheckCircle, FaRegCheckSquare, FaRegTimesCircle} from "react-icons/fa"
-
+import {
+  FaRegTrashAlt,
+  FaRegCheckCircle,
+  FaRegCheckSquare,
+  FaRegTimesCircle,
+} from "react-icons/fa";
 
 export default function ShoppingList(props) {
-
   const shoppingItem = props.shoppingList.map((item, index) => {
     return (
       <>
@@ -19,13 +22,14 @@ export default function ShoppingList(props) {
           <td><FaRegTimesCircle/></td>
         </tr> */}
         <li key={index} id="shopping-list">
-       <div><FaRegCheckCircle id="checkcircle"/> 
-          {item.ingredientName}  
-       </div> 
-        <div>{item.recipeTitle}</div>
-         <div>{item.measurementUnit}</div>
-        {/* <div className="trash"><FaRegTrashAlt id="trash"/></div> */}
-        <FaRegTrashAlt id="trash"/>
+          <div>
+            <FaRegCheckCircle className="hidebutton" id="checkcircle" />
+            {item.ingredientName}
+          </div>
+          <div className="recipeTitle">{item.recipeTitle}</div>
+          <div>{item.measurementUnit}</div>
+          {/* <div className="trash"><FaRegTrashAlt id="trash"/></div> */}
+          <FaRegTrashAlt className="hidebutton" id="trash" />
         </li>
       </>
     );
@@ -42,9 +46,11 @@ export default function ShoppingList(props) {
             <th>Quantity</th>
           </tr>
         </thead> */}
-       
-        {props.shoppingList.length !== 0 &&  <ul id="shopping-items">{shoppingItem} </ul>}
-       
+
+      {props.shoppingList.length !== 0 && (
+        <ul id="shopping-items">{shoppingItem} </ul>
+      )}
+
       {/* </Table> */}
     </>
   );
