@@ -38,4 +38,6 @@ li#shopping-list {
     display: inline-block; 
 
 }
-
+.shopping-list-item{
+margin-bottom: 0px;
+}

@@ -23,7 +23,7 @@ export default function ShoppingList(props) {
             }}
           >
             {props.purchaseditems.includes(item.ingredientName) ? (
-              <p style={{ textDecorationLine: "line-through", color: "grey" }}>
+              <p style={{ textDecorationLine: "line-through", color: "grey" }} className="shopping-list-item">
                 <FaRegCheckCircle
                   id="checkcircle"
                   style={{ color: "#80F57E" }}
@@ -31,7 +31,7 @@ export default function ShoppingList(props) {
                 {item.ingredientName}
               </p>
             ) : (
-              <p>
+              <p className="shopping-list-item">
                 <FaRegCheckCircle id="checkcircle" />
                 {item.ingredientName}
               </p>
