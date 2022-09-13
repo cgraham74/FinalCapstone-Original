@@ -86,6 +86,50 @@ export const saveRecipe =
     // });
   };
 
+export const updatedRecipe =
+  (
+    recipeid,
+    user_id,
+    title,
+    imageUrl,
+    ingredientList,
+    instructions,
+    servingSize,
+    category
+  ) =>
+  async (dispatch) => {
+  
+    const updateRecipe = {
+      recipeid: recipeid,
+      user_id: user_id,
+      title: title,
+      imageUrl: imageUrl,
+      ingredientList: ingredientList,
+      instructions: instructions,
+      servingSize: servingSize,
+      category: category,
+    };
+    
+      // update
+      await fetch(baseUrl + `/recipe/update/${recipeid}`, {
+        method: "PUT",
+        cache: "no-cache",
+        body: JSON.stringify(updateRecipe),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+          if (response.ok) {
+            alert("Edit Saved!");
+          }
+        })
+        .catch((err) => {
+          console.error("from POST " + err);
+          alert("Could not save card!");
+        });
+  };
+
 export const deleteRecipe = (id) => (dispatch) => {
   console.log("Is this working " + id);
   fetch(baseUrl + "/recipe/delete/" + id, {
@@ -98,11 +142,7 @@ export const deleteRecipe = (id) => (dispatch) => {
       alert("Recipe Deleted");
       return dispatch(deleteRecipe());
     }
-    
   });
-  
- 
-  
 };
 // export const deleteRecipe = (id) => ({
 //   type: ActionTypes.DELETE_RECIPE,
@@ -124,7 +164,6 @@ export const deleteRecipe = (id) => (dispatch) => {
 //The updated and delete as well - use this as a template
 export const fetchPantryItems = (user) => (dispatch) => {
   fetch(baseUrl + "/recipe/pantry")
-  
     .then((response) => {
       return response.json();
     })
@@ -202,13 +241,13 @@ export const updateMealPlan = (mealplan) => ({
 //can change this to fetch
 export const newMealSelection = (day, mealtime, recipename) => (dispatch) => {
   const newMeal = {
-    day: day, 
+    day: day,
     mealtime: mealtime,
-    recipename: recipename
+    recipename: recipename,
   };
   dispatch(addMealSelection(newMeal));
-}
+};
 export const addMealSelection = (newMeal) => ({
   type: ActionTypes.ADD_MEALSELECTION,
-  payload: newMeal
+  payload: newMeal,
 });

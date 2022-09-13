@@ -9,8 +9,10 @@ export const Recipes = (
   switch (action.type) {
     case actionTypes.ADD_RECIPE:
       return { ...state, recipes: action.payload };
+      
     case actionTypes.UPDATE_RECIPE:
       return { ...state, recipes: action.payload };
+
     case actionTypes.DELETE_RECIPE:
       return { ...state, recipes: action.payload };
     default:

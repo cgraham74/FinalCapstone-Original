@@ -12,7 +12,7 @@ import {
   saveRecipe,
   fetchShoppingList,
   deleteRecipe,
-  updateRecipe,
+  updatedRecipe,
   newMealSelection
 } from "../../Redux/actionCreators";
 import { connect } from "react-redux";
@@ -80,7 +80,8 @@ const mapDispatchToProps = (dispatch) => ({
     ),
 
   deleteRecipe: (id) => dispatch(deleteRecipe(id)),
-  updateRecipe: (
+  updatedRecipe: (
+    recipeid,
     user_id,
     title,
     imageUrl,
@@ -90,7 +91,8 @@ const mapDispatchToProps = (dispatch) => ({
     category
   ) =>
     dispatch(
-      updateRecipe(
+      updatedRecipe(
+        recipeid,
         user_id,
         title,
         imageUrl,
@@ -185,6 +187,7 @@ class Main extends Component {
                 user={this.props.user}
                 token={this.props.token}
                 saveRecipe={this.props.saveRecipe}
+                updatedRecipe={this.props.updatedRecipe}
               />
             )}
           />
