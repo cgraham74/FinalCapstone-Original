@@ -1,32 +1,19 @@
 import React, { useState } from "react";
 import Navigator from "../navigation/Navigator";
 import "./shoppinglist.css";
-import {
-  FaRegTrashAlt,
-  FaRegCheckCircle
-} from "react-icons/fa";
+import { FaRegTrashAlt, FaRegCheckCircle } from "react-icons/fa";
 
 export default function ShoppingList(props) {
-  const [selectedIngredients, setSelectedIngredients] = useState([]);
-  const [shoppingList, setShoppingList] = useState(props.shoppingList);
-
   //All things in here persist as an array of ingredients
   const purchasedIngredient = (ingredientName) => {
-    if (selectedIngredients.includes(ingredientName)) {
-      setSelectedIngredients(
-        selectedIngredients.filter((item) => item !== ingredientName)
-      );
+    if (props.purchaseditems.includes(ingredientName)) {
+      props.deletePurchasedItem(ingredientName);
     } else {
-      setSelectedIngredients([...selectedIngredients, ingredientName]);
+      props.addPurchasedItem(ingredientName);
     }
   };
 
-  console.log(
-    "Selected ingredients line 17: Shopping List Component: " +
-      selectedIngredients
-  );
-
-  const shoppingItem = shoppingList.map((item, index) => {
+  const shoppingItem = props.shoppingList.map((item, index) => {
     return (
       <>
         <li key={index} id="shopping-list">
@@ -35,7 +22,7 @@ export default function ShoppingList(props) {
               purchasedIngredient(item.ingredientName);
             }}
           >
-            {selectedIngredients.includes(item.ingredientName) ? (
+            {props.purchaseditems.includes(item.ingredientName) ? (
               <p style={{ textDecorationLine: "line-through", color: "grey" }}>
                 <FaRegCheckCircle
                   id="checkcircle"
@@ -52,7 +39,11 @@ export default function ShoppingList(props) {
           </div>
           <div className="recipeTitle">{item.recipeTitle}</div>
           <div>{item.measurementUnit}</div>
-          <FaRegTrashAlt className="hidebutton" id="trash" />
+          <FaRegTrashAlt
+            className="hidebutton"
+            id="trash"
+            onClick={() => props.deleteShoppingList(item.ingredientName)}
+          />
         </li>
       </>
     );

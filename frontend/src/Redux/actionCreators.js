@@ -251,3 +251,13 @@ export const addMealSelection = (newMeal) => ({
   type: ActionTypes.ADD_MEALSELECTION,
   payload: newMeal,
 });
+
+export const addPurchasedItem = (newitem) => ({
+    type: ActionTypes.ADD_PURCHASED_ITEMS,
+    payload: newitem,
+  });
+
+  export const deletePurchasedItem = (newitem) => ({
+    type: ActionTypes.DELETE_PURCHASED_ITEMS,
+    payload: newitem,
+  });

@@ -13,7 +13,10 @@ import {
   fetchShoppingList,
   deleteRecipe,
   updatedRecipe,
-  newMealSelection
+  newMealSelection,
+  deleteShoppingList,
+  deletePurchasedItem,
+  addPurchasedItem
 } from "../../Redux/actionCreators";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -27,6 +30,7 @@ import Day from "../Day/Day";
 
 const mapStateToProps = (state) => {
   return {
+    purchaseditems: state.purchaseditems,
     mealselection: state.mealselection,
     shoppinglist: state.shoppinglist,
     mealplan: state.mealplan,
@@ -102,7 +106,10 @@ const mapDispatchToProps = (dispatch) => ({
         category
       )
     ),
-    newMealSelection: (day, mealtime, recipename) => dispatch(newMealSelection(day, mealtime, recipename))
+    newMealSelection: (day, mealtime, recipename) => dispatch(newMealSelection(day, mealtime, recipename)),
+    deleteShoppingList: (item) => dispatch(deleteShoppingList(item)),
+    deletePurchasedItem:(item) => dispatch(deletePurchasedItem(item)),
+    addPurchasedItem:(item) => dispatch(addPurchasedItem(item)),
 });
 
 class Main extends Component {
@@ -177,6 +184,10 @@ class Main extends Component {
               <ShoppingList
                 shoppingList={this.props.shoppinglist.shoppinglist}
                 user={this.props.user}
+                deleteShoppingList={this.props.deleteShoppingList}
+                addPurchasedItem={this.props.addPurchasedItem}
+                deletePurchasedItem={this.props.deletePurchasedItem}
+                purchaseditems={this.props.purchaseditems.purchaseditems}
               />
             )}
           />
