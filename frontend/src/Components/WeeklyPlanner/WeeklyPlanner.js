@@ -1,3 +1,4 @@
+/* eslint-disable default-case */
 import React from "react";
 import Navigator from "../navigation/Navigator";
 import { Link } from "react-router-dom";
@@ -13,20 +14,210 @@ import Accordion from "react-bootstrap/Accordion";
 
 export default function WeeklyPlanner(props) {
   console.log("Meal: " + JSON.stringify(props.mealselection));
-  // const displayMondayBreakfast = props.mealselection.map((item) => {
-  //   if(item.day === "Monday" && item.mealtime === "breakfast") {
-  //       return (<>{item.recipename}</>);
-  //   }
-  // });
-    
+
+  const displayMondayBreakfast = props.mealselection.map((item) => {
+    if (item.day === "Monday" && item.mealtime === "breakfast") {
+      return <>{item.recipename}</>;
+    }
+  });
+  const displayMondayLunch = props.mealselection.map((item) => {
+    if (item.day === "Monday" && item.mealtime === "lunch") {
+      return <>{item.recipename}</>;
+    } else {
+      return <></>;
+    }
+  });
+  const displayMondayDinner = props.mealselection.map((item) => {
+    if (item.day === "Monday" && item.mealtime === "dinner") {
+      return <>{item.recipename}</>;
+    }
+  });
+  const displayTuesdayBreakfast = props.mealselection.map((item) => {
+    if (item.day === "Tuesday" && item.mealtime === "breakfast") {
+      return <>{item.recipename}</>;
+    }
+  });
+  const displayTuesdayLunch = props.mealselection.map((item) => {
+    if (item.day === "Tuesday" && item.mealtime === "lunch") {
+      return <>{item.recipename}</>;
+    }
+  });
+  const displayTuesdayDinner = props.mealselection.map((item) => {
+    if (item.day === "Tuesday" && item.mealtime === "dinner") {
+      return <>{item.recipename}</>;
+    }
+  });
+  const displayWednesdayBreakfast = props.mealselection.map((item) => {
+    if (item.day === "Wednesday" && item.mealtime === "breakfast") {
+      return <>{item.recipename}</>;
+    } else {
+      return <></>;
+    }
+  });
+  const displayWednesdayLunch = props.mealselection.map((item) => {
+    if (item.day === "Wednesday" && item.mealtime === "lunch") {
+      return <>{item.recipename}</>;
+    } else {
+      return <></>;
+    }
+  });
+  const displayWednesdayDinner = props.mealselection.map((item) => {
+    if (item.day === "Wednesday" && item.mealtime === "dinner") {
+      return <>{item.recipename}</>;
+    } else {
+      return <></>;
+    }
+  });
+
+  const displayThursdayBreakfast = props.mealselection.map((item) => {
+    if (item.day === "Thursday" && item.mealtime === "breakfast") {
+      return <>{item.recipename}</>;
+    } else {
+      return <></>;
+    }
+  });
+  const displayThursdayLunch = props.mealselection.map((item) => {
+    if (item.day === "Thursday" && item.mealtime === "lunch") {
+      return <>{item.recipename}</>;
+    } else {
+      return <></>;
+    }
+  });
+  const displayThursdayDinner = props.mealselection.map((item) => {
+    if (item.day === "Thursday" && item.mealtime === "dinner") {
+      return <>{item.recipename}</>;
+    } else {
+      return <></>;
+    }
+  });
+
+  const displayFridayBreakfast = props.mealselection.map((item) => {
+    if (item.day === "Friday" && item.mealtime === "breakfast") {
+      return <>{item.recipename}</>;
+    } else {
+      return <></>;
+    }
+  });
+  const displayFridayLunch = props.mealselection.map((item) => {
+    if (item.day === "Friday" && item.mealtime === "lunch") {
+      return <>{item.recipename}</>;
+    } else {
+      return <></>;
+    }
+  });
+  const displayFridayDinner = props.mealselection.map((item) => {
+    if (item.day === "Friday" && item.mealtime === "dinner") {
+      return <>{item.recipename}</>;
+    } else {
+      return <></>;
+    }
+  });
+  const displaySaturdayBreakfast = props.mealselection.map((item) => {
+    if (item.day === "Saturday" && item.mealtime === "breakfast") {
+      return <>{item.recipename}</>;
+    } else {
+      return <></>;
+    }
+  });
+  const displaySaturdayLunch = props.mealselection.map((item) => {
+    if (item.day === "Saturday" && item.mealtime === "lunch") {
+      return <>{item.recipename}</>;
+    } else {
+      return <></>;
+    }
+  });
+  const displaySaturdayDinner = props.mealselection.map((item) => {
+    if (item.day === "Saturday" && item.mealtime === "dinner") {
+      return <>{item.recipename}</>;
+    } else {
+      return <></>;
+    }
+  });
+
+  const displaySundayBreakfast = props.mealselection.map((item) => {
+    if (item.day === "Sunday" && item.mealtime === "breakfast") {
+      return <>{item.recipename}</>;
+    } else {
+      return <></>;
+    }
+  });
+  const displaySundayLunch = props.mealselection.map((item) => {
+    if (item.day === "Sunday" && item.mealtime === "lunch") {
+      return <>{item.recipename}</>;
+    } else {
+      return <></>;
+    }
+  });
+  const displaySundayDinner = props.mealselection.map((item) => {
+    if (item.day === "Sunday" && item.mealtime === "dinner") {
+      return <>{item.recipename}</>;
+    } else {
+      return <></>;
+    }
+  });
+
+  const displayMeal = props.mealselection.map((item) => {
+    switch (item) {
+      case item.day === "Monday" && item.mealtime === "breakfast":
+        return <>{item.recipename}</>;
+      case item.day === "Monday" && item.mealtime === "lunch":
+        return <>{item.recipename}</>;
+      case item.day === "Monday" && item.mealtime === "dinner":
+        return <>{item.recipename}</>;
+
+      case item.day === "Tuesday" && item.mealtime === "breakfast":
+        return <>{item.recipename}</>;
+      case item.day === "Tuesday" && item.mealtime === "lunch":
+        return <>{item.recipename}</>;
+      case item.day === "Tuesday" && item.mealtime === "dinner":
+        return <>{item.recipename}</>;
+
+      case item.day === "Wednesday" && item.mealtime === "breakfast":
+        return <>{item.recipename}</>;
+      case item.day === "Wednesday" && item.mealtime === "lunch":
+        return <>{item.recipename}</>;
+      case item.day === "Wednesday" && item.mealtime === "dinner":
+        return <>{item.recipename}</>;
+
+      case item.day === "Thursday" && item.mealtime === "breakfast":
+        return <>{item.recipename}</>;
+      case item.day === "Thursday" && item.mealtime === "lunch":
+        return <>{item.recipename}</>;
+      case item.day === "Thursday" && item.mealtime === "dinner":
+        return <>{item.recipename}</>;
+
+      case item.day === "Friday" && item.mealtime === "breakfast":
+        return <>{item.recipename}</>;
+      case item.day === "Friday" && item.mealtime === "lunch":
+        return <>{item.recipename}</>;
+      case item.day === "Friday" && item.mealtime === "dinner":
+        return <>{item.recipename}</>;
+
+      case item.day === "Saturday" && item.mealtime === "breakfast":
+        return <>{item.recipename}</>;
+      case item.day === "Saturday" && item.mealtime === "lunch":
+        return <>{item.recipename}</>;
+      case item.day === "Saturday" && item.mealtime === "dinner":
+        return <>{item.recipename}</>;
+
+      case item.day === "Sunday" && item.mealtime === "breakfast":
+        return <>{item.recipename}</>;
+      case item.day === "Sunday" && item.mealtime === "lunch":
+        return <>{item.recipename}</>;
+      case item.day === "Sunday" && item.mealtime === "dinner":
+        return <>{item.recipename}</>;
+      default:
+        return "Test";
+    }
+  });
 
   return (
-    <div  >
-      <Navigator/>
-      <div >
+    <div>
+      <Navigator />
+      <div>
         <h3 id="weeklyplanner"> Weekly Planner</h3>
-        </div>
-      <div className="weeklyplanner-container" >
+      </div>
+      <div className="weeklyplanner-container">
         <Accordion defaultActiveKey="1">
           <Accordion.Item>
             <Accordion.Header
@@ -37,16 +228,16 @@ export default function WeeklyPlanner(props) {
               &nbsp; &nbsp; Monday
             </Accordion.Header>
             <Accordion.Body accordionid="monday">
-              <ul className='weeklyplanner-accordion-links'>
+              <ul className="weeklyplanner-accordion-links">
                 <Link
                   style={{ textDecoration: "none" }}
                   to={{
                     //testing day component
                     pathname: "/day",
-                    state: { day: "Monday", meal: "breakfast"}  
+                    state: { day: "Monday", meal: "breakfast" },
                   }}
                 >
-                  Breakfast: {props.mealselection.recipename}
+                  Breakfast: {displayMondayBreakfast}
                 </Link>
                 <br />
 
@@ -57,7 +248,7 @@ export default function WeeklyPlanner(props) {
                     state: { day: "Monday", meal: "lunch" },
                   }}
                 >
-                  Lunch: {props.mealselection.recipename}
+                  Lunch: {displayMondayLunch}
                 </Link>
                 <br />
                 <Link
@@ -67,7 +258,7 @@ export default function WeeklyPlanner(props) {
                     state: { day: "Monday", meal: "dinner" },
                   }}
                 >
-                  Dinner: {props.mealselection.recipename}
+                  Dinner: {displayMondayDinner}
                 </Link>
               </ul>
             </Accordion.Body>
@@ -80,10 +271,10 @@ export default function WeeklyPlanner(props) {
               targetid="tuesday"
             >
               <img src={orangedot} alt="large orange dot" />
-              &nbsp; &nbsp; Tuesday 
+              &nbsp; &nbsp; Tuesday
             </Accordion.Header>
             <Accordion.Body accordionid="tuesday">
-              <ul className='weeklyplanner-accordion-links'>
+              <ul className="weeklyplanner-accordion-links">
                 <Link
                   style={{ textDecoration: "none" }}
                   to={{
@@ -91,7 +282,7 @@ export default function WeeklyPlanner(props) {
                     state: { day: "Tuesday", meal: "breakfast" },
                   }}
                 >
-                  Breakfast :{props.mealselection.recipename}
+                  Breakfast :{displayTuesdayBreakfast}
                 </Link>
                 <br />
 
@@ -102,7 +293,7 @@ export default function WeeklyPlanner(props) {
                     state: { day: "Tuesday", meal: "lunch" },
                   }}
                 >
-                  Lunch : {props.mealselection.recipename}
+                  Lunch : {displayTuesdayLunch}
                 </Link>
                 <br />
                 <Link
@@ -112,7 +303,7 @@ export default function WeeklyPlanner(props) {
                     state: { day: "Tuesday", meal: "dinner" },
                   }}
                 >
-                  Dinner : {props.mealselection.recipename}
+                  Dinner : {displayTuesdayDinner}
                 </Link>
               </ul>
             </Accordion.Body>
@@ -128,7 +319,7 @@ export default function WeeklyPlanner(props) {
               &nbsp; &nbsp; Wednesday
             </Accordion.Header>
             <Accordion.Body accordionid="wednesday">
-              <ul className='weeklyplanner-accordion-links'>
+              <ul className="weeklyplanner-accordion-links">
                 <Link
                   style={{ textDecoration: "none" }}
                   to={{
@@ -136,7 +327,7 @@ export default function WeeklyPlanner(props) {
                     state: { day: "Wednesday", meal: "breakfast" },
                   }}
                 >
-                  Breakfast : {props.mealselection.recipename}
+                  Breakfast : {displayWednesdayBreakfast}
                 </Link>
                 <br />
 
@@ -147,7 +338,7 @@ export default function WeeklyPlanner(props) {
                     state: { day: "Wednesday", meal: "lunch" },
                   }}
                 >
-                  Lunch : {props.mealselection.recipename}
+                  Lunch : {displayWednesdayLunch}
                 </Link>
                 <br />
                 <Link
@@ -157,7 +348,7 @@ export default function WeeklyPlanner(props) {
                     state: { day: "Wednesday", meal: "dinner" },
                   }}
                 >
-                  Dinner : {props.mealselection.recipename}
+                  Dinner : {displayWednesdayDinner}
                 </Link>
               </ul>
             </Accordion.Body>
@@ -173,7 +364,7 @@ export default function WeeklyPlanner(props) {
               &nbsp; &nbsp; Thursday
             </Accordion.Header>
             <Accordion.Body accordionid="thursday">
-              <ul className='weeklyplanner-accordion-links'>
+              <ul className="weeklyplanner-accordion-links">
                 <Link
                   style={{ textDecoration: "none" }}
                   to={{
@@ -181,7 +372,7 @@ export default function WeeklyPlanner(props) {
                     state: { day: "Thursday", meal: "breakfast" },
                   }}
                 >
-                  Breakfast : {props.mealselection.recipename}
+                  Breakfast : {displayThursdayBreakfast}
                 </Link>
                 <br />
 
@@ -192,7 +383,7 @@ export default function WeeklyPlanner(props) {
                     state: { day: "Thursday", meal: "lunch" },
                   }}
                 >
-                  Lunch : {props.mealselection.recipename}
+                  Lunch : {displayThursdayLunch}
                 </Link>
                 <br />
                 <Link
@@ -202,7 +393,7 @@ export default function WeeklyPlanner(props) {
                     state: { day: "Thursday", meal: "dinner" },
                   }}
                 >
-                  Dinner : {props.mealselection.recipename}
+                  Dinner : {displayThursdayDinner}
                 </Link>
               </ul>
             </Accordion.Body>
@@ -218,15 +409,15 @@ export default function WeeklyPlanner(props) {
               &nbsp; &nbsp; Friday
             </Accordion.Header>
             <Accordion.Body accordionid="friday">
-              <ul className='weeklyplanner-accordion-links'>
+              <ul className="weeklyplanner-accordion-links">
                 <Link
                   style={{ textDecoration: "none" }}
                   to={{
                     pathname: "/day",
-                    state: { day: "friday", meal: "breakfast" },
+                    state: { day: "Friday", meal: "breakfast" },
                   }}
                 >
-                  Breakfast : {props.mealselection.recipename}
+                  Breakfast : {displayFridayBreakfast}
                 </Link>
                 <br />
 
@@ -234,20 +425,20 @@ export default function WeeklyPlanner(props) {
                   style={{ textDecoration: "none" }}
                   to={{
                     pathname: "/day",
-                    state: { day: "friday", meal: "lunch" },
+                    state: { day: "Friday", meal: "lunch" },
                   }}
                 >
-                  Lunch : {props.mealselection.recipename}
+                  Lunch : {displayFridayLunch}
                 </Link>
                 <br />
                 <Link
                   style={{ textDecoration: "none" }}
                   to={{
                     pathname: "/day",
-                    state: { day: "friday", meal: "dinner" },
+                    state: { day: "Friday", meal: "dinner" },
                   }}
                 >
-                  Dinner : {props.mealselection.recipename}
+                  Dinner : {displayFridayDinner}
                 </Link>
               </ul>
             </Accordion.Body>
@@ -259,19 +450,19 @@ export default function WeeklyPlanner(props) {
               style={{ backgroundColor: "#343a41" }}
               targetid="saturday"
             >
-              <img src={pinkdot} alt="large pink dot"  />
+              <img src={pinkdot} alt="large pink dot" />
               &nbsp; &nbsp; Saturday
             </Accordion.Header>
             <Accordion.Body accordionid="saturday">
-              <ul className='weeklyplanner-accordion-links'>
+              <ul className="weeklyplanner-accordion-links">
                 <Link
                   style={{ textDecoration: "none" }}
                   to={{
                     pathname: "/day",
-                    state: { day: "saturday", meal: "breakfast" },
+                    state: { day: "Saturday", meal: "breakfast" },
                   }}
                 >
-                  Breakfast : {props.mealselection.recipename}
+                  Breakfast : {displaySaturdayBreakfast}
                 </Link>
                 <br />
 
@@ -279,20 +470,20 @@ export default function WeeklyPlanner(props) {
                   style={{ textDecoration: "none" }}
                   to={{
                     pathname: "/day",
-                    state: { day: "saturday", meal: "lunch" },
+                    state: { day: "Saturday", meal: "lunch" },
                   }}
                 >
-                  Lunch : {props.mealselection.recipename}
+                  Lunch : {displaySaturdayLunch}
                 </Link>
                 <br />
                 <Link
                   style={{ textDecoration: "none" }}
                   to={{
                     pathname: "/day",
-                    state: { day: "saturday", meal: "dinner" },
+                    state: { day: "Saturday", meal: "dinner" },
                   }}
                 >
-                  Dinner : {props.mealselection.recipename}
+                  Dinner : {displaySaturdayDinner}
                 </Link>
               </ul>
             </Accordion.Body>
@@ -308,15 +499,15 @@ export default function WeeklyPlanner(props) {
               &nbsp; &nbsp; Sunday
             </Accordion.Header>
             <Accordion.Body accordionid="sunday">
-              <ul className='weeklyplanner-accordion-links'>
+              <ul className="weeklyplanner-accordion-links">
                 <Link
                   style={{ textDecoration: "none" }}
                   to={{
                     pathname: "/day",
-                    state: { day: "sunday", meal: "breakfast" },
+                    state: { day: "Sunday", meal: "breakfast" },
                   }}
                 >
-                  Breakfast : {props.mealselection.recipename}
+                  Breakfast : {displaySundayBreakfast}
                 </Link>
                 <br />
 
@@ -324,20 +515,20 @@ export default function WeeklyPlanner(props) {
                   style={{ textDecoration: "none" }}
                   to={{
                     pathname: "/day",
-                    state: { day: "sunday", meal: "lunch" },
+                    state: { day: "Sunday", meal: "lunch" },
                   }}
                 >
-                  Lunch : {props.mealselection.recipename}
+                  Lunch : {displaySundayLunch}
                 </Link>
                 <br />
                 <Link
                   style={{ textDecoration: "none" }}
                   to={{
                     pathname: "/day",
-                    state: { day: "sunday", meal: "dinner" },
+                    state: { day: "Sunday", meal: "dinner" },
                   }}
                 >
-                  Dinner : {props.mealselection.recipename}
+                  Dinner : {displaySundayDinner}
                 </Link>
               </ul>
             </Accordion.Body>
