@@ -13,7 +13,7 @@ import {
   Col,
   Row,
 } from "reactstrap";
-import { useLocation } from "react-router";
+import { useLocation } from "react-router-dom";
 
 export default function CreateRecipe(props) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -28,6 +28,39 @@ export default function CreateRecipe(props) {
   const [category, setCategory] = useState("Category");
   const [recipe, setRecipe] = useState({});
   const [image, setImage] = useState(null);
+  const location = useLocation(); //console.log(location);
+  //console.log(location.state.saveRecipe.saveRecipe.title);
+  //const [saveRecipe,setSaveRecipe] = useState(props.saveRecipe);
+  let saveRecipe = {
+    user_id: "",
+    title: "",
+    imageUrl: "",
+    ingredientList: {name:" ",quantity:"",measurementunit:""},
+    instructions: "",
+    servingSize: "",
+    category: "",
+  };
+
+  //let recservingSize="";
+  if (location.state === undefined) {
+    console.log("undefined location");
+    saveRecipe.title = "Recipe name...";
+    saveRecipe.servingSize = "Serving size...";
+    saveRecipe.ingredientList = {
+      name: "Ingredient name...",
+      quantity: "Amount needed...",
+      measurementunit: "Large, Tsp, Cup etc",
+    };
+    saveRecipe.instructions = "Cooking instructions.."
+  } else {
+    saveRecipe.title = location.state.saveRecipe.saveRecipe.title;
+    saveRecipe.servingSize = location.state.saveRecipe.saveRecipe.servingSize;
+    saveRecipe.ingredientList = location.state.saveRecipe.saveRecipe.ingredientList;
+    console.log(saveRecipe.ingredientList.name)
+    saveRecipe.instructions = location.state.saveRecipe.saveRecipe.instructions;
+    };
+
+  
 
   //corrected the input to saveRecipes so object can be created
   function handleSubmit(values) {
@@ -45,23 +78,21 @@ export default function CreateRecipe(props) {
     // resetForm(values)
   }
 
-  const imgFileHandler=(e) =>{
+  const imgFileHandler = (e) => {
     e.preventDefault();
     let selected = e.target.files[0];
-    if (selected){
+    if (selected) {
       setImage(selected);
       // console.log("Logging Image"+ image.name + " Where from? " + image.URL);
       // File.Copy(image, `../../images/${image.name}`)
       const fileReader = new FileReader();
-      fileReader.onChange = (e) =>{
+      fileReader.onChange = (e) => {
         const { result } = selected;
         console.log(result);
-      }
+      };
       // fileReader.readAsDataURL(image);
-      
     }
-  }
-
+  };
 
   function resetForm(values) {
     setRecipe({});
@@ -128,7 +159,7 @@ export default function CreateRecipe(props) {
               <Input
                 id="title"
                 name="title"
-                placeholder="Recipe name..."
+                placeholder={saveRecipe.title}
                 type="text"
                 onChange={(e) => setTitle(e.target.value)}
               ></Input>
@@ -142,10 +173,10 @@ export default function CreateRecipe(props) {
               <Input
                 id="servingsize"
                 name="servingsize"
-                placeholder="Serving size..."
+                placeholder={saveRecipe.servingSize}
                 pattern="[0-9]*"
                 type="text"
-                value={servingSize}
+                //value={saveRecipe.servingSize}
                 onChange={(e) =>
                   setServingSize((v) =>
                     e.target.validity.valid ? e.target.value : v
@@ -155,17 +186,17 @@ export default function CreateRecipe(props) {
             </Col>
           </Row>
           <Row className="form-group">
-          <Col md={10}>
+            <Col md={10}>
               <Input
                 className="image"
                 id="image"
                 type="file"
                 accept="image/*"
-                onChange={imgFileHandler
-               
-                    // localStorage.setItem(image, reader.result);
-                    // "src/images",
-                 
+                onChange={
+                  imgFileHandler
+
+                  // localStorage.setItem(image, reader.result);
+                  // "src/images",
                 }
               />
               {image && (
@@ -203,7 +234,6 @@ export default function CreateRecipe(props) {
                 </DropdownMenu>
               </Dropdown>
             </Col>
-         
           </Row>
           {/* TODO: 
           ADD: Delete function to be able to remove individual ingredient from list incase of ooopsies */}
@@ -214,7 +244,7 @@ export default function CreateRecipe(props) {
                 id="ingredients"
                 name="ingredients"
                 type="text"
-                placeholder="Ingredient name..."
+                placeholder={saveRecipe.ingredientList.name}
                 onChange={(e) => setIngredientName(e.target.value)}
                 value={ingredientName}
               />
@@ -255,7 +285,6 @@ export default function CreateRecipe(props) {
               >
                 Add
               </Button>
-
             </Col>
           </Row>
           <Table>
@@ -275,16 +304,16 @@ export default function CreateRecipe(props) {
               id="instructions"
               name="instructions"
               type="textarea"
-              placeholder="Cooking instructions..."
+              placeholder={saveRecipe.instructions}
               rows="8"
               onChange={(e) => setInstruction(e.target.value)}
             />
           </Row>
           <div id="submit-button-container">
             <Button type="submit" id="submit-recipe">
-            Submit
-          </Button>
-          </div> 
+              Submit
+            </Button>
+          </div>
         </Form>
       </div>
     </div>

@@ -9,12 +9,15 @@ import {
   Button,
 } from "reactstrap";
 import "./recipe.css";
+import { Link } from "react-router-dom";
 import { FadeTransform, Fade, Stagger } from "react-animation-components";
+import { saveRecipe } from "../../Redux/actionCreators";
+import CreateRecipe from "./CreateRecipe";
 // import img from '../../RecipeImages/chickenFriedSteak.jpg'
 
 function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
-// function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
-  
+  // function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
+
   const ingredients = recipeCard.ingredientList.map((item, index) => {
     return (
       <li key={index} id="ingredient">
@@ -22,8 +25,19 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
       </li>
     );
   });
+
+  // editHandler=(e)=>{
+  let saveRecipe = {
+    user_id: "",
+    title: "pancake",
+    imageUrl: "imageUrl",
+    ingredientList: [],
+    instructions: "",
+    servingSize: "servingSize",
+    category: "category",
+  };
+  //}
   return (
-  
     <Fade in>
       <Card style={{ width: "30rem" }} id="recipecard">
         <CardBody>
@@ -43,8 +57,24 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
           <h5>Instructions:</h5> {recipeCard.instructions}
           {/* </CardText> */}
           <div id="recipe-update-delete">
-            <Button onClick={editHandler} id="update">
-              Update
+            <Button
+              onClick={() => {
+                saveRecipe.title = recipeCard.title;
+                saveRecipe.servingSize = recipeCard.servingSize;
+                saveRecipe.ingredientList = recipeCard.ingredientList;
+                saveRecipe.instructions = recipeCard.instructions;
+              }}
+              id="update"
+            >
+              <Link
+                style={{ textDecoration: "none" }}
+                to={{
+                  pathname: "/createrecipe",
+                  state: { saveRecipe: { saveRecipe } },
+                }}
+              >
+                Update
+              </Link>
             </Button>
             {/* <Button onClick={() => deleteHandler(recipeCard.recipeid)} id="delete">
               Delete
@@ -66,7 +96,6 @@ export default function SavedRecipes(props) {
             deleteHandler={props.deleteRecipe}
             // editHandler={props.editHandler}
             recipeCard={item}
-          
           />
         </Stagger>
       </>
