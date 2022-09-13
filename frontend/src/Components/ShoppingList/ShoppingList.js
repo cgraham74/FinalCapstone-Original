@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import Navigator from "../navigation/Navigator";
 import "./shoppinglist.css";
 import { FaRegTrashAlt, FaRegCheckCircle } from "react-icons/fa";
+import { Button } from "react-bootstrap";
 
 export default function ShoppingList(props) {
   //All things in here persist as an array of ingredients
@@ -13,6 +14,10 @@ export default function ShoppingList(props) {
     }
   };
 
+  function submitPurchasedItems() {
+
+  }
+  
   const shoppingItem = props.shoppingList.map((item, index) => {
     return (
       <>
@@ -57,6 +62,8 @@ export default function ShoppingList(props) {
       {props.shoppingList.length !== 0 && (
         <ul id="shopping-items">{shoppingItem} </ul>
       )}
+      <br></br>
+      <Button onClick={() => submitPurchasedItems()}>Submit Purchases</Button>
     </>
   );
 }
