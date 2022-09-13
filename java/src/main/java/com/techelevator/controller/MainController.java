@@ -72,7 +72,6 @@ public class MainController {
     @PermitAll
     @GetMapping(path = "/shoppinglist")
     public List<ShoppingListDTO> shoppingList(String name) {
-        name = "Ed";
         return services.getMealPlanSHoppingListFromUser(name);
     }
 

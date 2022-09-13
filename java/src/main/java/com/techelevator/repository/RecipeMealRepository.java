@@ -12,4 +12,5 @@ public interface  RecipeMealRepository extends JpaRepository<RecipeMeal, Integer
     @Query("SELECT r.recipeid FROM RecipeMeal r WHERE r.mealid = :mealid")
     Integer getRecipeIdFromMealId(@Param("mealid") Integer mealid);
 
+
 }

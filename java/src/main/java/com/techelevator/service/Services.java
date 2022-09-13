@@ -13,15 +13,25 @@ import java.util.*;
 @Service
 public class Services {
 
-    @Autowired PantryRepository pantryRepository;
-    @Autowired PantryIngredientRepository pantryIngredientRepository;
-    @Autowired IngredientRepository ingredientRepository;
-    @Autowired RecipeRepository recipeRepository;
-    @Autowired RecipeIngredientRepository recipeIngredientRepository;
-    @Autowired MealPlanRepository mealPlanRepository;
-    @Autowired MealRepository mealRepository;
-    @Autowired RecipeMealRepository recipeMealRepository;
-    @Autowired MealPlanMealRepository mealPlanMealRepository;
+    @Autowired
+    PantryRepository pantryRepository;
+    @Autowired
+    PantryIngredientRepository pantryIngredientRepository;
+    @Autowired
+    IngredientRepository ingredientRepository;
+    @Autowired
+    RecipeRepository recipeRepository;
+    @Autowired
+    RecipeIngredientRepository recipeIngredientRepository;
+    @Autowired
+    MealPlanRepository mealPlanRepository;
+    @Autowired
+    MealRepository mealRepository;
+    @Autowired
+    RecipeMealRepository recipeMealRepository;
+    @Autowired
+    MealPlanMealRepository mealPlanMealRepository;
+    @Autowired
     UserDao userDao;
 
     //For when we're using Principle names.
@@ -44,34 +54,17 @@ public class Services {
 
     public List<ShoppingListDTO> getMealPlanSHoppingListFromUser(String name) {
 
-        String ingredientName;
-        String recipeTitle;
-        List<ShoppingListDTO> recipeShoppingList = new ArrayList<>();
-//        MealPlan mealplan = mealPlanRepository.getMealPlanFromId(7L);
+        //PLACEHOLDER---
+        name = "Ed";
+        //--------------
+        List<ShoppingListDTO> shoppingList = new ArrayList<>();
+        List<String> ingredientNames = new ArrayList<>(recipeIngredientRepository.getListOfIngredientNames(
+                mealPlanRepository.getMealPlanIdFromUserId(userDao.findIdByUsername(name))));
 
-        List<MealPlan> mealPlanList = new ArrayList<>(mealPlanRepository.getMealPlanListFromUserId(7L));
-
-        for (MealPlan mealPlans : mealPlanList) {
-
-            List<MealPlanMeal> mealPlanMealList = new ArrayList<>(mealPlanMealRepository.getMealPlanMealList(mealPlans.getMealplanid()));
-
-            for (MealPlanMeal mealPlanMeal : mealPlanMealList) {
-
-                List<RecipeIngredient> recipeIngredients = new ArrayList<>(
-                        recipeIngredientRepository.getRecipeIngredients(recipeMealRepository.getRecipeIdFromMealId(mealPlanMeal.getMealid())));
-
-
-                for (RecipeIngredient recipeIngredient : recipeIngredients) {
-
-                    ingredientName = ingredientRepository.getOne(recipeIngredient.getIngredientid()).getName();
-                    recipeTitle = recipeRepository.getOne(recipeIngredient.getRecipeid()).getTitle();
-
-                    ShoppingListDTO shoppingListDTO = new ShoppingListDTO(ingredientName, recipeTitle);
-                    recipeShoppingList.add(shoppingListDTO);
-                }
-            }
+        for (String ingredientName : ingredientNames) {
+            shoppingList.add(new ShoppingListDTO(ingredientName));
         }
-        return recipeShoppingList;
+        return shoppingList;
     }
 
     //Currently how we're going to get the user's pantry.
@@ -165,7 +158,6 @@ public class Services {
 //    }
 
 
-
     //-------------------UPDATE-------------------
 
     public void updateRecipe(RecipeDTO recipeDTO) {
@@ -181,9 +173,9 @@ public class Services {
         updatedRecipe.setServingsize(recipeDTO.getServingSize());
         updatedRecipe.setImagename(recipeDTO.getImageUrl());
 
-            System.out.println("UPDATING A RECIPE " + updatedRecipe);
+        System.out.println("UPDATING A RECIPE " + updatedRecipe);
 
-            recipeRepository.save(updatedRecipe);
+        recipeRepository.save(updatedRecipe);
 
     }
 
@@ -270,7 +262,6 @@ public class Services {
     }
 
     //-------------------HELPERS-------------------
-
 
 
     //-------------------FINAL STRAWS-------------------

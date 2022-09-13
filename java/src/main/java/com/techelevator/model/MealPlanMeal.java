@@ -15,14 +15,16 @@ import javax.validation.constraints.NotNull;
 @ToString
 public class MealPlanMeal {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Column(name = "mealplanid")
+    @NotNull
     private Integer mealplanid;
 
+    @Id
     @Column(name = "mealid")
     @NotNull
     private Integer mealid;
+
 
     @Column(name = "dayofweek")
     @NotNull

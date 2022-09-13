@@ -16,7 +16,4 @@ public class ShoppingListDTO {
     @JsonProperty
     private String ingredientName;
 
-    @JsonProperty
-    private String recipeTitle;
-
 }
