@@ -9,7 +9,20 @@ import {
 } from "react-icons/fa";
 
 export default function ShoppingList(props) {
-  const shoppingItem = props.shoppingList.map((item, index) => {
+  const[selectedIngredients, setSelectedIngredients] =useState([]);
+const [shoppingList,setShoppingList] = useState(props.shoppingList);
+  const addIngredient=(ingredientName)=>{
+   alert(ingredientName);
+   setSelectedIngredients(...selectedIngredients,ingredientName);
+ console.log(selectedIngredients)
+  }
+
+  function showselectedshoppinglist(){
+    selectedIngredients.map((item, index) => {
+     alert(item)
+    })
+  }
+  const shoppingItem = shoppingList.map((item, index) => {
     return (
       <>
         {/* <tr className="rows" key={index}>
@@ -22,8 +35,8 @@ export default function ShoppingList(props) {
           <td><FaRegTimesCircle/></td>
         </tr> */}
         <li key={index} id="shopping-list">
-          <div>
-            <FaRegCheckCircle className="hidebutton" id="checkcircle" />
+          <div onClick={()=>{addIngredient(item.ingredientName)}}>
+            <FaRegCheckCircle className="hidebutton" id="checkcircle"/>
             {item.ingredientName}
           </div>
           <div className="recipeTitle">{item.recipeTitle}</div>
@@ -49,9 +62,13 @@ export default function ShoppingList(props) {
 
       {props.shoppingList.length !== 0 && (
         <ul id="shopping-items">{shoppingItem} </ul>
+        
       )}
 
-      {/* </Table> */}
+      {/* </Table> */
+      selectedIngredients.length !== 0 && (
+        <ul id="selected-items">{showselectedshoppinglist} </ul>
+      )}
     </>
   );
   //function to remove pantry items
