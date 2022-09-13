@@ -36,11 +36,16 @@ public class Services {
 
     //For when we're using Principle names.
     //-------------------USERS-------------------
-    public Long getUserId(String username) {
-        return userDao.findIdByUsername(username);
-    }
+
 
     //-------------------QUERIES-------------------
+
+    public List<MealPlannerDTO> mealPlanListForUser(String name) {
+        name = "Ed";
+        return mealPlanMealRepository.mealPlannerDTOListQuery(mealPlanRepository.getMealPlanIdFromUserId((long) getUserId(name)));
+
+    }
+
     public Object[] testGetRecipeTitleByCategory(String category) {
         //PLACEHOLDER VALUE
         category = "Breakfast";
@@ -59,13 +64,16 @@ public class Services {
         //--------------
         List<ShoppingListDTO> shoppingList = new ArrayList<>();
         List<String> ingredientNames = new ArrayList<>(recipeIngredientRepository.getListOfIngredientNames(
-                mealPlanRepository.getMealPlanIdFromUserId(userDao.findIdByUsername(name))));
+                mealPlanRepository.getMealPlanIdFromUserId((long) userDao.findIdByUsername(name))));
 
         for (String ingredientName : ingredientNames) {
             shoppingList.add(new ShoppingListDTO(ingredientName));
         }
         return shoppingList;
     }
+
+
+
 
     //Currently how we're going to get the user's pantry.
     //-------------------PANTRY-------------------
@@ -262,7 +270,9 @@ public class Services {
     }
 
     //-------------------HELPERS-------------------
-
+    public int getUserId(String username) {
+        return userDao.findIdByUsername(username);
+    }
 
     //-------------------FINAL STRAWS-------------------
 

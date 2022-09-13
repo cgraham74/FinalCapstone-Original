@@ -21,12 +21,16 @@ import java.util.List;
 //@Secured({"ROLE_USER", "ROLE_ADMIN"})
 public class MainController {
 
+
+    //-------------------QUERIES-------------------
+
     private final Services services;
 
-//    @GetMapping(path = "/Pantry")
-//    public List<String> getUsersPantry(Principal principal) {
-//        return services.getUserPantry(services.getUserId(principal.getName()));
-//    }
+    @PermitAll
+    @GetMapping(path = "/mealplan")
+    public List<MealPlannerDTO> mealPlanner(String name) {
+        return services.mealPlanListForUser(name);
+    }
 
     @PermitAll
     @GetMapping(path = "/breakfast")
@@ -34,6 +38,8 @@ public class MainController {
         return services.testGetRecipeTitleByCategory("Breakfast");
     }
     //  @GetMapping(path = "/pantry/{user_id}")  This broke the code!
+
+
     @PermitAll
     @GetMapping(path = "/pantry")
     public List<PantryDTO> testGetUsersPantry() {
@@ -75,6 +81,13 @@ public class MainController {
         return services.getMealPlanSHoppingListFromUser(name);
     }
 
+}
+
+
+//        @GetMapping(path = "/Pantry")
+//        public List<String> getUsersPantry(Principal principal) {
+//            return services.getUserPantry(services.getUserId(principal.getName()));
+//            }
 
     //UNCOMMENT IF YOU DARE!
 
@@ -82,6 +95,6 @@ public class MainController {
 //    @DeleteMapping(path = "/delete/{id}")
 //    public void deleteRecipe(@PathVariable("id") int id) {
 //        services.deleteRecipe(id);
-//    }
 
-}
+
+

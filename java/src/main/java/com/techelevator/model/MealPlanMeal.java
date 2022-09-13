@@ -6,6 +6,17 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+@NamedNativeQuery(name = "MealPlanMeal.mealPlannerDTOListQuery", query =
+        "SELECT p.dayofweek AS dayofweek, m.category AS category, r.title AS title FROM mealplanmeal AS p\n" +
+                "JOIN meal AS m ON p.mealid = m.mealid\n" +
+                "JOIN recipemeal AS e ON m.mealid = e.mealid\n" +
+                "JOIN recipe AS r ON e.recipeid = r.recipeid\n" +
+                "WHERE p.mealplanid = :mealplanid", resultSetMapping = "Mapping.MealPlannerDTO")
+@SqlResultSetMapping(name = "Mapping.MealPlannerDTO", classes = @ConstructorResult(targetClass = MealPlannerDTO.class, columns = {
+        @ColumnResult(name = "dayofweek"),
+        @ColumnResult(name = "category"),
+        @ColumnResult(name = "title")}))
+
 @Entity
 @Table(name = "mealplanmeal")
 @NoArgsConstructor
