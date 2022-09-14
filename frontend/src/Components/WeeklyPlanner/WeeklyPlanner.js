@@ -11,9 +11,14 @@ import pinkdot from "../../images/pinkdot.png";
 import reddot from "../../images/reddot.png";
 import "./weeklyplanner.css";
 import Accordion from "react-bootstrap/Accordion";
+import { Button } from "reactstrap";
 
 export default function WeeklyPlanner(props) {
   console.log("Meal: " + JSON.stringify(props.mealselection));
+
+  function submitMealPlan(){
+
+  }
 
   const displayMondayBreakfast = props.mealselection.map((item) => {
     if (item.day === "Monday" && item.mealtime === "breakfast") {
@@ -535,6 +540,7 @@ export default function WeeklyPlanner(props) {
           </Accordion.Item>
         </Accordion>
       </div>
+      <Button onClick={() => submitMealPlan()}>Submit Purchases</Button>
       {/* <div className="calender">
         <h1 className="header">Meal Plan Calendar</h1>
         <div className="calendar-container">

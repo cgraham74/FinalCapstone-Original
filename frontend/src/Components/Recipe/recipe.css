@@ -83,3 +83,6 @@ button.dropdown-toggle.btn.btn-secondary{
 #update {
   background-color: #1f2746;
 }
+#modal-header, #modal-body{
+color: #171c32;
+}

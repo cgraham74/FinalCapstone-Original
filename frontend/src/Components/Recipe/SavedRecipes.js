@@ -7,16 +7,39 @@ import {
   CardTitle,
   CardSubtitle,
   Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Form,
+  Input,
+  Label,
 } from "reactstrap";
 import "./recipe.css";
 import { Link } from "react-router-dom";
-import { FadeTransform, Fade, Stagger } from "react-animation-components";
+import { Fade, Stagger } from "react-animation-components";
 import { saveRecipe } from "../../Redux/actionCreators";
 import CreateRecipe from "./CreateRecipe";
-// import img from '../../RecipeImages/chickenFriedSteak.jpg'
 
 function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
   // function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
+  const [modal, setModal] = useState(false);
+  const [instructions, setInstructions] = useState(recipeCard.instructions);
+  const [servingSize, setServingSize] = useState(recipeCard.servingSize);
+  const [ingredientList, setIngredientList] = useState(recipeCard.ingredientList)
+  const [ingredientName, setIngredientName] = useState();
+  const [ingredientQuantity, setIngredientQuantity] = useState();
+  const [ingredientMeasurementUnit, setIngredientMeasurementUnit] = useState();
+
+  const toggle = () => setModal(!modal);
+
+  const ingredientsModal = ingredientList.map((item, index) => {
+    return (
+      <li key={index} id="ingredient">
+        {item.name}: {item.quantity} {item.measurementunit}
+      </li>
+    );
+  });
 
   const ingredients = recipeCard.ingredientList.map((item, index) => {
     return (
@@ -26,8 +49,21 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
     );
   });
 
-  // editHandler=(e)=>{
-  let saveRecipe = {
+  function UpdateIngredients() {
+    console.log("Clicked");
+    setIngredientList(() => [
+      ...ingredients,
+      {
+        name: ingredientName,
+        quantity: ingredientQuantity,
+        measurementunit: ingredientMeasurementUnit,
+      },
+    ]);
+  }
+
+
+  const populateModalWithRecipe = {
+    recipeid: "",
     user_id: "",
     title: "pancake",
     imageUrl: "imageUrl",
@@ -36,7 +72,7 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
     servingSize: "servingSize",
     category: "category",
   };
-  //}
+
   return (
     <Fade in>
       <Card style={{ width: "30rem" }} id="recipecard">
@@ -57,25 +93,44 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
           <h5>Instructions:</h5> {recipeCard.instructions}
           {/* </CardText> */}
           <div id="recipe-update-delete">
-            <Button
-              onClick={() => {
-                saveRecipe.title = recipeCard.title;
-                saveRecipe.servingSize = recipeCard.servingSize;
-                saveRecipe.ingredientList = recipeCard.ingredientList;
-                saveRecipe.instructions = recipeCard.instructions;
-              }}
-              id="update"
-            >
-              <Link
-                style={{ textDecoration: "none" }}
-                to={{
-                  pathname: "/createrecipe",
-                  state: { saveRecipe: { saveRecipe } },
-                }}
-              >
-                Update
-              </Link>
+            <Button onClick={toggle} id="update">
+              {" "}
+              Update
             </Button>
+
+            <Modal isOpen={modal} toggle={toggle} {...recipeCard}>
+              <ModalHeader toggle={toggle} id="modal-header">
+                {recipeCard.title}
+              </ModalHeader>
+              <ModalBody id="modal-body"></ModalBody>
+              <Form>
+                <Label for="servingsize">Serving Size</Label>
+                <Input type="number" name="servingsize" value={servingSize} onChange={(e) => setServingSize(e.target.value)}></Input>
+                <Label>Ingredient List</Label>
+                <ul>{ingredientsModal}</ul>
+                <Label for="ingredients">Add Ingredient</Label>
+                <Input type="text" name="ingredient" placeholder="Ingredient Name"onChange={(e) => setIngredientName(e.target.value)}></Input>
+                <Input type="text" name="ingredient" placeholder="Quantity" onChange={(e) => setIngredientQuantity(e.target.value)}></Input>
+                <Input type="text" name="ingredient" placeholder="Measurement Unit" onChange={(e) => setIngredientMeasurementUnit(e.target.value)}></Input>
+                <Button type="button" onclick={UpdateIngredients}>Add Ingredient</Button><br></br>
+                <Label for="instructions">Instructions</Label>
+                <Input
+                  type="textarea"
+                  name="instructions"
+                  rows="9"
+                  value={instructions}
+                  onChange={(e) => setInstructions(e.target.value)}
+                ></Input>
+              </Form>
+              <ModalFooter>
+                <Button color="primary" onClick={toggle}>
+                  Submit Changes
+                </Button>{" "}
+                <Button color="secondary" onClick={toggle}>
+                  Cancel
+                </Button>
+              </ModalFooter>
+            </Modal>
             {/* <Button onClick={() => deleteHandler(recipeCard.recipeid)} id="delete">
               Delete
             </Button> */}
