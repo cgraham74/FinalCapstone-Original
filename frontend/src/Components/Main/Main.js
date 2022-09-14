@@ -167,6 +167,7 @@ class Main extends Component {
                 recipes={this.props.recipes.recipes}
                 deleteRecipe={this.props.deleteRecipe}
                 updateRecipe={this.props.updateRecipe}
+                updatedRecipe={this.props.updatedRecipe}
               />
             )}
           />
