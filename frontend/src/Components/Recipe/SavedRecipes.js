@@ -112,7 +112,7 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
                 <Input type="text" name="ingredient" placeholder="Ingredient Name"onChange={(e) => setIngredientName(e.target.value)}></Input>
                 <Input type="text" name="ingredient" placeholder="Quantity" onChange={(e) => setIngredientQuantity(e.target.value)}></Input>
                 <Input type="text" name="ingredient" placeholder="Measurement Unit" onChange={(e) => setIngredientMeasurementUnit(e.target.value)}></Input>
-                <Button type="button" onclick={UpdateIngredients}>Add Ingredient</Button><br></br>
+                <Button type="button" onclick={() => UpdateIngredients()}>Add Ingredient</Button><br></br>
                 <Label for="instructions">Instructions</Label>
                 <Input
                   type="textarea"
