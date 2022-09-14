@@ -23,14 +23,25 @@ public class MealPlan {
     @NotNull
     private Long user_id;
 
-    @Column(name = "name")
-    @NotNull
-    private String name;
+    @Column(name = "category")
+    private String category;
 
-    @Column(name = "description")
-    @NotNull
-    private String description;
+    @Column(name = "dayofweek")
+    private String dayofweek;
 
-    @Column(name = "imagefilename")
-    private String imagefilename;
+    @Column(name = "recipename")
+    private String recipename;
+
+    //For the meal Plan
+    // ---OPTIONAL---
+
+//    @Column(name = "name")
+//    private String name;
+//
+//    @Column(name = "description")
+//    private String description;
+//
+//    @Column(name = "imagefilename")
+//    private String imagefilename;
+
 }

@@ -33,6 +33,13 @@ public class MainController {
     }
 
     @PermitAll
+    @PostMapping(path = "/mealplan/save")
+    public void updateMealPlan(@RequestBody List<MealPlannerDTO> mealPlannerDTO) {
+        System.out.println("Save Meal Plan was pinged!");
+        services.saveMealPlan(mealPlannerDTO, "Ed");
+    }
+
+    @PermitAll
     @GetMapping(path = "/breakfast")
     public Object[] testGetRecipeTitleFromCategory() {
         return services.testGetRecipeTitleByCategory("Breakfast");

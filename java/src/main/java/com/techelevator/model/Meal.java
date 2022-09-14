@@ -17,7 +17,6 @@ import javax.validation.constraints.NotNull;
 public class Meal {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "mealid")
     @NotNull
     private Integer mealid;
@@ -35,6 +34,5 @@ public class Meal {
     private String category;
 
     @Column(name = "imagefilename")
-    @NotNull
     private String imagefilename;
 }

@@ -16,7 +16,6 @@ import javax.validation.constraints.NotNull;
 public class RecipeMeal {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "recipeid")
     @NotNull
     private Integer recipeid;
