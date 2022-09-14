@@ -30,22 +30,37 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
   const [ingredientName, setIngredientName] = useState();
   const [ingredientQuantity, setIngredientQuantity] = useState();
   const [ingredientMeasurementUnit, setIngredientMeasurementUnit] = useState();
-
+  const [name, setName] = useState("");
   const toggle = () => setModal(!modal);
 
-  const ingredientsModal = ingredientList.map((item, index) => {
+  const ingredientsModal = ingredientList.map((item, index) => { 
+    //setIngredientName(item.name);   
     return (
-      <li key={index} id="ingredient">
-        {item.name}: {item.quantity} {item.measurementunit}
+      <>
+      
+      <li key={index} id="modal-ingredient">
+        {/* {item.name}: {item.quantity} {item.measurementunit} */}
+        <Input type ="text" defaultValue={item.name} onChange={(e) => setIngredientName(e.target.value)}></Input>
+        <Input type ="text" defaultValue={item.quantity} onChange={(e) => setIngredientQuantity(e.target.value)}></Input>
+        <Input type ="text" defaultValue={item.measurementunit} onChange={(e) => setIngredientMeasurementUnit(e.target.value)}></Input>
       </li>
+      </>
     );
+    // return (
+      
+    //   <Input type="text" name="name" value={name} onChange={(e) => setName(e.target.value)}></Input>
+      
+    // )
   });
 
   const ingredients = recipeCard.ingredientList.map((item, index) => {
     return (
+      
+      
       <li key={index} id="ingredient">
         {item.name}: {item.quantity} {item.measurementunit}
       </li>
+      
     );
   });
 

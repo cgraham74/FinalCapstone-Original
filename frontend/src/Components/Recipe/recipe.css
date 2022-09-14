@@ -86,3 +86,7 @@ button.dropdown-toggle.btn.btn-secondary{
 #modal-header, #modal-body{
 color: #171c32;
 }
+
+#modal-ingredient{
+  width: 100px;
+}
