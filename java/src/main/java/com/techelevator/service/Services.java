@@ -75,11 +75,11 @@ public class Services {
 
     //-------------------Meal Plan-------------------
 
-    public void saveMealPlan(List<MealPlannerDTO> mealPlanList, String username) {
+    public void saveMealPlan(List<MealPlannerDTO> mealPlanList) {
 
         for (MealPlannerDTO mealPlan : mealPlanList) {
             MealPlan incomingMealPlan = new MealPlan();
-            incomingMealPlan.setUser_id(userRepository.getUserIdFromUsername(username));
+            incomingMealPlan.setUser_id(mealPlan.getUser_id());
             incomingMealPlan.setCategory(mealPlan.getCategory());
             incomingMealPlan.setDayofweek(mealPlan.getDayofweek());
             incomingMealPlan.setRecipename(mealPlan.getTitle());

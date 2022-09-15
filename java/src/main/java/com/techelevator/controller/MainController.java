@@ -35,8 +35,8 @@ public class MainController {
     @PermitAll
     @PostMapping(path = "/mealplan/save")
     public void updateMealPlan(@RequestBody List<MealPlannerDTO> mealPlannerDTO) {
-        System.out.println("Save Meal Plan was pinged!");
-        services.saveMealPlan(mealPlannerDTO, "Ed");
+
+        services.saveMealPlan(mealPlannerDTO);
     }
 
     @PermitAll

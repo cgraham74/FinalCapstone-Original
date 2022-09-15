@@ -13,6 +13,10 @@ import javax.persistence.Column;
 @AllArgsConstructor
 public class MealPlannerDTO {
 
+    //Example: 7
+    @JsonProperty
+    private Long user_id;
+
     //Example: Monday
     @JsonProperty
     private String dayofweek;
