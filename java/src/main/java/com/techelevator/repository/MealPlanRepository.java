@@ -18,6 +18,6 @@ public interface MealPlanRepository extends JpaRepository<MealPlan, Integer> {
     List<MealPlan> getMealPlanListFromUserId(@Param("user_id") Long user_id);
 
     @Query("SELECT m FROM MealPlan m WHERE m.user_id = :user_id")
-    MealPlan getMealPlanFromId(@Param("user_id") Long user_id);
+    MealPlan getMealPlanFromUserId(@Param("user_id") Long user_id);
 
 }

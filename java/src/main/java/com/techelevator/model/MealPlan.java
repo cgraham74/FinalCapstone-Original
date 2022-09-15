@@ -32,6 +32,17 @@ public class MealPlan {
     @Column(name = "recipename")
     private String recipename;
 
+//    @OneToOne
+//    @JoinColumn(name = "user_id", insertable = false, updatable = false)
+//    private User user;
+
+//    public MealPlan(Integer mealplanid, long userId, String category, String dayofweek, String title) {
+//    }
+
+    public MealPlan(Long user_id, String category, String dayofweek, String title) {
+    }
+
+
     //For the meal Plan
     // ---OPTIONAL---
 

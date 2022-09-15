@@ -30,6 +30,8 @@ public class Services {
     @Autowired
     MealPlanMealRepository mealPlanMealRepository;
     @Autowired
+    UserRepository userRepository;
+    @Autowired
     UserDao userDao;
 
     //For when we're using Principle names.
@@ -75,29 +77,14 @@ public class Services {
 
     public void saveMealPlan(List<MealPlannerDTO> mealPlanList, String username) {
 
-        List<MealPlan> saveMealPlanList = new ArrayList<>();
-
-        int i = 1;
-        System.out.println(mealPlanList.toString());
-
         for (MealPlannerDTO mealPlan : mealPlanList) {
-            System.out.println(i);
-            i++;
-            System.out.println(mealPlan.getTitle());
-
-            MealPlan incomingMealPlan = new MealPlan(
-                    checkOrCreateMealPlan(username).getMealplanid(),
-                    (long) getUserId(username),
-                    mealPlan.getCategory(),
-                    mealPlan.getDayofweek(),
-                    mealPlan.getTitle());
-                    saveMealPlanList.add(incomingMealPlan);
+            MealPlan incomingMealPlan = new MealPlan();
+            incomingMealPlan.setUser_id(userRepository.getUserIdFromUsername(username));
+            incomingMealPlan.setCategory(mealPlan.getCategory());
+            incomingMealPlan.setDayofweek(mealPlan.getDayofweek());
+            incomingMealPlan.setRecipename(mealPlan.getTitle());
+            mealPlanRepository.save(incomingMealPlan);
         }
-
-        System.out.println("Saving the whole list!");
-
-        mealPlanRepository.saveAll(saveMealPlanList);
-
     }
 
 
@@ -217,17 +204,20 @@ public class Services {
 
     //-------------------CREATE-------------------
 
-    public MealPlan checkOrCreateMealPlan(String name) {
-
-        MealPlan tempMealPlan = new MealPlan();
-        System.out.println("Line 213: Creating a new meal Plan or adding too it");
-        if (Objects.isNull(mealPlanRepository.getMealPlanIdFromUserId((long) userDao.findIdByUsername(name)))) {
-            tempMealPlan.setUser_id((long) userDao.findIdByUsername(name));
-            mealPlanRepository.save(tempMealPlan);
-            System.out.println("Line 213: Creating a new meal Plan or adding too it - " + tempMealPlan.getMealplanid());
-            return tempMealPlan;
-        } else return mealPlanRepository.getMealPlanFromId((long) userDao.findIdByUsername(name));
-    }
+//    public MealPlan checkOrCreateMealPlan(String name) {
+//
+//        MealPlan tempMealPlan = new MealPlan();
+//        System.out.println("Line 225: Creating a new meal Plan or adding too it");
+//        if (Objects.isNull(mealPlanRepository.getMealPlanIdFromUserId((long) userDao.findIdByUsername(name)))) {
+//            tempMealPlan.setUser_id((long) userDao.findIdByUsername(name));
+//            mealPlanRepository.save(tempMealPlan);
+//            System.out.println("Line 229: MealPlanId didn't exist so here is the created one! - " + tempMealPlan.getMealplanid());
+//            return tempMealPlan;
+//        }
+//        else
+//            System.out.println("The id was found so it now returns the Id");
+//            return mealPlanRepository.getMealPlanFromUserId((long) userDao.findIdByUsername(name));
+//    }
 
     public Ingredient checkOrCreateIngredient(String name) {
         Ingredient tempIngredient = new Ingredient();
