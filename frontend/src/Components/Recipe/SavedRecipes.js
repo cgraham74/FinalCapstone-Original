@@ -4,6 +4,7 @@ import {
   FaRegCheckCircle,
   FaRegCheckSquare,
   FaRegTimesCircle,
+  FaCircle
 } from "react-icons/fa";
 
 import {
@@ -41,7 +42,7 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
   const [ingredientQuantity, setIngredientQuantity] = useState();
   const [ingredientMeasurementUnit, setIngredientMeasurementUnit] = useState();
   // const [name, setName] = useState("");
-  const [addonIngredients, setAddoningredients] = useState([]);
+  //const [addonIngredients, setAddoningredients] = useState([]);
   const toggle = () => setModal(!modal);
 
   function addIngredients(event) {
@@ -51,8 +52,8 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
       ingredientMeasurementUnit !== ""
     ) {
       event.preventDefault();
-      setAddoningredients(() => [
-        ...addonIngredients,
+      setIngredientList(() => [
+        ...ingredientList,
         {
           name: ingredientName,
           quantity: ingredientQuantity,
@@ -69,13 +70,13 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
   }
 
   function handleDelete(id,e){
-    setAddoningredients(addonIngredients.filter((v, i) => i !== id));
+    setIngredientList(ingredientList.filter((v, i) => i !== id));
   }
-  const addonIngredientsList = addonIngredients.map((item, id) => {
+  const addonIngredientsList = ingredientList.map((item, id) => {
     return (
       <>
         <tr className="rows" key={id}>
-          <th scope="row">{id + 1}</th>
+          <th scope="row" ><FaCircle/></th>
           <td>{item.name}</td>
           <td>{item.quantity}</td>
           <td>{item.measurementunit}</td><td>
@@ -86,36 +87,32 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
       </>
     );
   });
-  const ingredientsModal = ingredientList.map((item, index) => {
-    //setIngredientName(item.name);
-    return (
-      <>
-        <li key={index} id="modal-ingredient">
-          {/* {item.name}: {item.quantity} {item.measurementunit} */}
-          <Input
-            type="text"
-            defaultValue={item.name}
-            onChange={(e) => setIngredientName(e.target.value)}
-          ></Input>
-          <Input
-            type="text"
-            defaultValue={item.quantity}
-            onChange={(e) => setIngredientQuantity(e.target.value)}
-          ></Input>
-          <Input
-            type="text"
-            defaultValue={item.measurementunit}
-            onChange={(e) => setIngredientMeasurementUnit(e.target.value)}
-          ></Input>
-        </li>
-      </>
-    );
-    // return (
-
-    //   <Input type="text" name="name" value={name} onChange={(e) => setName(e.target.value)}></Input>
-
-    // )
-  });
+  // const ingredientsModal = ingredientList.map((item, index) => {
+  //   //setIngredientName(item.name);
+  //   return (
+  //     <>
+  //       <li key={index} id="modal-ingredient">
+  //         {/* {item.name}: {item.quantity} {item.measurementunit} */}
+  //         <Input
+  //           type="text"
+  //           defaultValue={item.name}
+  //         onChange={(e) => {setIngredientName(e.target.value);}}
+  //         ></Input>
+  //         <Input
+  //           type="text"
+  //           defaultValue={item.quantity}
+  //           onChange={(e) => setIngredientQuantity(e.target.value)}
+  //         ></Input>
+  //         <Input
+  //           type="text"
+  //           defaultValue={item.measurementunit}
+  //           onChange={(e) => setIngredientMeasurementUnit(e.target.value)}
+  //         ></Input>
+  //       </li>
+  //     </>
+  //   );
+  
+  // });
 
   const ingredients = recipeCard.ingredientList.map((item, index) => {
     return (
@@ -187,7 +184,7 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
                   onChange={(e) => setServingSize(e.target.value)}
                 ></Input>
                 <Label>Ingredient List</Label>
-                <ul>{ingredientsModal}</ul>
+                {/* <ul>{ingredientsModal}</ul> */}
                 <Label for="ingredients">Add Ingredient</Label>
                 <Input
                   type="text"
