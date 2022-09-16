@@ -1,5 +1,6 @@
 export const WeeklyPlan = {
+    userid: "",
     day: "",
-    mealtime: "",
+    category: "",
     recipename: "",
 }
