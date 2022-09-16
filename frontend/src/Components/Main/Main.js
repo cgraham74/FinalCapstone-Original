@@ -17,7 +17,8 @@ import {
   deleteShoppingList,
   deletePurchasedItem,
   addPurchasedItem,
-  updateIngredient
+  updateIngredient,
+  changeMealSelection
 } from "../../Redux/actionCreators";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -108,6 +109,7 @@ const mapDispatchToProps = (dispatch) => ({
       )
     ),
     newMealSelection: (day, mealtime, recipename) => dispatch(newMealSelection(day, mealtime, recipename)),
+    changeMealSelection: (day, mealtime, recipename) => dispatch(changeMealSelection(day, mealtime, recipename)),
     deleteShoppingList: (item) => dispatch(deleteShoppingList(item)),
     deletePurchasedItem:(item) => dispatch(deletePurchasedItem(item)),
     addPurchasedItem:(item) => dispatch(addPurchasedItem(item)),
@@ -167,6 +169,7 @@ class Main extends Component {
                 recipes={this.props.recipes.recipes}
                 deleteRecipe={this.props.deleteRecipe}
                 updateRecipe={this.props.updateRecipe}
+                updatedRecipe={this.props.updatedRecipe}
               />
             )}
           />
@@ -207,7 +210,9 @@ class Main extends Component {
           <Route
             path="/day"
             component={() => (
-              <Day newMealSelection={this.props.newMealSelection} />
+              <Day newMealSelection={this.props.newMealSelection}
+              changeMealSelection={this.props.changeMealSelection}
+              mealselection={this.props.mealselection.mealselection} />
             )}
           />
           <Route path="/day" component={() => <Day />} />

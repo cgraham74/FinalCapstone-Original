@@ -31,6 +31,8 @@ export const fetchRecipes = () => (dispatch) => {
     });
 };
 
+
+
 export const updateRecipe = (recipe) => ({
   type: ActionTypes.UPDATE_RECIPE,
   payload: recipe,
@@ -85,6 +87,7 @@ export const saveRecipe =
     //   alert("Could not save card!" + JSON.stringify(newRecipe));
     // });
   };
+
 
 export const updatedRecipe =
   (
@@ -240,15 +243,70 @@ export const updateMealPlan = (mealplan) => ({
 
 //can change this to fetch
 export const newMealSelection = (day, mealtime, recipename) => (dispatch) => {
-  const newMeal = {
+
+  const newMealplan = {
     day: day,
     mealtime: mealtime,
     recipename: recipename,
   };
-  dispatch(addMealSelection(newMeal));
+
+  dispatch(addMealSelection(newMealplan));
 };
+
+
+export const changeMealSelection = (day, mealtime, recipename) => (dispatch) => {
+
+  const newMealplan = {
+    day: day,
+    mealtime: mealtime,
+    recipename: recipename,
+  };
+
+  dispatch(updateMealSelection(newMealplan));
+};
+//-----------------------------------------
+export const postNewMealSelection =
+  (
+    day,
+    mealtime,
+    recipename,
+  ) =>
+  async (dispatch) => {
+  
+      const newPostedMealplan = {
+        day: day,
+        mealtime: mealtime,
+        recipename: recipename,
+      };
+    
+      // Post a meal plan
+      await fetch(baseUrl + `/recipe/mealplan/save`, {
+        method: "POST",
+        cache: "no-cache",
+        body: JSON.stringify(newPostedMealplan),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+          if (response.ok) {
+            alert("Saved meal plan!");
+          }
+        })
+        .catch((err) => {
+          console.error("from POST " + err);
+          alert("Could not save plan!");
+        });
+  };
+
+//----------------------------
+
 export const addMealSelection = (newMeal) => ({
   type: ActionTypes.ADD_MEALSELECTION,
+  payload: newMeal,
+});
+export const updateMealSelection = (newMeal) => ({
+  type: ActionTypes.UPDATE_MEALSELECTION,
   payload: newMeal,
 });
 
