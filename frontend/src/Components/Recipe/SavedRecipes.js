@@ -1,5 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react";
 import {
+  FaRegTrashAlt,
+  FaRegCheckCircle,
+  FaRegCheckSquare,
+  FaRegTimesCircle,
+} from "react-icons/fa";
+
+import {
   Card,
   CardImg,
   CardBody,
@@ -14,6 +21,7 @@ import {
   Form,
   Input,
   Label,
+  Table
 } from "reactstrap";
 import "./recipe.css";
 import { Link } from "react-router-dom";
@@ -26,41 +34,94 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
   const [modal, setModal] = useState(false);
   const [instructions, setInstructions] = useState(recipeCard.instructions);
   const [servingSize, setServingSize] = useState(recipeCard.servingSize);
-  const [ingredientList, setIngredientList] = useState(recipeCard.ingredientList)
+  const [ingredientList, setIngredientList] = useState(
+    recipeCard.ingredientList
+  );
   const [ingredientName, setIngredientName] = useState();
   const [ingredientQuantity, setIngredientQuantity] = useState();
   const [ingredientMeasurementUnit, setIngredientMeasurementUnit] = useState();
-  const [name, setName] = useState("");
+  // const [name, setName] = useState("");
+  const [addonIngredients, setAddoningredients] = useState([]);
   const toggle = () => setModal(!modal);
 
-  const ingredientsModal = ingredientList.map((item, index) => { 
-    //setIngredientName(item.name);   
+  function addIngredients(event) {
+    if (
+      ingredientName !== "" &&
+      ingredientQuantity !== "" &&
+      ingredientMeasurementUnit !== ""
+    ) {
+      event.preventDefault();
+      setAddoningredients(() => [
+        ...addonIngredients,
+        {
+          name: ingredientName,
+          quantity: ingredientQuantity,
+          measurementunit: ingredientMeasurementUnit,
+        },
+      ]);
+      // console.log(ingredientName);
+      // console.log(addonIngredients.name);
+     
+      setIngredientName("");
+      setIngredientQuantity("");
+      setIngredientMeasurementUnit("");
+    }
+  }
+
+  function handleDelete(id,e){
+    setAddoningredients(addonIngredients.filter((v, i) => i !== id));
+  }
+  const addonIngredientsList = addonIngredients.map((item, id) => {
     return (
       <>
-      
-      <li key={index} id="modal-ingredient">
-        {/* {item.name}: {item.quantity} {item.measurementunit} */}
-        <Input type ="text" defaultValue={item.name} onChange={(e) => setIngredientName(e.target.value)}></Input>
-        <Input type ="text" defaultValue={item.quantity} onChange={(e) => setIngredientQuantity(e.target.value)}></Input>
-        <Input type ="text" defaultValue={item.measurementunit} onChange={(e) => setIngredientMeasurementUnit(e.target.value)}></Input>
-      </li>
+        <tr className="rows" key={id}>
+          <th scope="row">{id + 1}</th>
+          <td>{item.name}</td>
+          <td>{item.quantity}</td>
+          <td>{item.measurementunit}</td><td>
+            <FaRegTrashAlt id="trash" onClick={(e) => handleDelete(id, e)} />
+          </td>
+
+        </tr>
+      </>
+    );
+  });
+  const ingredientsModal = ingredientList.map((item, index) => {
+    //setIngredientName(item.name);
+    return (
+      <>
+        <li key={index} id="modal-ingredient">
+          {/* {item.name}: {item.quantity} {item.measurementunit} */}
+          <Input
+            type="text"
+            defaultValue={item.name}
+            onChange={(e) => setIngredientName(e.target.value)}
+          ></Input>
+          <Input
+            type="text"
+            defaultValue={item.quantity}
+            onChange={(e) => setIngredientQuantity(e.target.value)}
+          ></Input>
+          <Input
+            type="text"
+            defaultValue={item.measurementunit}
+            onChange={(e) => setIngredientMeasurementUnit(e.target.value)}
+          ></Input>
+        </li>
       </>
     );
     // return (
-      
+
     //   <Input type="text" name="name" value={name} onChange={(e) => setName(e.target.value)}></Input>
-      
+
     // )
   });
 
   const ingredients = recipeCard.ingredientList.map((item, index) => {
     return (
-      
-      
       <li key={index} id="ingredient">
         {item.name}: {item.quantity} {item.measurementunit}
       </li>
-      
     );
   });
 
@@ -75,7 +136,6 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
       },
     ]);
   }
-
 
   const populateModalWithRecipe = {
     recipeid: "",
@@ -120,14 +180,51 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
               <ModalBody id="modal-body"></ModalBody>
               <Form>
                 <Label for="servingsize">Serving Size</Label>
-                <Input type="number" name="servingsize" value={servingSize} onChange={(e) => setServingSize(e.target.value)}></Input>
+                <Input
+                  type="number"
+                  name="servingsize"
+                  value={servingSize}
+                  onChange={(e) => setServingSize(e.target.value)}
+                ></Input>
                 <Label>Ingredient List</Label>
                 <ul>{ingredientsModal}</ul>
                 <Label for="ingredients">Add Ingredient</Label>
-                <Input type="text" name="ingredient" placeholder="Ingredient Name"onChange={(e) => setIngredientName(e.target.value)}></Input>
-                <Input type="text" name="ingredient" placeholder="Quantity" onChange={(e) => setIngredientQuantity(e.target.value)}></Input>
-                <Input type="text" name="ingredient" placeholder="Measurement Unit" onChange={(e) => setIngredientMeasurementUnit(e.target.value)}></Input>
-                <Button type="button" onclick={() => UpdateIngredients()}>Add Ingredient</Button><br></br>
+                <Input
+                  type="text"
+                  name="ingredient"
+                  placeholder="Ingredient Name"
+                  onChange={(e) => setIngredientName(e.target.value)}
+                ></Input>
+                <Input
+                  type="text"
+                  name="ingredient"
+                  placeholder="Quantity"
+                  onChange={(e) => setIngredientQuantity(e.target.value)}
+                ></Input>
+                <Input
+                  type="text"
+                  name="ingredient"
+                  placeholder="Measurement Unit"
+                  onChange={(e) => setIngredientMeasurementUnit(e.target.value)}
+                ></Input>
+                <Button
+                  type="button"
+                  onClick={(event) => addIngredients(event)}
+                >
+                  Add Ingredient
+                </Button>
+                <Table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Ingredients entered</th>
+                <th>Quantity entered</th>
+                <th>Measurement Unit entered</th>
+              </tr>
+            </thead>
+            <tbody>{addonIngredientsList}</tbody>
+          </Table>
+                <br></br>
                 <Label for="instructions">Instructions</Label>
                 <Input
                   type="textarea"

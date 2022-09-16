@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import Navigator from "../navigation/Navigator";
 import {
+  FaRegTrashAlt,
+  FaRegCheckCircle,
+  FaRegCheckSquare,
+  FaRegTimesCircle,
+} from "react-icons/fa";
+
+
+import {
   Form,
   Button,
   Label,
@@ -105,6 +113,9 @@ export default function CreateRecipe(props) {
     setCategory(e.target.value);
   };
 
+  const handleDelete = (id, e) => {
+    setIngredients(ingredients.filter((v, i) => i !== id));
+  };
   const ingredientsList = ingredients.map((item, id) => {
     return (
       <>
@@ -113,6 +124,9 @@ export default function CreateRecipe(props) {
           <td>{item.name}</td>
           <td>{item.quantity}</td>
           <td>{item.measurementunit}</td>
+          <td>
+            <FaRegTrashAlt id="trash" onClick={(e) => handleDelete(id, e)} />
+          </td>
         </tr>
       </>
     );
