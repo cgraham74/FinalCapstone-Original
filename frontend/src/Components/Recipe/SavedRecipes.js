@@ -27,7 +27,7 @@ import {
 import "./recipe.css";
 import { Link } from "react-router-dom";
 import { Fade, Stagger } from "react-animation-components";
-import { saveRecipe } from "../../Redux/actionCreators";
+import { saveRecipe, updateRecipe } from "../../Redux/actionCreators";
 import CreateRecipe from "./CreateRecipe";
 
 function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
@@ -113,7 +113,33 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
   //   );
   
   // });
+  function handleUpdatedRecipe(values){
+  values.preventDefault();
 
+  // recipeid,
+  // user_id,
+  // title,
+  // imageUrl,
+  // ingredientList,
+  // instructions,
+  // servingSize,
+  // category
+
+  //needs to convert follwing to updatedrecipe but recipeid and user_id is missing
+  console.log("update recipe"+
+
+              recipeCard.title+"  "+
+              recipeCard.imageUrl+" "+
+              ingredientList+
+              values.target.instructions.value+
+              values.target.servingsize.value+" "+
+              recipeCard.category);
+
+ // const t = () => setModal(!modal);
+ingredientList.map(item=>{
+  console.log(item.name)
+})
+ }
   const ingredients = recipeCard.ingredientList.map((item, index) => {
     return (
       <li key={index} id="ingredient">
@@ -122,28 +148,28 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
     );
   });
 
-  function UpdateIngredients() {
-    console.log("Clicked");
-    setIngredientList(() => [
-      ...ingredients,
-      {
-        name: ingredientName,
-        quantity: ingredientQuantity,
-        measurementunit: ingredientMeasurementUnit,
-      },
-    ]);
-  }
+  // function UpdateIngredients() {
+  //   console.log("Clicked");
+  //   setIngredientList(() => [
+  //     ...ingredients,
+  //     {
+  //       name: ingredientName,
+  //       quantity: ingredientQuantity,
+  //       measurementunit: ingredientMeasurementUnit,
+  //     },
+  //   ]);
+  // }
 
-  const populateModalWithRecipe = {
-    recipeid: "",
-    user_id: "",
-    title: "pancake",
-    imageUrl: "imageUrl",
-    ingredientList: [],
-    instructions: "",
-    servingSize: "servingSize",
-    category: "category",
-  };
+  // const populateModalWithRecipe = {
+  //   recipeid: "",
+  //   user_id: "",
+  //   title: "pancake",
+  //   imageUrl: "imageUrl",
+  //   ingredientList: [],
+  //   instructions: "",
+  //   servingSize: "servingSize",
+  //   category: "category",
+  // };
 
   return (
     <Fade in>
@@ -175,7 +201,7 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
                 {recipeCard.title}
               </ModalHeader>
               <ModalBody id="modal-body"></ModalBody>
-              <Form>
+              <Form onSubmit={(values) => {handleUpdatedRecipe(values);setModal(!modal)}}>
                 <Label for="servingsize">Serving Size</Label>
                 <Input
                   type="number"
@@ -230,15 +256,16 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
                   value={instructions}
                   onChange={(e) => setInstructions(e.target.value)}
                 ></Input>
-              </Form>
+              
               <ModalFooter>
-                <Button color="primary" onClick={toggle}>
+                <Button color="primary"  >
                   Submit Changes
                 </Button>{" "}
                 <Button color="secondary" onClick={toggle}>
                   Cancel
                 </Button>
               </ModalFooter>
+              </Form>
             </Modal>
             {/* <Button onClick={() => deleteHandler(recipeCard.recipeid)} id="delete">
               Delete
@@ -251,7 +278,8 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
 }
 
 export default function SavedRecipes(props) {
-  const recipeCollections = props.recipes.map((item, id) => {
+  console.log(props.recipes.recipeid);
+  const recipeCollections = props.recipes.map((item, id) => { console.log(item.id);
     return (
       <>
         <Stagger in>
