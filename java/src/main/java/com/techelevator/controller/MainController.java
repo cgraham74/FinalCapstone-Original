@@ -1,5 +1,6 @@
 package com.techelevator.controller;
 
+import com.techelevator.dao.UserDao;
 import com.techelevator.model.*;
 import com.techelevator.service.Services;
 import lombok.AllArgsConstructor;
@@ -22,45 +23,55 @@ import java.util.List;
 public class MainController {
 
 
+    UserDao userDao;
     //-------------------QUERIES-------------------
 
     private final Services services;
 
-    @PreAuthorize("isAuthenticated()")
+//
+//    @GetMapping(path = "/mealplan")
+//    public List<MealPlannerDTO> mealPlanner(String name) {
+//        return services.mealPlanListForUser(name);
+//    }
+
+//    //adding Principal to get current user
+//    @GetMapping(path = "/mealplan")
+//    public List<MealPlannerDTO> mealPlanner(Principal principal) {
+//        return services.mealPlanListForUser(principal.getName());
+//    }
+
+    //adding Principal to get current user
     @GetMapping(path = "/mealplan")
-    public List<MealPlannerDTO> mealPlanner(String name) {
-        return services.mealPlanListForUser(name);
+    public List<MealPlan> mealPlanner(Principal principal) {
+        return services.mealPlanListForUser(principal.getName());
     }
 
-    @PreAuthorize("isAuthenticated()")
     @PostMapping(path = "/mealplan/save")
-    public void updateMealPlan(@RequestBody List<MealPlannerDTO> mealPlannerDTO) {
+    public void updateMealPlan(@RequestBody List<MealPlannerDTO> mealPlannerDTO, Principal principal){
 
-        services.saveMealPlan(mealPlannerDTO);
+        services.saveMealPlan(mealPlannerDTO, principal.getName());
     }
 
-    @PreAuthorize("isAuthenticated()")
+
     @GetMapping(path = "/breakfast")
     public Object[] testGetRecipeTitleFromCategory() {
         return services.testGetRecipeTitleByCategory("Breakfast");
     }
     //  @GetMapping(path = "/pantry/{user_id}")  This broke the code!
 
-
-    @PreAuthorize("isAuthenticated()")
     @GetMapping(path = "/pantry")
     public List<PantryDTO> testGetUsersPantry() {
 
         return services.testGetUserPantryDTO("Ed");
     }
 
-    @PreAuthorize("isAuthenticated()")
+
     @GetMapping(path = "/get/{recipeid}")
     public RecipeDTO testGetRecipeById(@PathVariable("recipeid") Integer recipeid) {
         return services.getRecipeById(recipeid);
     }
 
-    @PreAuthorize("isAuthenticated()")
+
     @PutMapping(path = "/update/{id}")
     public void update(@RequestBody RecipeDTO recipeDTO, @PathVariable int id) {
         recipeDTO.setRecipeid(id);
@@ -68,13 +79,13 @@ public class MainController {
         services.updateRecipe(recipeDTO);
     }
 
-    @PreAuthorize("isAuthenticated()")
+   @PermitAll
     @GetMapping(path = "/list")
     public Collection<RecipeDTO> getRecipeList(Principal principal){
         return services.testListOfRecipes(principal.getName());
     }
 
-    @PreAuthorize("isAuthenticated()")
+
     @PostMapping(path = "/save")
     @ResponseBody
     public void saveRecipe(@RequestBody RecipeDTO recipeDTO) {
@@ -82,7 +93,6 @@ public class MainController {
         services.saveRecipeAndIngredients(recipeDTO);
     }
 
-    @PreAuthorize("isAuthenticated()")
     @PermitAll
     @RequestMapping(path = "/shoppinglist")
     public List<ShoppingListDTO> shoppingList(Principal principal) {

@@ -17,6 +17,10 @@ public class MealPlannerDTO {
     @JsonProperty
     private Long user_id;
 
+    //added mealplanid for update method
+    @JsonProperty
+    private Integer mealplanid;
+
     //Example: Monday
     @JsonProperty
     private String dayofweek;
@@ -27,7 +31,7 @@ public class MealPlannerDTO {
 
     //Example: Pancakes
     @JsonProperty
-    private String title;
+    private String recipename;
 
     //For the meal Plan
     // ---OPTIONAL---

@@ -40,11 +40,13 @@ public class Services {
 
     //-------------------QUERIES-------------------
 
-    public List<MealPlannerDTO> mealPlanListForUser(String name) {
-        name = "Ed";
-        return mealPlanMealRepository.mealPlannerDTOListQuery(
-                mealPlanRepository.getMealPlanIdFromUserId((long) getUserId(name)));
+//    public List<MealPlannerDTO> mealPlanListForUser(String name) {
+//        return mealPlanMealRepository.mealPlannerDTOListQuery(mealPlanRepository.getMealPlanIdFromUserId((long) getUserId(name)));
+//    }
 
+    public List<MealPlan> mealPlanListForUser(String name) {
+
+        return mealPlanRepository.getMealPlanListFromUserId((long) getUserId(name));
     }
 
     public Object[] testGetRecipeTitleByCategory(String category) {
@@ -72,14 +74,17 @@ public class Services {
 
     //-------------------Meal Plan-------------------
 
-    public void saveMealPlan(List<MealPlannerDTO> mealPlanList) {
+    public void saveMealPlan(List<MealPlannerDTO> mealPlanList, String name) {
 
         for (MealPlannerDTO mealPlan : mealPlanList) {
             MealPlan incomingMealPlan = new MealPlan();
-//            incomingMealPlan.setUser_id(mealPlan.getUser_id());
+            incomingMealPlan.setMealplanid(mealPlan.getMealplanid());
+            // incomingMealPlan.setUser_id(mealPlan.getUser_id());
+            //replaced previous line with this line to get current user
+            incomingMealPlan.setUser_id((long) getUserId(name));
             incomingMealPlan.setCategory(mealPlan.getCategory());
             incomingMealPlan.setDayofweek(mealPlan.getDayofweek());
-            incomingMealPlan.setRecipename(mealPlan.getTitle());
+            incomingMealPlan.setRecipename(mealPlan.getRecipename());
             mealPlanRepository.save(incomingMealPlan);
         }
     }
