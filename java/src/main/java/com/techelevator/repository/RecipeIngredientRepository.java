@@ -22,13 +22,21 @@ public interface RecipeIngredientRepository extends JpaRepository<RecipeIngredie
     @Query("SELECT r.title FROM RecipeIngredient r WHERE r.ingredientid = : ingredientid")
     String getRecipeTitleFromIngredient(@Param("ingredientid") Integer ingredientid);
 
-    @Query(value = "select distinct i.name from ingredient as i\n" +
-            "join recipeingredient as r on i.ingredientid = r.ingredientid\n" +
-            "join recipemeal as m on r.recipeid = m.recipeid\n" +
-            "join meal as f on m.mealid = f.mealid\n" +
-            "join mealplan as p on f.user_id = p.user_id\n" +
-            "where p.user_id = :user_id", nativeQuery = true)
+    @Query(value = "SELECT DISTINCT i.name FROM ingredient AS i \n" +
+            "JOIN recipeingredient AS x ON x.ingredientid = i.ingredientid \n" +
+            "JOIN recipe AS r ON r.recipeid = x.recipeid \n" +
+            "JOIN mealplan AS m ON m.recipename LIKE r.title \n" +
+            "WHERE m.user_id = :user_id", nativeQuery = true)
     List<String> getListOfIngredientNames(@Param("user_id") Long user_id);
+
+
+//    @Query(value = "select distinct i.name from ingredient as i\n" +
+//            "join recipeingredient as r on i.ingredientid = r.ingredientid\n" +
+//            "join recipemeal as m on r.recipeid = m.recipeid\n" +
+//            "join meal as f on m.mealid = f.mealid\n" +
+//            "join mealplan as p on f.user_id = p.user_id\n" +
+//            "where p.user_id = :user_id", nativeQuery = true)
+//    List<String> getListOfIngredientNames(@Param("user_id") Long user_id);
 
 //    @Modifying
 //    @Transactional

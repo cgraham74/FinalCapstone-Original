@@ -43,28 +43,28 @@ public class Recipe {
     @NotNull
     private String instructions;
 
+    @Column(name = "imagename")
+    private String imagename;
+
+}
+
+
 //    @ManyToOne
 //    @JoinColumn(name = "user_id")
 //    User user;
 
     // Would be nice but not needed.
 
-    @Column(name = "difficultylevel")
-    private String difficultylevel;
-
-    @Column(name = "preptime")
-    private Integer preptime;
-
-    @Column(name = "cooktime")
-    private Integer cooktime;
-
-    @Column(name = "datecreated")
-    private Date date;
-
-    @Column(name = "imagename")
-    private String imagename;
+//    @Column(name = "difficultylevel")
+//    private String difficultylevel;
+//
+//    @Column(name = "preptime")
+//    private Integer preptime;
+//
+//    @Column(name = "cooktime")
+//    private Integer cooktime;
+//
+//    @Column(name = "datecreated")
+//    private Date date;
 
 
-
-
-}

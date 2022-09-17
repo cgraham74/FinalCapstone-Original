@@ -88,12 +88,12 @@ public class MainController {
 
     @PostMapping(path = "/save")
     @ResponseBody
-    public void saveRecipe(@RequestBody RecipeDTO recipeDTO) {
+    public void saveRecipe(@RequestBody RecipeDTO recipeDTO, Principal principal) {
+        System.out.println("Save Recipe was pinged by: " + principal.getName());
         System.out.println("The recipeDTO: " + recipeDTO.getTitle());
         services.saveRecipeAndIngredients(recipeDTO);
     }
 
-    @PermitAll
     @RequestMapping(path = "/shoppinglist")
     public List<ShoppingListDTO> shoppingList(Principal principal) {
         System.out.println(principal.toString());
