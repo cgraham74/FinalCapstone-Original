@@ -20,8 +20,16 @@ export const addRecipe = (recipes) => ({
   payload: recipes,
 });
 
-export const fetchRecipes = () => (dispatch) => {
-  fetch(baseUrl + "/recipe/list")
+//ADDED HEADERS AND TOKENS TO THE SERVER
+export const fetchRecipes = (token) => async (dispatch) => {
+  await fetch(baseUrl + "/recipe/list",
+  {method: "GET",
+  headers: {
+    // Accept: "*/*",
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${token}`, 
+  },}
+  )
     .then((response) => {
       return response.json();
     })
@@ -192,13 +200,20 @@ export const updateIngredient = (ingredient) => ({
 
 //Action creators for Shopping List - change endpoint when shoppinglist endpoint
 //is available - using pantry endpoint for now
-export const fetchShoppingList = (user) => (dispatch) => {
-  fetch(baseUrl + "/recipe/shoppinglist")
+export const fetchShoppingList = (token) => async (dispatch) => {
+  await fetch(baseUrl + "/recipe/shoppinglist",
+  {method: "GET",
+  headers: {
+    // Accept: "*/*",
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${token}`, 
+  },}
+)
     .then((response) => {
       return response.json();
     })
     .then((data) => {
-      console.log("This data is from fetchShoppingList: " + data);
+      console.log("This data is from fetchShoppingList: " + JSON.stringify(data));
       return dispatch(addShoppingList(data));
     });
 };

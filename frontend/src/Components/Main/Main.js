@@ -44,6 +44,7 @@ const mapStateToProps = (state) => {
   };
 };
 
+//REMEMBER TO ADD TOKENS
 const mapDispatchToProps = (dispatch) => ({
   addToken: () => {
     dispatch(addToken());
@@ -51,18 +52,19 @@ const mapDispatchToProps = (dispatch) => ({
   deleteUser: () => {
     dispatch(deleteUser());
   },
-  fetchRecipes: () => {
-    dispatch(fetchRecipes());
+  fetchRecipes: (token) => {
+    dispatch(fetchRecipes(token));
   },
 
-  fetchPantryItems: (user) => {
-    dispatch(fetchPantryItems(user));
+  fetchPantryItems: (token) => {
+    dispatch(fetchPantryItems(token));
   },
-  fetchMealPlan: (user) => {
-    dispatch(fetchMealPlan(user));
+  fetchMealPlan: (token) => {
+    dispatch(fetchMealPlan(token));
   },
-  fetchShoppingList: (user) => {
-    dispatch(fetchShoppingList(user));
+  //Removed User from fetchShoppingList
+  fetchShoppingList: (token) => {
+    dispatch(fetchShoppingList(token));
   },
   saveRecipe: (
     user_id,
@@ -120,11 +122,14 @@ class Main extends Component {
     super(props);
   }
   
-  componentDidMount() {
-    this.props.fetchRecipes(this.props.user);
+  //NEEDS TO RETURN TOKENS
+  componentDidUpdate(preprops) {
+    if(this.props.token.token != preprops.token.token) {
+    this.props.fetchRecipes(this.props.token.token);
     this.props.fetchPantryItems(this.props.user);
     this.props.fetchMealPlan(this.props.user);
-    this.props.fetchShoppingList(this.props.user);
+    this.props.fetchShoppingList(this.props.token.token);
+    }
   }
 
   handleLogout = () => {
@@ -132,6 +137,8 @@ class Main extends Component {
     this.props.deleteUser();
   };
 
+
+  //PASS TOKENS TO THE COMPONENTS
   render() {
     return (
       <div>
@@ -166,6 +173,7 @@ class Main extends Component {
             path="/recipes"
             component={() => (
               <Recipes
+                token={this.props.token.token}
                 recipes={this.props.recipes.recipes}
                 deleteRecipe={this.props.deleteRecipe}
                 updateRecipe={this.props.updateRecipe}
@@ -187,7 +195,9 @@ class Main extends Component {
             component={() => (
               <ShoppingList
                 shoppingList={this.props.shoppinglist.shoppinglist}
+                fetchShoppingList={this.props.fetchShoppingList}
                 user={this.props.user}
+                token={this.props.token.token}
                 deleteShoppingList={this.props.deleteShoppingList}
                 addPurchasedItem={this.props.addPurchasedItem}
                 deletePurchasedItem={this.props.deletePurchasedItem}

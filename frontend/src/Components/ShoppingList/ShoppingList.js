@@ -1,8 +1,10 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Navigator from "../navigation/Navigator";
 import "./shoppinglist.css";
 import { FaRegTrashAlt, FaRegCheckCircle } from "react-icons/fa";
 import { Button } from "react-bootstrap";
+import { fetchShoppingList } from "../../Redux/actionCreators";
+
 
 export default function ShoppingList(props) {
   //All things in here persist as an array of ingredients
@@ -14,10 +16,11 @@ export default function ShoppingList(props) {
     }
   };
 
+  //DO NOT DELETE THIS PLEASE
   function submitPurchasedItems() {
 
   }
-  
+
   const shoppingItem = props.shoppingList.map((item, index) => {
     return (
       <>
@@ -66,4 +69,5 @@ export default function ShoppingList(props) {
       <Button onClick={() => submitPurchasedItems()}>Submit Purchases</Button>
     </>
   );
+
 }
