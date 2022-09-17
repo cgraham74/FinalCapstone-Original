@@ -173,7 +173,7 @@ export default function WeeklyPlanner(props) {
 
   return (
     <div>
-      {/* <Navigator /> */}
+      <Navigator />
       <div>
         <h3 id="weeklyplanner"> Weekly Planner</h3>
       </div>
