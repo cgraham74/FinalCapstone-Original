@@ -91,7 +91,7 @@ public class JdbcUserDao implements UserDao {
         user.setId(rs.getLong("user_id"));
         user.setUsername(rs.getString("username"));
         user.setPassword(rs.getString("password_hash"));
-        user.setAuthorities(rs.getString("role"));
+        user.addRoleToAuthorities(rs.getString("role"));
         user.setActivated(true);
         return user;
     }

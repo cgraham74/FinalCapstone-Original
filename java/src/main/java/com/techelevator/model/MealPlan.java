@@ -19,9 +19,11 @@ public class MealPlan {
     @Column(name = "mealplanid")
     private Integer mealplanid;
 
+    //Old bad code below!
     @Column(name = "user_id")
     @NotNull
     private Long user_id;
+    //Make the above a join.
 
     @Column(name = "category")
     private String category;

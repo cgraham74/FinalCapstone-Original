@@ -12,11 +12,12 @@ import lombok.Setter;
 @AllArgsConstructor
 
 public class MealPlanDTO {
+
     @JsonProperty
     private String name;
 
     @JsonProperty
-    private Double mealplanid;
+    private Integer mealplanid;
 
     @JsonProperty
     private String description;
@@ -26,9 +27,6 @@ public class MealPlanDTO {
 
     @JsonProperty
     private String imagefilename;
-    
-
-
 
 
 }

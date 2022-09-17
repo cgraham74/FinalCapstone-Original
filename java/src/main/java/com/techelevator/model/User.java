@@ -34,9 +34,9 @@ public class User {
    @Transient
    private Set<Authority> authorities = new HashSet<>();
 
-   @OneToOne
-   @JoinColumn(name = "mealplanid", insertable = false, updatable = false)
-   private MealPlan mealPlan;
+//   @OneToOne
+//   @JoinColumn(name = "mealplanid", insertable = false, updatable = false)
+//   private MealPlan mealPlan;
 
    public User() { }
 
@@ -66,17 +66,17 @@ public class User {
       this.role = role;
    }
 
-   public MealPlan getMealPlan() {
-      return mealPlan;
-   }
-
-   public void setMealPlan(MealPlan mealPlan) {
-      this.mealPlan = mealPlan;
-   }
-
-   public User(MealPlan mealPlan) {
-      this.mealPlan = mealPlan;
-   }
+//   public MealPlan getMealPlan() {
+//      return mealPlan;
+//   }
+//
+//   public void setMealPlan(MealPlan mealPlan) {
+//      this.mealPlan = mealPlan;
+//   }
+//
+//   public User(MealPlan mealPlan) {
+//      this.mealPlan = mealPlan;
+//   }
 
 
 
@@ -122,7 +122,7 @@ public class User {
       this.authorities = authorities;
    }
 
-   public void setAuthorities(String authorities) {
+   public void addRoleToAuthorities(String authorities) {
       String[] roles = authorities.split(",");
       for(String role : roles) {
          String authority = role.contains("ROLE_") ? role : "ROLE_" + role;

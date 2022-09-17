@@ -27,8 +27,8 @@ public interface RecipeIngredientRepository extends JpaRepository<RecipeIngredie
             "join recipemeal as m on r.recipeid = m.recipeid\n" +
             "join meal as f on m.mealid = f.mealid\n" +
             "join mealplan as p on f.user_id = p.user_id\n" +
-            "where mealplanid = :mealplanid", nativeQuery = true)
-    List<String> getListOfIngredientNames(@Param("mealplanid") Integer mealplanid);
+            "where p.user_id = :user_id", nativeQuery = true)
+    List<String> getListOfIngredientNames(@Param("user_id") Long user_id);
 
 //    @Modifying
 //    @Transactional

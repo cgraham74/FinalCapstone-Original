@@ -58,14 +58,11 @@ public class Services {
     }
 
 
-    public List<ShoppingListDTO> getMealPlanSHoppingListFromUser(String name) {
+    public List<ShoppingListDTO> getMealPlanShoppingListFromUser(String username) {
 
-        //PLACEHOLDER---
-        name = "Ed";
-        //--------------
         List<ShoppingListDTO> shoppingList = new ArrayList<>();
-        List<String> ingredientNames = new ArrayList<>(recipeIngredientRepository.getListOfIngredientNames(
-                mealPlanRepository.getMealPlanIdFromUserId((long) userDao.findIdByUsername(name))));
+        List<String> ingredientNames = new ArrayList<>(recipeIngredientRepository.
+                getListOfIngredientNames((long) getUserId(username)));
 
         for (String ingredientName : ingredientNames) {
             shoppingList.add(new ShoppingListDTO(ingredientName));
@@ -79,7 +76,7 @@ public class Services {
 
         for (MealPlannerDTO mealPlan : mealPlanList) {
             MealPlan incomingMealPlan = new MealPlan();
-            incomingMealPlan.setUser_id(mealPlan.getUser_id());
+//            incomingMealPlan.setUser_id(mealPlan.getUser_id());
             incomingMealPlan.setCategory(mealPlan.getCategory());
             incomingMealPlan.setDayofweek(mealPlan.getDayofweek());
             incomingMealPlan.setRecipename(mealPlan.getTitle());
@@ -152,7 +149,7 @@ public class Services {
         return recipeDTO;
     }
 
-    public Collection<RecipeDTO> testListOfRecipes() {
+    public Collection<RecipeDTO> testListOfRecipes(String name) {
 
         Collection<RecipeDTO> listOfRecipeDTO = new ArrayList<>();
         Collection<Recipe> recipes = recipeRepository.findAll();

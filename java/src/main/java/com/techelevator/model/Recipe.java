@@ -21,9 +21,11 @@ public class Recipe {
     @Column(name = "recipeid")
     private Integer recipeid;
 
+    //Make this a join!
     @Column(name = "user_id")
     @NotNull
     private Long user_id;
+    //Make the above a join!
 
     @Column(name = "title")
     @NotNull
@@ -40,6 +42,10 @@ public class Recipe {
     @Column(name = "instructions")
     @NotNull
     private String instructions;
+
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    User user;
 
     // Would be nice but not needed.
 

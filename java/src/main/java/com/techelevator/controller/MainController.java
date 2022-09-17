@@ -17,8 +17,8 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/recipe")
 @AllArgsConstructor
-//@EnableWebSecurity
-//@Secured({"ROLE_USER", "ROLE_ADMIN"})
+@EnableWebSecurity
+@Secured({"ROLE_USER", "ROLE_ADMIN"})
 public class MainController {
 
 
@@ -26,20 +26,20 @@ public class MainController {
 
     private final Services services;
 
-    @PermitAll
+    @PreAuthorize("isAuthenticated()")
     @GetMapping(path = "/mealplan")
     public List<MealPlannerDTO> mealPlanner(String name) {
         return services.mealPlanListForUser(name);
     }
 
-    @PermitAll
+    @PreAuthorize("isAuthenticated()")
     @PostMapping(path = "/mealplan/save")
     public void updateMealPlan(@RequestBody List<MealPlannerDTO> mealPlannerDTO) {
 
         services.saveMealPlan(mealPlannerDTO);
     }
 
-    @PermitAll
+    @PreAuthorize("isAuthenticated()")
     @GetMapping(path = "/breakfast")
     public Object[] testGetRecipeTitleFromCategory() {
         return services.testGetRecipeTitleByCategory("Breakfast");
@@ -47,34 +47,34 @@ public class MainController {
     //  @GetMapping(path = "/pantry/{user_id}")  This broke the code!
 
 
-    @PermitAll
+    @PreAuthorize("isAuthenticated()")
     @GetMapping(path = "/pantry")
     public List<PantryDTO> testGetUsersPantry() {
 
         return services.testGetUserPantryDTO("Ed");
     }
 
-    @PermitAll
+    @PreAuthorize("isAuthenticated()")
     @GetMapping(path = "/get/{recipeid}")
     public RecipeDTO testGetRecipeById(@PathVariable("recipeid") Integer recipeid) {
         return services.getRecipeById(recipeid);
     }
 
-    @PermitAll
+    @PreAuthorize("isAuthenticated()")
     @PutMapping(path = "/update/{id}")
     public void update(@RequestBody RecipeDTO recipeDTO, @PathVariable int id) {
         recipeDTO.setRecipeid(id);
 
         services.updateRecipe(recipeDTO);
-
     }
 
-    @PermitAll
+    @PreAuthorize("isAuthenticated()")
     @GetMapping(path = "/list")
-    public Collection<RecipeDTO> testGetRecipeList(){
-        return services.testListOfRecipes();
+    public Collection<RecipeDTO> getRecipeList(Principal principal){
+        return services.testListOfRecipes(principal.getName());
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping(path = "/save")
     @ResponseBody
     public void saveRecipe(@RequestBody RecipeDTO recipeDTO) {
@@ -82,10 +82,12 @@ public class MainController {
         services.saveRecipeAndIngredients(recipeDTO);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PermitAll
-    @GetMapping(path = "/shoppinglist")
-    public List<ShoppingListDTO> shoppingList(String name) {
-        return services.getMealPlanSHoppingListFromUser(name);
+    @RequestMapping(path = "/shoppinglist")
+    public List<ShoppingListDTO> shoppingList(Principal principal) {
+        System.out.println(principal.toString());
+        return services.getMealPlanShoppingListFromUser(principal.getName());
     }
 
 }
