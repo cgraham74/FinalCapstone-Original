@@ -17,7 +17,7 @@ import {
   deleteShoppingList,
   deletePurchasedItem,
   addPurchasedItem,
-  updateIngredient,
+  postNewMealSelection,
   changeMealSelection
 } from "../../Redux/actionCreators";
 import { connect } from "react-redux";
@@ -110,11 +110,12 @@ const mapDispatchToProps = (dispatch) => ({
         category
       )
     ),
-    newMealSelection: (day, mealtime, recipename) => dispatch(newMealSelection(day, mealtime, recipename)),
-    changeMealSelection: (day, mealtime, recipename) => dispatch(changeMealSelection(day, mealtime, recipename)),
+    newMealSelection: (user, mealtime, day, recipename) => dispatch(newMealSelection(user, mealtime, day, recipename)),
+    changeMealSelection: (mealplanid, user, mealtime, day,  recipename) => dispatch(changeMealSelection(mealplanid, user, mealtime, day, recipename)),
     deleteShoppingList: (item) => dispatch(deleteShoppingList(item)),
     deletePurchasedItem:(item) => dispatch(deletePurchasedItem(item)),
     addPurchasedItem:(item) => dispatch(addPurchasedItem(item)),
+    postNewMealSelection: (mealselection, token) => dispatch(postNewMealSelection(mealselection, token))
 });
 
 class Main extends Component {
@@ -124,10 +125,10 @@ class Main extends Component {
   
   //NEEDS TO RETURN TOKENS
   componentDidUpdate(preprops) {
-    if(this.props.token.token != preprops.token.token) {
+    if(this.props.token.token !== preprops.token.token) {
     this.props.fetchRecipes(this.props.token.token);
-    this.props.fetchPantryItems(this.props.user);
-    this.props.fetchMealPlan(this.props.user);
+    this.props.fetchPantryItems(this.props.token.token);
+    this.props.fetchMealPlan(this.props.token.token);
     this.props.fetchShoppingList(this.props.token.token);
     }
   }
@@ -166,7 +167,9 @@ class Main extends Component {
             path="/weeklyplanner"
             component={() => (
               <WeeklyPlanner mealplan={this.props.mealplan.mealplan} user={this.props.user} 
-              mealselection={this.props.mealselection.mealselection}  />
+              mealselection={this.props.mealselection.mealselection}
+              postNewMealSelection={this.props.postNewMealSelection}
+              token={this.props.token}  />
             )}
           />
           <Route
@@ -222,7 +225,8 @@ class Main extends Component {
             component={() => (
               <Day newMealSelection={this.props.newMealSelection}
               changeMealSelection={this.props.changeMealSelection}
-              mealselection={this.props.mealselection.mealselection} />
+              mealselection={this.props.mealselection.mealselection}
+               />
             )}
           />
           <Route path="/day" component={() => <Day />} />

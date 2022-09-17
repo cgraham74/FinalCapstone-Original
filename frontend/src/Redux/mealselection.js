@@ -2,6 +2,10 @@ import * as actionTypes from "./actionTypes";
 
 export const MealSelection = (state = { mealselection: [] }, action) => {
   switch (action.type) {
+
+    case actionTypes.ADD_MEALSELECTIONS:
+      return {...state, mealselection: action.payload};
+
     case actionTypes.ADD_MEALSELECTION:
       //copies the original state
       return {
@@ -11,13 +15,12 @@ export const MealSelection = (state = { mealselection: [] }, action) => {
       };
 
     case actionTypes.UPDATE_MEALSELECTION:
-      console.log("passing add");
       return {
         
         ...state,
         
         mealselection: state.mealselection.map((item) => {
-          if (item.day === action.payload.day && item.mealtime === action.payload.mealtime){
+          if (item.dayofweek === action.payload.dayofweek && item.category === action.payload.category){
             return action.payload;
           } else {
             return item;

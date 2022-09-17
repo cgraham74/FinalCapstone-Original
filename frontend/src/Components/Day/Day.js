@@ -11,40 +11,41 @@ export default function Day(props) {
   const state = useSelector((state) => state);
 
   useEffect(() => {
-    const mealplan = state.mealplan.mealplan;
+    const mealplan = state.recipes.recipes;
     setPosts(mealplan);
   }, []);
-
-  function addUpdateMealSelection(day, time, meal) {
+ 
+  function addUpdateMealSelection(user, time, day, meal) {
     let match = false;
     if (props.mealselection.length === 0) {
-      console.log("Array is empty " + meal)
        return props.newMealSelection(
-        day,
+        user,
         time,
-        meal
+        day,
+        meal 
       );
     } 
     props.mealselection.map((item) => {
-      
+      console.log(JSON.stringify(item))
       if (
-        item.day === day &&
-        item.mealtime === time
+        item.dayofweek === day &&
+        item.category === time
       ) {
-        console.log("found matach")
         match = true;
         return props.changeMealSelection(
-          day,
+          item.mealplanid,
+          user,
           time,
-          meal
+          day,
+          meal 
         );
       }});  
       if(!match) {
-        console.log("No match: "+ meal)
          return props.newMealSelection(
-          day,
+          user,
           time,
-          meal
+          day,
+          meal 
         );
          }
   }
@@ -52,9 +53,9 @@ export default function Day(props) {
   const mealItems = posts.map((item, index) => {
     return (
       <li key={index} id="pantry-list">
-        {item}
+        {item.title}
         <Link to="/weeklyplanner">
-          <FaPlusCircle onClick={() => addUpdateMealSelection(location.state.day, location.state.meal, item)} />
+          <FaPlusCircle onClick={() => addUpdateMealSelection(state.user.id,  location.state.meal, location.state.day, item.title)} />
         </Link>
       </li>
     );

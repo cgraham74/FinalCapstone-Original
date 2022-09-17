@@ -15,21 +15,15 @@ export const deleteUser = () => ({
   type: ActionTypes.DELETE_USER,
 });
 
-export const addRecipe = (recipes) => ({
-  type: ActionTypes.ADD_RECIPE,
-  payload: recipes,
-});
-
 //ADDED HEADERS AND TOKENS TO THE SERVER
 export const fetchRecipes = (token) => async (dispatch) => {
-  await fetch(baseUrl + "/recipe/list",
-  {method: "GET",
-  headers: {
-    // Accept: "*/*",
-    "Content-Type": "application/json",
-    "Authorization": `Bearer ${token}`, 
-  },}
-  )
+  await fetch(baseUrl + "/recipe/list", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
     .then((response) => {
       return response.json();
     })
@@ -39,7 +33,10 @@ export const fetchRecipes = (token) => async (dispatch) => {
     });
 };
 
-
+export const addRecipe = (recipes) => ({
+  type: ActionTypes.ADD_RECIPE,
+  payload: recipes,
+});
 
 export const updateRecipe = (recipe) => ({
   type: ActionTypes.UPDATE_RECIPE,
@@ -61,7 +58,7 @@ export const saveRecipe =
     servingSize,
     category
   ) =>
-  async (dispatch) => {
+  async (token) => {
     const newRecipe = {
       user_id: user_id,
       title: title,
@@ -78,14 +75,12 @@ export const saveRecipe =
       headers: {
         "Content-Type": "application/json",
 
-        // "Authorization": `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     }).then((response) => {
       if (response.ok) {
         alert("Saved!" + newRecipe);
         return response;
-
-        // resetForm(e);
       }
     });
     // .then((response) => response.json())
@@ -95,7 +90,6 @@ export const saveRecipe =
     //   alert("Could not save card!" + JSON.stringify(newRecipe));
     // });
   };
-
 
 export const updatedRecipe =
   (
@@ -108,8 +102,7 @@ export const updatedRecipe =
     servingSize,
     category
   ) =>
-  async (dispatch) => {
-  
+  async (token) => {
     const updateRecipe = {
       recipeid: recipeid,
       user_id: user_id,
@@ -120,29 +113,30 @@ export const updatedRecipe =
       servingSize: servingSize,
       category: category,
     };
-    
-      // update
-      await fetch(baseUrl + `/recipe/update/${recipeid}`, {
-        method: "PUT",
-        cache: "no-cache",
-        body: JSON.stringify(updateRecipe),
-        headers: {
-          "Content-Type": "application/json",
-        },
+
+    // update
+    await fetch(baseUrl + `/recipe/update/${recipeid}`, {
+      method: "PUT",
+      cache: "no-cache",
+      body: JSON.stringify(updateRecipe),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert("Edit Saved!");
+        }
       })
-        .then((response) => {
-          if (response.ok) {
-            alert("Edit Saved!");
-          }
-        })
-        .catch((err) => {
-          console.error("from POST " + err);
-          alert("Could not save card!");
-        });
+      .catch((err) => {
+        console.error("from POST " + err);
+        alert("Could not save card!");
+      });
   };
 
 export const deleteRecipe = (id) => (dispatch) => {
-  console.log("Is this working " + id);
+  console.log("actionCreators: deleteRecipe id: " + id);
   fetch(baseUrl + "/recipe/delete/" + id, {
     method: "DELETE",
     headers: {
@@ -171,15 +165,20 @@ export const deleteRecipe = (id) => (dispatch) => {
 //   }
 // });
 
-//Calls the fetch to add the ingredients at launch - will need to implmenent
-//The updated and delete as well - use this as a template
-export const fetchPantryItems = (user) => (dispatch) => {
-  fetch(baseUrl + "/recipe/pantry")
+//Calls the fetch to add the ingredients at launch
+export const fetchPantryItems = (token) => async (dispatch) => {
+  await fetch(baseUrl + "/recipe/pantry", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
     .then((response) => {
       return response.json();
     })
     .then((data) => {
-      console.log("This data is from pantry" + data);
+      console.log("actionCreators: fetchPantryItems data: " + data);
       return dispatch(addIngredient(data));
     });
 };
@@ -198,22 +197,20 @@ export const updateIngredient = (ingredient) => ({
   payload: ingredient,
 });
 
-//Action creators for Shopping List - change endpoint when shoppinglist endpoint
-//is available - using pantry endpoint for now
+//Action creators for Shopping List
 export const fetchShoppingList = (token) => async (dispatch) => {
-  await fetch(baseUrl + "/recipe/shoppinglist",
-  {method: "GET",
-  headers: {
-    // Accept: "*/*",
-    "Content-Type": "application/json",
-    "Authorization": `Bearer ${token}`, 
-  },}
-)
+  await fetch(baseUrl + "/recipe/shoppinglist", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
     .then((response) => {
       return response.json();
     })
     .then((data) => {
-      console.log("This data is from fetchShoppingList: " + JSON.stringify(data));
+      console.log("actionCreators: fetchShoppingList: " + JSON.stringify(data));
       return dispatch(addShoppingList(data));
     });
 };
@@ -232,14 +229,22 @@ export const updateShoppingList = (shoppingList) => ({
 });
 
 //Action creators for Mealplan
-export const fetchMealPlan = () => (dispatch) => {
-  fetch(baseUrl + "/recipe/breakfast")
+export const fetchMealPlan = (token) => (dispatch) => {
+  fetch(baseUrl + "/recipe/mealplan", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
     .then((response) => {
       return response.json();
     })
     .then((data) => {
-      console.log("This data is from fetchMeals" + data);
-      return dispatch(addMealPlan(data));
+      console.log(
+        "actionCreators: fetchMealPlan data: " + JSON.stringify(data)
+      );
+      return dispatch(addMealSelections(data));
     });
 };
 
@@ -257,64 +262,61 @@ export const updateMealPlan = (mealplan) => ({
 });
 
 //can change this to fetch
-export const newMealSelection = (day, mealtime, recipename) => (dispatch) => {
-
-  const newMealplan = {
-    day: day,
-    mealtime: mealtime,
-    recipename: recipename,
+export const newMealSelection =
+  (user, mealtime, day, recipename) => (dispatch) => {
+    const newMealplan = {
+      user_id: user,
+      category: mealtime,
+      dayofweek: day,
+      recipename: recipename
+    };
+    console.log(newMealplan)
+    dispatch(addMealSelection(newMealplan));
   };
 
-  dispatch(addMealSelection(newMealplan));
-};
-
-
-export const changeMealSelection = (day, mealtime, recipename) => (dispatch) => {
-
-  const newMealplan = {
-    day: day,
-    mealtime: mealtime,
-    recipename: recipename,
+export const changeMealSelection =
+  (mealplanid, user, mealtime, day, recipename) => (dispatch) => {
+    const newMealplan = {
+      mealplanid: mealplanid,
+      user_id: user,
+      category: mealtime,
+      dayofweek: day,
+      recipename: recipename
+    };
+    console.log(newMealplan)
+    dispatch(updateMealSelection(newMealplan));
   };
-
-  dispatch(updateMealSelection(newMealplan));
-};
 //-----------------------------------------
 export const postNewMealSelection =
-  (
-    day,
-    mealtime,
-    recipename,
-  ) =>
-  async (dispatch) => {
-  
-      const newPostedMealplan = {
-        day: day,
-        mealtime: mealtime,
-        recipename: recipename,
-      };
-    
-      // Post a meal plan
-      await fetch(baseUrl + `/recipe/mealplan/save`, {
-        method: "POST",
-        cache: "no-cache",
-        body: JSON.stringify(newPostedMealplan),
-        headers: {
-          "Content-Type": "application/json",
-        },
+  (mealselection, token) => (dispatch) => {
+    // Post a meal plan
+    console.log("Mealselection: " + JSON.stringify(mealselection) + " " + JSON.stringify(token))
+    fetch(baseUrl + "/recipe/mealplan/save", {
+      method: "POST",
+      cache: "no-cache",
+      body: JSON.stringify(mealselection),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          alert("Saved meal plan!");
+          dispatch(fetchMealPlan(token))
+        }
       })
-        .then((response) => {
-          if (response.ok) {
-            alert("Saved meal plan!");
-          }
-        })
-        .catch((err) => {
-          console.error("from POST " + err);
-          alert("Could not save plan!");
-        });
+      .catch((err) => {
+        console.error("from POST " + err);
+        alert("Could not save plan!");
+      });
   };
 
 //----------------------------
+export const addMealSelections = (newMeal) => ({
+  type: ActionTypes.ADD_MEALSELECTIONS,
+  payload: newMeal,
+});
 
 export const addMealSelection = (newMeal) => ({
   type: ActionTypes.ADD_MEALSELECTION,
@@ -326,11 +328,11 @@ export const updateMealSelection = (newMeal) => ({
 });
 
 export const addPurchasedItem = (newitem) => ({
-    type: ActionTypes.ADD_PURCHASED_ITEMS,
-    payload: newitem,
-  });
+  type: ActionTypes.ADD_PURCHASED_ITEMS,
+  payload: newitem,
+});
 
-  export const deletePurchasedItem = (newitem) => ({
-    type: ActionTypes.DELETE_PURCHASED_ITEMS,
-    payload: newitem,
-  });
+export const deletePurchasedItem = (newitem) => ({
+  type: ActionTypes.DELETE_PURCHASED_ITEMS,
+  payload: newitem,
+});

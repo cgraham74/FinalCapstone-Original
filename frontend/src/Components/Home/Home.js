@@ -2,7 +2,7 @@
 import Navigator from '../navigation/Navigator'
 import LandingPage from '../LandingPage/LandingPage';
 
-function Home(props) {
+function Home() {
     return(
         <div>
             <Navigator/>

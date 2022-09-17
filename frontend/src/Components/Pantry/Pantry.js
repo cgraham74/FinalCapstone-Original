@@ -22,8 +22,5 @@ export default function Pantry(props) {
         
       </>
     );
-    //function to remove pantry items
-    //function removePantryItem(){
 
-    //}
 }

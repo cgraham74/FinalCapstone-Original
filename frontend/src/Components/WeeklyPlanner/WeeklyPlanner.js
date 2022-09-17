@@ -11,73 +11,69 @@ import pinkdot from "../../images/pinkdot.png";
 import reddot from "../../images/reddot.png";
 import "./weeklyplanner.css";
 import Accordion from "react-bootstrap/Accordion";
-import { Button } from "reactstrap";
+import { Button, Table } from "reactstrap";
+
 
 export default function WeeklyPlanner(props) {
-  console.log("Meal: " + JSON.stringify(props.mealselection));
-
-  function submitMealPlan(){
-
-  }
 
   const displayMondayBreakfast = props.mealselection.map((item) => {
-    if (item.day === "Monday" && item.mealtime === "breakfast") {
+    if (item.dayofweek === "Monday" && item.category === "Breakfast") {
          return <>{item.recipename}</>;
     }else {
       return <></>;
     }
   });
   const displayMondayLunch = props.mealselection.map((item) => {
-    if (item.day === "Monday" && item.mealtime === "lunch") {
+    if (item.dayofweek === "Monday" && item.category === "Lunch") {
       return <>{item.recipename}</>;
     } else {
       return <></>;
     }
   });
   const displayMondayDinner = props.mealselection.map((item) => {
-    if (item.day === "Monday" && item.mealtime === "dinner") {
+    if (item.dayofweek === "Monday" && item.category === "Dinner") {
       return <>{item.recipename}</>;
     }else {
       return <></>;
     }
   });
   const displayTuesdayBreakfast = props.mealselection.map((item) => {
-    if (item.day === "Tuesday" && item.mealtime === "breakfast") {
+    if (item.dayofweek === "Tuesday" && item.category === "Breakfast") {
       return <>{item.recipename}</>;
     }else {
       return <></>;
     }
   });
   const displayTuesdayLunch = props.mealselection.map((item) => {
-    if (item.day === "Tuesday" && item.mealtime === "lunch") {
+    if (item.dayofweek === "Tuesday" && item.category === "Lunch") {
       return <>{item.recipename}</>;
     }else {
       return <></>;
     }
   });
   const displayTuesdayDinner = props.mealselection.map((item) => {
-    if (item.day === "Tuesday" && item.mealtime === "dinner") {
+    if (item.dayofweek === "Tuesday" && item.category === "Dinner") {
       return <>{item.recipename}</>;
     }else {
       return <></>;
     }
   });
   const displayWednesdayBreakfast = props.mealselection.map((item) => {
-    if (item.day === "Wednesday" && item.mealtime === "breakfast") {
+    if (item.dayofweek === "Wednesday" && item.category === "Breakfast") {
       return <>{item.recipename}</>;
     } else {
       return <></>;
     }
   });
   const displayWednesdayLunch = props.mealselection.map((item) => {
-    if (item.day === "Wednesday" && item.mealtime === "lunch") {
+    if (item.dayofweek === "Wednesday" && item.category === "Lunch") {
       return <>{item.recipename}</>;
     } else {
       return <></>;
     }
   });
   const displayWednesdayDinner = props.mealselection.map((item) => {
-    if (item.day === "Wednesday" && item.mealtime === "dinner") {
+    if (item.dayofweek === "Wednesday" && item.category === "Dinner") {
       return <>{item.recipename}</>;
     } else {
       return <></>;
@@ -85,21 +81,21 @@ export default function WeeklyPlanner(props) {
   });
 
   const displayThursdayBreakfast = props.mealselection.map((item) => {
-    if (item.day === "Thursday" && item.mealtime === "breakfast") {
+    if (item.dayofweek === "Thursday" && item.category === "Breakfast") {
       return <>{item.recipename}</>;
     } else {
       return <></>;
     }
   });
   const displayThursdayLunch = props.mealselection.map((item) => {
-    if (item.day === "Thursday" && item.mealtime === "lunch") {
+    if (item.dayofweek === "Thursday" && item.category === "Lunch") {
       return <>{item.recipename}</>;
     } else {
       return <></>;
     }
   });
   const displayThursdayDinner = props.mealselection.map((item) => {
-    if (item.day === "Thursday" && item.mealtime === "dinner") {
+    if (item.dayofweek === "Thursday" && item.category === "Dinner") {
       return <>{item.recipename}</>;
     } else {
       return <></>;
@@ -107,42 +103,42 @@ export default function WeeklyPlanner(props) {
   });
 
   const displayFridayBreakfast = props.mealselection.map((item) => {
-    if (item.day === "Friday" && item.mealtime === "breakfast") {
+    if (item.dayofweek === "Friday" && item.category === "Breakfast") {
       return <>{item.recipename}</>;
     } else {
       return <></>;
     }
   });
   const displayFridayLunch = props.mealselection.map((item) => {
-    if (item.day === "Friday" && item.mealtime === "lunch") {
+    if (item.dayofweek === "Friday" && item.category === "Lunch") {
       return <>{item.recipename}</>;
     } else {
       return <></>;
     }
   });
   const displayFridayDinner = props.mealselection.map((item) => {
-    if (item.day === "Friday" && item.mealtime === "dinner") {
+    if (item.dayofweek === "Friday" && item.category === "Dinner") {
       return <>{item.recipename}</>;
     } else {
       return <></>;
     }
   });
   const displaySaturdayBreakfast = props.mealselection.map((item) => {
-    if (item.day === "Saturday" && item.mealtime === "breakfast") {
+    if (item.dayofweek === "Saturday" && item.category === "Breakfast") {
       return <>{item.recipename}</>;
     } else {
       return <></>;
     }
   });
   const displaySaturdayLunch = props.mealselection.map((item) => {
-    if (item.day === "Saturday" && item.mealtime === "lunch") {
+    if (item.dayofweek === "Saturday" && item.category === "Lunch") {
       return <>{item.recipename}</>;
     } else {
       return <></>;
     }
   });
   const displaySaturdayDinner = props.mealselection.map((item) => {
-    if (item.day === "Saturday" && item.mealtime === "dinner") {
+    if (item.dayofweek === "Saturday" && item.category === "Dinner") {
       return <>{item.recipename}</>;
     } else {
       return <></>;
@@ -150,21 +146,21 @@ export default function WeeklyPlanner(props) {
   });
 
   const displaySundayBreakfast = props.mealselection.map((item) => {
-    if (item.day === "Sunday" && item.mealtime === "breakfast") {
+    if (item.dayofweek === "Sunday" && item.category === "Breakfast") {
       return <>{item.recipename}</>;
     } else {
       return <></>;
     }
   });
   const displaySundayLunch = props.mealselection.map((item) => {
-    if (item.day === "Sunday" && item.mealtime === "lunch") {
+    if (item.dayofweek === "Sunday" && item.category === "Lunch") {
       return <>{item.recipename}</>;
     } else {
       return <></>;
     }
   });
   const displaySundayDinner = props.mealselection.map((item) => {
-    if (item.day === "Sunday" && item.mealtime === "dinner") {
+    if (item.dayofweek === "Sunday" && item.category=== "Dinner") {
       return <>{item.recipename}</>;
     } else {
       return <></>;
@@ -194,7 +190,7 @@ export default function WeeklyPlanner(props) {
                   to={{
                     //testing day component
                     pathname: "/day",
-                    state: { day: "Monday", meal: "breakfast" },
+                    state: { day: "Monday", meal: "Breakfast" },
                   }}
                 >
                   Breakfast: {displayMondayBreakfast}
@@ -205,7 +201,7 @@ export default function WeeklyPlanner(props) {
                   style={{ textDecoration: "none" }}
                   to={{
                     pathname: "/day",
-                    state: { day: "Monday", meal: "lunch" },
+                    state: { day: "Monday", meal: "Lunch" },
                   }}
                 >
                   Lunch: {displayMondayLunch}
@@ -215,7 +211,7 @@ export default function WeeklyPlanner(props) {
                   style={{ textDecoration: "none" }}
                   to={{
                     pathname: "/day",
-                    state: { day: "Monday", meal: "dinner" },
+                    state: { day: "Monday", meal: "Dinner" },
                   }}
                 >
                   Dinner: {displayMondayDinner}
@@ -239,7 +235,7 @@ export default function WeeklyPlanner(props) {
                   style={{ textDecoration: "none" }}
                   to={{
                     pathname: "/day",
-                    state: { day: "Tuesday", meal: "breakfast" },
+                    state: { day: "Tuesday", meal: "Breakfast" },
                   }}
                 >
                   Breakfast :{displayTuesdayBreakfast}
@@ -250,7 +246,7 @@ export default function WeeklyPlanner(props) {
                   style={{ textDecoration: "none" }}
                   to={{
                     pathname: "/day",
-                    state: { day: "Tuesday", meal: "lunch" },
+                    state: { day: "Tuesday", meal: "Lunch" },
                   }}
                 >
                   Lunch : {displayTuesdayLunch}
@@ -260,7 +256,7 @@ export default function WeeklyPlanner(props) {
                   style={{ textDecoration: "none" }}
                   to={{
                     pathname: "/day",
-                    state: { day: "Tuesday", meal: "dinner" },
+                    state: { day: "Tuesday", meal: "Dinner" },
                   }}
                 >
                   Dinner : {displayTuesdayDinner}
@@ -284,7 +280,7 @@ export default function WeeklyPlanner(props) {
                   style={{ textDecoration: "none" }}
                   to={{
                     pathname: "/day",
-                    state: { day: "Wednesday", meal: "breakfast" },
+                    state: { day: "Wednesday", meal: "Breakfast" },
                   }}
                 >
                   Breakfast : {displayWednesdayBreakfast}
@@ -295,7 +291,7 @@ export default function WeeklyPlanner(props) {
                   style={{ textDecoration: "none" }}
                   to={{
                     pathname: "/day",
-                    state: { day: "Wednesday", meal: "lunch" },
+                    state: { day: "Wednesday", meal: "Lunch" },
                   }}
                 >
                   Lunch : {displayWednesdayLunch}
@@ -305,7 +301,7 @@ export default function WeeklyPlanner(props) {
                   style={{ textDecoration: "none" }}
                   to={{
                     pathname: "/day",
-                    state: { day: "Wednesday", meal: "dinner" },
+                    state: { day: "Wednesday", meal: "Dinner" },
                   }}
                 >
                   Dinner : {displayWednesdayDinner}
@@ -329,7 +325,7 @@ export default function WeeklyPlanner(props) {
                   style={{ textDecoration: "none" }}
                   to={{
                     pathname: "/day",
-                    state: { day: "Thursday", meal: "breakfast" },
+                    state: { day: "Thursday", meal: "Breakfast" },
                   }}
                 >
                   Breakfast : {displayThursdayBreakfast}
@@ -340,7 +336,7 @@ export default function WeeklyPlanner(props) {
                   style={{ textDecoration: "none" }}
                   to={{
                     pathname: "/day",
-                    state: { day: "Thursday", meal: "lunch" },
+                    state: { day: "Thursday", meal: "Lunch" },
                   }}
                 >
                   Lunch : {displayThursdayLunch}
@@ -350,7 +346,7 @@ export default function WeeklyPlanner(props) {
                   style={{ textDecoration: "none" }}
                   to={{
                     pathname: "/day",
-                    state: { day: "Thursday", meal: "dinner" },
+                    state: { day: "Thursday", meal: "Dinner" },
                   }}
                 >
                   Dinner : {displayThursdayDinner}
@@ -374,7 +370,7 @@ export default function WeeklyPlanner(props) {
                   style={{ textDecoration: "none" }}
                   to={{
                     pathname: "/day",
-                    state: { day: "Friday", meal: "breakfast" },
+                    state: { day: "Friday", meal: "Breakfast" },
                   }}
                 >
                   Breakfast : {displayFridayBreakfast}
@@ -385,7 +381,7 @@ export default function WeeklyPlanner(props) {
                   style={{ textDecoration: "none" }}
                   to={{
                     pathname: "/day",
-                    state: { day: "Friday", meal: "lunch" },
+                    state: { day: "Friday", meal: "Lunch" },
                   }}
                 >
                   Lunch : {displayFridayLunch}
@@ -395,7 +391,7 @@ export default function WeeklyPlanner(props) {
                   style={{ textDecoration: "none" }}
                   to={{
                     pathname: "/day",
-                    state: { day: "Friday", meal: "dinner" },
+                    state: { day: "Friday", meal: "Dinner" },
                   }}
                 >
                   Dinner : {displayFridayDinner}
@@ -419,7 +415,7 @@ export default function WeeklyPlanner(props) {
                   style={{ textDecoration: "none" }}
                   to={{
                     pathname: "/day",
-                    state: { day: "Saturday", meal: "breakfast" },
+                    state: { day: "Saturday", meal: "Breakfast" },
                   }}
                 >
                   Breakfast : {displaySaturdayBreakfast}
@@ -430,7 +426,7 @@ export default function WeeklyPlanner(props) {
                   style={{ textDecoration: "none" }}
                   to={{
                     pathname: "/day",
-                    state: { day: "Saturday", meal: "lunch" },
+                    state: { day: "Saturday", meal: "Lunch" },
                   }}
                 >
                   Lunch : {displaySaturdayLunch}
@@ -440,7 +436,7 @@ export default function WeeklyPlanner(props) {
                   style={{ textDecoration: "none" }}
                   to={{
                     pathname: "/day",
-                    state: { day: "Saturday", meal: "dinner" },
+                    state: { day: "Saturday", meal: "Dinner" },
                   }}
                 >
                   Dinner : {displaySaturdayDinner}
@@ -464,7 +460,7 @@ export default function WeeklyPlanner(props) {
                   style={{ textDecoration: "none" }}
                   to={{
                     pathname: "/day",
-                    state: { day: "Sunday", meal: "breakfast" },
+                    state: { day: "Sunday", meal: "Breakfast" },
                   }}
                 >
                   Breakfast : {displaySundayBreakfast}
@@ -475,7 +471,7 @@ export default function WeeklyPlanner(props) {
                   style={{ textDecoration: "none" }}
                   to={{
                     pathname: "/day",
-                    state: { day: "Sunday", meal: "lunch" },
+                    state: { day: "Sunday", meal: "Lunch" },
                   }}
                 >
                   Lunch : {displaySundayLunch}
@@ -485,7 +481,7 @@ export default function WeeklyPlanner(props) {
                   style={{ textDecoration: "none" }}
                   to={{
                     pathname: "/day",
-                    state: { day: "Sunday", meal: "dinner" },
+                    state: { day: "Sunday", meal: "Dinner" },
                   }}
                 >
                   Dinner : {displaySundayDinner}
@@ -495,7 +491,10 @@ export default function WeeklyPlanner(props) {
           </Accordion.Item>
         </Accordion>
       </div>
-      <Button onClick={() => submitMealPlan()}>Submit Meal Plan</Button>
+      <Table>
+
+      </Table>
+      <Button onClick={() => props.postNewMealSelection(props.mealselection, props.token.token)}>Submit Meal Plan</Button>
               
     </div>
   );

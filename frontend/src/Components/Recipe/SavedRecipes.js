@@ -60,8 +60,6 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
           measurementunit: ingredientMeasurementUnit,
         },
       ]);
-      // console.log(ingredientName);
-      // console.log(addonIngredients.name);
      
       setIngredientName("");
       setIngredientQuantity("");
@@ -137,7 +135,7 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
 
  // const t = () => setModal(!modal);
 ingredientList.map(item=>{
-  console.log(item.name)
+  console.log("SavedRecipes: Ingredients map: " + item.name)
 })
  }
   const ingredients = recipeCard.ingredientList.map((item, index) => {
@@ -278,7 +276,7 @@ ingredientList.map(item=>{
 }
 
 export default function SavedRecipes(props) {
-  console.log(props.recipes.recipeid);
+  console.log("SavedRecipe: Line 281: props.recipes.recipeid: "+props.recipes.recipeid);
   const recipeCollections = props.recipes.map((item, id) => { console.log(item.id);
     return (
       <>
@@ -295,96 +293,3 @@ export default function SavedRecipes(props) {
   });
   return <>{recipeCollections}</>;
 }
-
-// const [recipeCollection, setRecipeCollection] = useState([]);
-// const [recipeCard, setRecipeCard] = useState({});
-// const [isLoading, setIsLoading] = useState(false);
-// const [isEdited, setIsEdited] = useState(false);
-
-/**
- * A function provided to delete unwanted recipes
- *
- * @param {*} event
- * @param {*} id
- */
-// function deleteHandler(event, id) {
-// fetch(baseUrl + "/" + id, {
-//   method: "DELETE",
-//   cache: "no-cache",
-//   headers: {
-//     "Content-type": "application/json",
-//     Authorization: `Bearer ${addToken}`,
-//   },
-// })
-//   .then((response) => {
-//     setIsLoading(!isLoading);
-//     return response.text();
-//   })
-//   .then((data) => {
-//     console.log(data);
-//     alert("Recipe deleted!");
-//   })
-//   .catch((err) => {
-//     console.error(err);
-//     alert("Could not delete recipe!");
-//   });
-// }
-
-// /**
-// * Handler method to update a specific recipe
-// * @param {*} event
-// * @param {*} id
-// */
-// function editHandler(event, id) {
-// fetch(baseUrl + "/" + id, {
-//   method: "PUT",
-//   cache: "no-cache",
-//   headers: {
-//     "Content-type": "application/json",
-//     Authorization: `Bearer ${addToken}`,
-//   },
-//   body: JSON.stringify(recipeCard),
-// })
-//   .then((response) => {
-//     if (response.ok) {
-//       alert("Saved Recipe!");
-//       setIsEdited(true);
-//     }
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//     alert("Could not save recipe");
-//   });
-// }
-
-// /**
-// * Fetch to get a single recipe by its id
-// */
-// const fetchRecipeCard = useCallback(() => {
-// fetch(baseUrl + "/Test/RecipeTest")
-//   .then((response) => {
-//     return response.json();
-//   })
-//   .then((data) => setRecipeCard(data));
-// console.log("What is in recipe card" +recipeCard);
-// }, []);
-
-// /**
-// *
-// */
-// const fetchCollection = useCallback(() => {
-// fetch(baseUrl + "/Test/RecipeTest")
-//   .then((response) => {
-//     return response.json();
-//   })
-//   .then((data) => setRecipeCollection(data));
-//   console.log("What is in recipe collections" + recipeCollection);
-// }, []);
-
-// useEffect(() => {
-// fetchCollection();
-// }, [isLoading, isEdited, fetchCollection]);
-
-// useEffect(() => {
-// fetchRecipeCard();
-// }, []);
