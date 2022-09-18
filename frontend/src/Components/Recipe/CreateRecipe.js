@@ -38,7 +38,6 @@ export default function CreateRecipe(props) {
     category: "",
   };
 
-  //let recservingSize="";
   if (location.state === undefined) {
     saveRecipe.title = "Recipe name...";
     saveRecipe.servingSize = "Serving size...";
@@ -58,6 +57,12 @@ export default function CreateRecipe(props) {
         saveRecipe.ingredientList.name
     );
     saveRecipe.instructions = location.state.saveRecipe.saveRecipe.instructions;
+  }
+
+  function handleKeyDown(e) {
+    if (e.key === "Enter"){
+      addIngredients(e)
+    }
   }
 
   //corrected the input to saveRecipes so object can be created
@@ -214,12 +219,6 @@ export default function CreateRecipe(props) {
                   <DropdownItem value="Dinner" onClick={changeCategory}>
                     Dinner
                   </DropdownItem>
-                  <DropdownItem value="Dessert" onClick={changeCategory}>
-                    Dessert
-                  </DropdownItem>
-                  <DropdownItem value="Snack" onClick={changeCategory}>
-                    Snacks
-                  </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
             </Col>
@@ -262,6 +261,8 @@ export default function CreateRecipe(props) {
                 placeholder="Large, Tsp, Cup etc..."
                 value={ingredientUnit}
                 onChange={(e) => setIngredientUnit(e.target.value)}
+                //Does this do the workings of the keydown crappypoops
+                onKeyDown={(e) => handleKeyDown(e)}
               ></Input>
             </Col>
             <Col md={1} id="col-add-btn">
