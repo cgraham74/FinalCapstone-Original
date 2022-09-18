@@ -73,7 +73,8 @@ const mapDispatchToProps = (dispatch) => ({
     ingredientList,
     instructions,
     servingSize,
-    category
+    category, 
+    token
   ) =>
     dispatch(
       saveRecipe(
@@ -83,7 +84,8 @@ const mapDispatchToProps = (dispatch) => ({
         ingredientList,
         instructions,
         servingSize,
-        category
+        category,
+        token
       )
     ),
 

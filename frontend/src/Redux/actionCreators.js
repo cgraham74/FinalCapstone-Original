@@ -56,9 +56,10 @@ export const saveRecipe =
     ingredientList,
     instructions,
     servingSize,
-    category
+    category, 
+    token
   ) =>
-  async (token) => {
+  async () => {
     const newRecipe = {
       user_id: user_id,
       title: title,
@@ -68,7 +69,7 @@ export const saveRecipe =
       servingSize: servingSize,
       category: category,
     };
-
+console.log("This is the token from SAVERECIPE: " + JSON.stringify(token))
     return await fetch(baseUrl + "/recipe/save", {
       method: "POST",
       body: JSON.stringify(newRecipe),

@@ -51,7 +51,6 @@ export default function CreateRecipe(props) {
 
   //let recservingSize="";
   if (location.state === undefined) {
-    console.log("undefined location");
     saveRecipe.title = "Recipe name...";
     saveRecipe.servingSize = "Serving size...";
     saveRecipe.ingredientList = {
@@ -80,7 +79,8 @@ export default function CreateRecipe(props) {
       ingredients,
       values.target.instructions.value,
       values.target.servingsize.value,
-      category
+      category, 
+      props.token.token
     );
 
     // resetForm(values)
