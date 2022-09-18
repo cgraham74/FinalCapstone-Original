@@ -4,7 +4,7 @@ import {
   FaRegCheckCircle,
   FaRegCheckSquare,
   FaRegTimesCircle,
-  FaCircle
+  FaCircle,
 } from "react-icons/fa";
 
 import {
@@ -22,15 +22,19 @@ import {
   Form,
   Input,
   Label,
-  Table
+  Table,
 } from "reactstrap";
 import "./recipe.css";
 import { Link } from "react-router-dom";
 import { Fade, Stagger } from "react-animation-components";
-import { saveRecipe, updateRecipe } from "../../Redux/actionCreators";
+import {
+  saveRecipe,
+  updateRecipe,
+  updatedRecipe,
+} from "../../Redux/actionCreators";
 import CreateRecipe from "./CreateRecipe";
 
-function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
+function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }, props) {
   // function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
   const [modal, setModal] = useState(false);
   const [instructions, setInstructions] = useState(recipeCard.instructions);
@@ -60,27 +64,29 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
           measurementunit: ingredientMeasurementUnit,
         },
       ]);
-     
+
       setIngredientName("");
       setIngredientQuantity("");
       setIngredientMeasurementUnit("");
     }
   }
 
-  function handleDelete(id,e){
+  function handleDelete(id, e) {
     setIngredientList(ingredientList.filter((v, i) => i !== id));
   }
   const addonIngredientsList = ingredientList.map((item, id) => {
     return (
       <>
         <tr className="rows" key={id}>
-          <th scope="row" ><FaCircle/></th>
+          <th scope="row">
+            <FaCircle />
+          </th>
           <td>{item.name}</td>
           <td>{item.quantity}</td>
-          <td>{item.measurementunit}</td><td>
+          <td>{item.measurementunit}</td>
+          <td>
             <FaRegTrashAlt id="trash" onClick={(e) => handleDelete(id, e)} />
           </td>
-
         </tr>
       </>
     );
@@ -109,35 +115,39 @@ function RenderSavedRecipes({ recipeCard, deleteHandler, editHandler }) {
   //       </li>
   //     </>
   //   );
-  
+
   // });
-  function handleUpdatedRecipe(values){
-  values.preventDefault();
+  function handleUpdatedRecipe(values) {
+    values.preventDefault();
 
-  // recipeid,
-  // user_id,
-  // title,
-  // imageUrl,
-  // ingredientList,
-  // instructions,
-  // servingSize,
-  // category
+    // recipeid,
+    // user_id,
+    // title,
+    // imageUrl,
+    // ingredientList,
+    // instructions,
+    // servingSize,
+    // category
 
-  //needs to convert follwing to updatedrecipe but recipeid and user_id is missing
-  console.log("update recipe"+
+    //needs to convert follwing to updatedrecipe but recipeid and user_id is missing
+    console.log(
+      "update recipe" +
+        recipeCard.title +
+        "  " +
+        recipeCard.imageUrl +
+        " " +
+        ingredientList +
+        values.target.instructions.value +
+        values.target.servingsize.value +
+        " " +
+        recipeCard.category
+    );
 
-              recipeCard.title+"  "+
-              recipeCard.imageUrl+" "+
-              ingredientList+
-              values.target.instructions.value+
-              values.target.servingsize.value+" "+
-              recipeCard.category);
-
- // const t = () => setModal(!modal);
-ingredientList.map(item=>{
-  console.log("SavedRecipes: Ingredients map: " + item.name)
-})
- }
+    // const t = () => setModal(!modal);
+    ingredientList.map((item) => {
+      console.log("SavedRecipes: Ingredients map: " + item.name);
+    });
+  }
   const ingredients = recipeCard.ingredientList.map((item, index) => {
     return (
       <li key={index} id="ingredient">
@@ -199,7 +209,12 @@ ingredientList.map(item=>{
                 {recipeCard.title}
               </ModalHeader>
               <ModalBody id="modal-body"></ModalBody>
-              <Form onSubmit={(values) => {handleUpdatedRecipe(values);setModal(!modal)}}>
+              <Form
+                onSubmit={(values) => {
+                  handleUpdatedRecipe(values);
+                  setModal(!modal);
+                }}
+              >
                 <Label for="servingsize">Serving Size</Label>
                 <Input
                   type="number"
@@ -235,16 +250,16 @@ ingredientList.map(item=>{
                   Add Ingredient
                 </Button>
                 <Table>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Ingredients entered</th>
-                <th>Quantity entered</th>
-                <th>Measurement Unit entered</th>
-              </tr>
-            </thead>
-            <tbody>{addonIngredientsList}</tbody>
-          </Table>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Ingredients entered</th>
+                      <th>Quantity entered</th>
+                      <th>Measurement Unit entered</th>
+                    </tr>
+                  </thead>
+                  <tbody>{addonIngredientsList}</tbody>
+                </Table>
                 <br></br>
                 <Label for="instructions">Instructions</Label>
                 <Input
@@ -254,15 +269,30 @@ ingredientList.map(item=>{
                   value={instructions}
                   onChange={(e) => setInstructions(e.target.value)}
                 ></Input>
-              
-              <ModalFooter>
-                <Button color="primary"  >
-                  Submit Changes
-                </Button>{" "}
-                <Button color="secondary" onClick={toggle}>
-                  Cancel
-                </Button>
-              </ModalFooter>
+
+                <ModalFooter>
+                  <Button
+                    color="primary"
+                    onClick={() =>
+                      updatedRecipe(
+                        recipeCard.recipeid,
+                        recipeCard.user_id,
+                         recipeCard.title,
+                         recipeCard.imageUrl,
+                        ingredientList,
+                        instructions,
+                        servingSize,
+                        recipeCard.category,
+                        props.token
+                      )
+                    }
+                  >
+                    Submit Changes
+                  </Button>{" "}
+                  <Button color="secondary" onClick={toggle}>
+                    Cancel
+                  </Button>
+                </ModalFooter>
               </Form>
             </Modal>
             {/* <Button onClick={() => deleteHandler(recipeCard.recipeid)} id="delete">
@@ -276,9 +306,11 @@ ingredientList.map(item=>{
 }
 
 export default function SavedRecipes(props) {
-  console.log("SavedRecipe: Line 281: props.recipes.recipeid: "+props.recipes.recipeid);
+  // console.log(
+  //   "SavedRecipe: Line 281: props.recipes.recipeid: " + props.recipes.recipeid
+  // );
   const recipeCollections = props.recipes.map((item, id) => {
-    console.log("SAVED RECIPES: item.id: "+ item.id);
+    console.log("SAVED RECIPES: item.id: " + item.id);
     return (
       <>
         <Stagger in>

@@ -102,9 +102,10 @@ export const updatedRecipe =
     ingredientList,
     instructions,
     servingSize,
-    category
+    category,
+    token
   ) =>
-  async (token) => {
+  async (dispatch) => {
     const updateRecipe = {
       recipeid: recipeid,
       user_id: user_id,
@@ -114,6 +115,7 @@ export const updatedRecipe =
       instructions: instructions,
       servingSize: servingSize,
       category: category,
+      
     };
 
     // update
@@ -129,6 +131,7 @@ export const updatedRecipe =
       .then((response) => {
         if (response.ok) {
           alert("Edit Saved!");
+          dispatch(fetchRecipes(token))
         }
       })
       .catch((err) => {
