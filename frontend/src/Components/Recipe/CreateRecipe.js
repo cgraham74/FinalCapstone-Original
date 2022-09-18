@@ -158,6 +158,8 @@ export default function CreateRecipe(props) {
                 name="title"
                 placeholder={saveRecipe.title}
                 type="text"
+                pattern="[a-zA-Z ]*"
+                required={true}
               ></Input>
             </Col>
           </Row>
@@ -172,6 +174,7 @@ export default function CreateRecipe(props) {
                 placeholder={saveRecipe.servingSize}
                 pattern="[0-9]*"
                 type="text"
+                required={true}
               ></Input>
             </Col>
           </Row>
@@ -188,6 +191,7 @@ export default function CreateRecipe(props) {
                   // localStorage.setItem(image, reader.result);
                   // "src/images",
                 }
+                required={true}
               />
               {image && (
                 <img
@@ -203,6 +207,7 @@ export default function CreateRecipe(props) {
                 toggle={toggle}
                 direction="down"
                 id="category-dropdown"
+                required={true}
               >
                 <DropdownToggle caret>{category}</DropdownToggle>
                 <DropdownMenu>
@@ -226,6 +231,8 @@ export default function CreateRecipe(props) {
                 id="ingredients"
                 name="ingredients"
                 type="text"
+                pattern="[a-zA-Z]*"
+               
                 placeholder={saveRecipe.ingredientList.name}
                 onChange={(e) => setIngredientName(e.target.value)}
                 value={ingredientName}
@@ -240,6 +247,7 @@ export default function CreateRecipe(props) {
                 type="text"
                 pattern="[0-9/.]*"
                 placeholder="Amount needed..."
+             
                 value={ingredientAmount}
                 onChange={(e) =>
                   setIngredientAmount((v) =>
@@ -257,7 +265,8 @@ export default function CreateRecipe(props) {
                 placeholder="Large, Tsp, Cup etc..."
                 value={ingredientUnit}
                 onChange={(e) => setIngredientUnit(e.target.value)}
-                // onKeyDown={(e) => handleKeyDown(e)}
+                pattern="[a-zA-Z.]*"
+                onKeyDown={(e) => handleKeyDown(e)}
               ></Input>
             </Col>
             <Col md={1} id="col-add-btn">
