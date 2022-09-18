@@ -18,7 +18,7 @@ public class RecipeIngredientDTO {
     private String name;
 
     @JsonProperty
-    private Double quantity;
+    private String quantity;
 
     @JsonProperty
     private String measurementunit;

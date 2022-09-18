@@ -16,7 +16,7 @@ public class PantryDTO {
     private String ingredient;
 
     @JsonProperty
-    private Double quantity;
+    private String quantity;
 
     @JsonProperty
     private String measurementUnit;

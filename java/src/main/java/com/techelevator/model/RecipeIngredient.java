@@ -25,7 +25,7 @@ public class RecipeIngredient implements Serializable {
 
     @Column(name = "quantity")
     @NotNull
-    private Double quantity;
+    private String quantity;
 
     @Column(name = "measurementunit")
     @NotNull
