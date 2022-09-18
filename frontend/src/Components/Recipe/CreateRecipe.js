@@ -52,10 +52,6 @@ export default function CreateRecipe(props) {
     saveRecipe.servingSize = location.state.saveRecipe.saveRecipe.servingSize;
     saveRecipe.ingredientList =
       location.state.saveRecipe.saveRecipe.ingredientList;
-    console.log(
-      "CreateRecipe saverecipe.ingredientlist.name TEST: " +
-        saveRecipe.ingredientList.name
-    );
     saveRecipe.instructions = location.state.saveRecipe.saveRecipe.instructions;
   }
 
@@ -242,7 +238,7 @@ export default function CreateRecipe(props) {
                 id="quantity"
                 name="quantity"
                 type="text"
-                pattern="[0-9]*"
+                pattern="[0-9/.]*"
                 placeholder="Amount needed..."
                 value={ingredientAmount}
                 onChange={(e) =>
@@ -261,8 +257,7 @@ export default function CreateRecipe(props) {
                 placeholder="Large, Tsp, Cup etc..."
                 value={ingredientUnit}
                 onChange={(e) => setIngredientUnit(e.target.value)}
-                //Does this do the workings of the keydown crappypoops
-                onKeyDown={(e) => handleKeyDown(e)}
+                // onKeyDown={(e) => handleKeyDown(e)}
               ></Input>
             </Col>
             <Col md={1} id="col-add-btn">
@@ -302,6 +297,7 @@ export default function CreateRecipe(props) {
             </Button>
           </div>
         </Form>
+
       </div>
     </div>
   );
