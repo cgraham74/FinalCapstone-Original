@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { FaPlusCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import './day.css';
 
 export default function Day(props) {
   const location = useLocation();
@@ -56,7 +57,7 @@ export default function Day(props) {
       <li key={index} id="pantry-list">
         {item.title}
         <Link to="/weeklyplanner">
-          <FaPlusCircle onClick={() => addUpdateMealSelection(state.user.id,  location.state.meal, location.state.day, item.title)} />
+          <FaPlusCircle id='plus-button' onClick={() => addUpdateMealSelection(state.user.id,  location.state.meal, location.state.day, item.title)} />
         </Link>
       </li>
     );

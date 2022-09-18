@@ -28,13 +28,11 @@ li#shopping-list {
     color:#80F57E;
 }
 
-
 .hidebutton{
     display: none
 }
 
 #shopping-list:hover .hidebutton{
-    
     display: inline-block; 
 
 }
