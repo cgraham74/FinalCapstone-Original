@@ -1,13 +1,11 @@
-import React, {useEffect} from "react";
+import React from "react";
 import Navigator from "../navigation/Navigator";
 import "./shoppinglist.css";
 import { FaRegTrashAlt, FaRegCheckCircle } from "react-icons/fa";
 import { Button } from "react-bootstrap";
-import { fetchShoppingList } from "../../Redux/actionCreators";
 
 
 export default function ShoppingList(props) {
-  //All things in here persist as an array of ingredients
   const purchasedIngredient = (ingredientName) => {
     if (props.purchaseditems.includes(ingredientName)) {
       props.deletePurchasedItem(ingredientName);
@@ -16,7 +14,7 @@ export default function ShoppingList(props) {
     }
   };
 
-  //DO NOT DELETE THIS PLEASE
+  //Future updates add purchased item to pantry
   function submitPurchasedItems() {
 
   }

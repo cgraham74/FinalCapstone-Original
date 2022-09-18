@@ -13,6 +13,7 @@ export default function Day(props) {
   useEffect(() => {
     const mealplan = state.recipes.recipes;
     setPosts(mealplan);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
  
   function addUpdateMealSelection(user, time, day, meal) {
@@ -25,8 +26,8 @@ export default function Day(props) {
         meal 
       );
     } 
+    // eslint-disable-next-line array-callback-return
     props.mealselection.map((item) => {
-      console.log(JSON.stringify(item))
       if (
         item.dayofweek === day &&
         item.category === time

@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import Navigator from "../navigation/Navigator";
-import {
-  FaRegTrashAlt,
-} from "react-icons/fa";
-
+import { FaRegTrashAlt } from "react-icons/fa";
 
 import {
   Form,
@@ -27,20 +24,15 @@ export default function CreateRecipe(props) {
   const [ingredientName, setIngredientName] = useState("");
   const [ingredientAmount, setIngredientAmount] = useState("");
   const [ingredientUnit, setIngredientUnit] = useState("");
-  const [title, setTitle] = useState("");
-  const [servingSize, setServingSize] = useState("");
-  const [instructions, setInstruction] = useState("");
   const [category, setCategory] = useState("Category");
-  const [recipe, setRecipe] = useState({});
   const [image, setImage] = useState(null);
-  const location = useLocation(); //console.log(location);
-  //console.log(location.state.saveRecipe.saveRecipe.title);
-  //const [saveRecipe,setSaveRecipe] = useState(props.saveRecipe);
+  const location = useLocation();
+
   let saveRecipe = {
     user_id: "",
     title: "",
     imageUrl: "",
-    ingredientList: {name:" ",quantity:"",measurementunit:""},
+    ingredientList: { name: " ", quantity: "", measurementunit: "" },
     instructions: "",
     servingSize: "",
     category: "",
@@ -55,16 +47,18 @@ export default function CreateRecipe(props) {
       quantity: "Amount needed...",
       measurementunit: "Large, Tsp, Cup etc",
     };
-    saveRecipe.instructions = "Cooking instructions.."
+    saveRecipe.instructions = "Cooking instructions..";
   } else {
     saveRecipe.title = location.state.saveRecipe.saveRecipe.title;
     saveRecipe.servingSize = location.state.saveRecipe.saveRecipe.servingSize;
-    saveRecipe.ingredientList = location.state.saveRecipe.saveRecipe.ingredientList;
-    console.log("CreateRecipe saverecipe.ingredientlist.name TEST: "+ saveRecipe.ingredientList.name)
+    saveRecipe.ingredientList =
+      location.state.saveRecipe.saveRecipe.ingredientList;
+    console.log(
+      "CreateRecipe saverecipe.ingredientlist.name TEST: " +
+        saveRecipe.ingredientList.name
+    );
     saveRecipe.instructions = location.state.saveRecipe.saveRecipe.instructions;
-    };
-
-  
+  }
 
   //corrected the input to saveRecipes so object can be created
   function handleSubmit(values) {
@@ -76,12 +70,9 @@ export default function CreateRecipe(props) {
       ingredients,
       values.target.instructions.value,
       values.target.servingsize.value,
-      category, 
-      props.token.token,
-   
+      category,
+      props.token.token
     );
-
-    // resetForm(values)
   }
 
   const imgFileHandler = (e) => {
@@ -100,13 +91,6 @@ export default function CreateRecipe(props) {
     }
   };
 
-  function resetForm(values) {
-    setRecipe({});
-    setIngredients([]);
-    setServingSize();
-    setCategory("Category");
-    values.target.reset();
-  }
   const changeCategory = (e) => {
     setCategory(e.target.value);
   };
@@ -173,7 +157,6 @@ export default function CreateRecipe(props) {
                 name="title"
                 placeholder={saveRecipe.title}
                 type="text"
-                onChange={(e) => setTitle(e.target.value)}
               ></Input>
             </Col>
           </Row>
@@ -188,12 +171,6 @@ export default function CreateRecipe(props) {
                 placeholder={saveRecipe.servingSize}
                 pattern="[0-9]*"
                 type="text"
-                //value={saveRecipe.servingSize}
-                onChange={(e) =>
-                  setServingSize((v) =>
-                    e.target.validity.valid ? e.target.value : v
-                  )
-                }
               ></Input>
             </Col>
           </Row>
@@ -247,8 +224,6 @@ export default function CreateRecipe(props) {
               </Dropdown>
             </Col>
           </Row>
-          {/* TODO: 
-          ADD: Delete function to be able to remove individual ingredient from list incase of ooopsies */}
           <Row className="form-group" id="ingredient-add-text-btn">
             <Col md={4}>
               <Label htmlFor="ingredients">Ingredient</Label>
@@ -318,7 +293,6 @@ export default function CreateRecipe(props) {
               type="textarea"
               placeholder={saveRecipe.instructions}
               rows="8"
-              onChange={(e) => setInstruction(e.target.value)}
             />
           </Row>
           <div id="submit-button-container">
