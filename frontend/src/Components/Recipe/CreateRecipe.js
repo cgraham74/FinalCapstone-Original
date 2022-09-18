@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import Navigator from "../navigation/Navigator";
 import {
   FaRegTrashAlt,
-  FaRegCheckCircle,
-  FaRegCheckSquare,
-  FaRegTimesCircle,
 } from "react-icons/fa";
 
 

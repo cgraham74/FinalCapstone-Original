@@ -28,7 +28,6 @@ export const fetchRecipes = (token) => async (dispatch) => {
       return response.json();
     })
     .then((data) => {
-      console.log(data);
       return dispatch(addRecipe(data));
     });
 };
@@ -71,7 +70,6 @@ export const saveRecipe =
       category: category,
 
     };
-console.log("This is the token from SAVERECIPE: " + JSON.stringify(token))
     return await fetch(baseUrl + "/recipe/save", {
       method: "POST",
       body: JSON.stringify(newRecipe),
@@ -114,12 +112,9 @@ export const updatedRecipe =
       ingredientList: ingredientList,
       instructions: instructions,
       servingSize: servingSize,
-      category: category,
-      
+      category: category,  
     };
-
-    // update
-    await fetch(baseUrl + `/recipe/update/${recipeid}`, {
+    return await fetch(baseUrl + `/recipe/update/${recipeid}`, {
       method: "PUT",
       cache: "no-cache",
       body: JSON.stringify(updateRecipe),
@@ -130,18 +125,18 @@ export const updatedRecipe =
     })
       .then((response) => {
         if (response.ok) {
-          alert("Edit Saved!");
+          alert("Card updated!");
           dispatch(fetchRecipes(token))
+          return response;
         }
       })
       .catch((err) => {
-        console.error("from POST " + err);
-        alert("Could not save card!");
+        console.error(err);
+        alert("Could not update card!");
       });
   };
 
 export const deleteRecipe = (id) => (dispatch) => {
-  console.log("actionCreators: deleteRecipe id: " + id);
   fetch(baseUrl + "/recipe/delete/" + id, {
     method: "DELETE",
     headers: {
@@ -183,7 +178,6 @@ export const fetchPantryItems = (token) => async (dispatch) => {
       return response.json();
     })
     .then((data) => {
-      console.log("actionCreators: fetchPantryItems data: " + data);
       return dispatch(addIngredient(data));
     });
 };
@@ -215,7 +209,6 @@ export const fetchShoppingList = (token) => async (dispatch) => {
       return response.json();
     })
     .then((data) => {
-      console.log("actionCreators: fetchShoppingList: " + JSON.stringify(data));
       return dispatch(addShoppingList(data));
     });
 };
@@ -246,9 +239,6 @@ export const fetchMealPlan = (token) => (dispatch) => {
       return response.json();
     })
     .then((data) => {
-      console.log(
-        "actionCreators: fetchMealPlan data: " + JSON.stringify(data)
-      );
       return dispatch(addMealSelections(data));
     });
 };
@@ -275,7 +265,6 @@ export const newMealSelection =
       dayofweek: day,
       recipename: recipename
     };
-    console.log(newMealplan)
     dispatch(addMealSelection(newMealplan));
   };
 
@@ -288,14 +277,12 @@ export const changeMealSelection =
       dayofweek: day,
       recipename: recipename
     };
-    console.log(newMealplan)
     dispatch(updateMealSelection(newMealplan));
   };
 //-----------------------------------------
 export const postNewMealSelection =
   (mealselection, token) => (dispatch) => {
     // Post a meal plan
-    console.log("Mealselection: " + JSON.stringify(mealselection) + " " + JSON.stringify(token))
     fetch(baseUrl + "/recipe/mealplan/save", {
       method: "POST",
       cache: "no-cache",
@@ -313,7 +300,7 @@ export const postNewMealSelection =
         }
       })
       .catch((err) => {
-        console.error("from POST " + err);
+        console.error(err);
         alert("Could not save plan!");
       });
   };

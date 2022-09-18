@@ -28,7 +28,7 @@ import ShoppingList from "../ShoppingList/ShoppingList";
 import Pantry from "../Pantry/Pantry";
 import CreateRecipe from "../Recipe/CreateRecipe";
 import Day from "../Day/Day";
-// import DayTest from "../Meal/DayTest";
+
 
 const mapStateToProps = (state) => {
   return {
@@ -98,7 +98,8 @@ const mapDispatchToProps = (dispatch) => ({
     ingredientList,
     instructions,
     servingSize,
-    category
+    category,
+    token
   ) =>
     dispatch(
       updatedRecipe(
@@ -109,7 +110,8 @@ const mapDispatchToProps = (dispatch) => ({
         ingredientList,
         instructions,
         servingSize,
-        category
+        category,
+        token
       )
     ),
     newMealSelection: (user, mealtime, day, recipename) => dispatch(newMealSelection(user, mealtime, day, recipename)),

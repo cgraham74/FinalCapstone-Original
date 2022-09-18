@@ -1,8 +1,8 @@
 import React from "react";
-import { ButtonGroup, Button } from "reactstrap";
+import { Button } from "reactstrap";
 import "./navigation.css";
 import { Link } from "react-router-dom";
-import { propTypes } from "react-bootstrap/esm/Image";
+
 
 function Navigator() {
   return (
