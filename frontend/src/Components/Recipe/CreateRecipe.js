@@ -63,7 +63,7 @@ export default function CreateRecipe(props) {
     saveRecipe.title = location.state.saveRecipe.saveRecipe.title;
     saveRecipe.servingSize = location.state.saveRecipe.saveRecipe.servingSize;
     saveRecipe.ingredientList = location.state.saveRecipe.saveRecipe.ingredientList;
-    console.log(saveRecipe.ingredientList.name)
+    console.log("CreateRecipe saverecipe.ingredientlist.name TEST: "+ saveRecipe.ingredientList.name)
     saveRecipe.instructions = location.state.saveRecipe.saveRecipe.instructions;
     };
 
@@ -80,7 +80,8 @@ export default function CreateRecipe(props) {
       values.target.instructions.value,
       values.target.servingsize.value,
       category, 
-      props.token.token
+      props.token.token,
+   
     );
 
     // resetForm(values)

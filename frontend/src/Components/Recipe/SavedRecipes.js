@@ -277,7 +277,8 @@ ingredientList.map(item=>{
 
 export default function SavedRecipes(props) {
   console.log("SavedRecipe: Line 281: props.recipes.recipeid: "+props.recipes.recipeid);
-  const recipeCollections = props.recipes.map((item, id) => { console.log(item.id);
+  const recipeCollections = props.recipes.map((item, id) => {
+    console.log("SAVED RECIPES: item.id: "+ item.id);
     return (
       <>
         <Stagger in>

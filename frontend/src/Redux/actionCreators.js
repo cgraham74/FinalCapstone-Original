@@ -57,9 +57,10 @@ export const saveRecipe =
     instructions,
     servingSize,
     category, 
-    token
+    token, 
+    
   ) =>
-  async () => {
+  async (dispatch) => {
     const newRecipe = {
       user_id: user_id,
       title: title,
@@ -68,6 +69,7 @@ export const saveRecipe =
       instructions: instructions,
       servingSize: servingSize,
       category: category,
+
     };
 console.log("This is the token from SAVERECIPE: " + JSON.stringify(token))
     return await fetch(baseUrl + "/recipe/save", {
@@ -75,21 +77,20 @@ console.log("This is the token from SAVERECIPE: " + JSON.stringify(token))
       body: JSON.stringify(newRecipe),
       headers: {
         "Content-Type": "application/json",
-
         Authorization: `Bearer ${token}`,
       },
     }).then((response) => {
       if (response.ok) {
         alert("Saved!" + newRecipe);
+        dispatch(fetchRecipes(token));
         return response;
       }
-    });
-    // .then((response) => response.json())
-    // .then((data) => dispatch(addRecipe(data)))
-    // .catch((err) => {
-    //   console.error(err);
-    //   alert("Could not save card!" + JSON.stringify(newRecipe));
-    // });
+    })
+    .catch((err) => {
+      console.error(err);
+      alert("Could not save card!" + JSON.stringify(newRecipe));
+
+    })
   };
 
 export const updatedRecipe =
@@ -304,7 +305,8 @@ export const postNewMealSelection =
       .then((response) => {
         if (response.ok) {
           alert("Saved meal plan!");
-          dispatch(fetchMealPlan(token))
+          dispatch(fetchMealPlan(token));
+          dispatch(fetchShoppingList(token));
         }
       })
       .catch((err) => {
