@@ -310,7 +310,7 @@ export default function SavedRecipes(props) {
   //   "SavedRecipe: Line 281: props.recipes.recipeid: " + props.recipes.recipeid
   // );
   const recipeCollections = props.recipes.map((item, id) => {
-    console.log("SAVED RECIPES: item.id: " + item.id);
+   
     return (
       <>
         <Stagger in>
