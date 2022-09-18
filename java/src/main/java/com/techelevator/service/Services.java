@@ -49,14 +49,12 @@ public class Services {
         return mealPlanRepository.getMealPlanListFromUserId((long) getUserId(name));
     }
 
-    public Object[] testGetRecipeTitleByCategory(String category) {
-        //PLACEHOLDER VALUE
-        category = "Breakfast";
-        return recipeRepository.testGetRecipeTitleByCategory(category);
+    public List<Recipe> getRecipeTitleByCategory(String category) {
+        return recipeRepository.getRecipeTitleByCategory(category);
     }
 
     public RecipeDTO getRecipeById(Integer recipeId) {
-        return testGetRecipeDTO(recipeId);
+        return getRecipeDTO(recipeId);
     }
 
 
@@ -137,7 +135,7 @@ public class Services {
 
     //Get the specific recipe for the DTO
 
-    public RecipeDTO testGetRecipeDTO(Integer recipeId) {
+    public RecipeDTO getRecipeDTO(Integer recipeId) {
 
         //Placeholder, this will be the id passed in above
 
@@ -149,19 +147,37 @@ public class Services {
                 recipeRepository.getOne(recipeId).getImagename(),
                 testGetRecipeIngredients(recipeId),
                 recipeRepository.getOne(recipeId).getInstructions(),
-                recipeRepository.getOne(recipeId).getServingsize()));
+                recipeRepository.getOne(recipeId).getServingsize()
+//                recipeRepository.getOne(recipeId).isVisibility()
+        ));
 
         return recipeDTO;
     }
 
-    public Collection<RecipeDTO> testListOfRecipes(String name) {
+    public Collection<RecipeDTO> listOfUsersRecipes(String username) {
 
         Collection<RecipeDTO> listOfRecipeDTO = new ArrayList<>();
-        Collection<Recipe> recipes = recipeRepository.findAll();
+        Collection<Recipe> recipes = recipeRepository.getAllUsersRecipes((long) getUserId(username));
+        System.out.println("Line 161" + recipes);
 
         for (Recipe recipe : recipes) {
 
-            listOfRecipeDTO.add(testGetRecipeDTO(recipe.getRecipeid()));
+            listOfRecipeDTO.add(getRecipeDTO(recipe.getRecipeid()));
+
+        }
+
+        return listOfRecipeDTO;
+
+    }
+
+    public Collection<RecipeDTO> listOfRecipesByCategory(String category) {
+
+        Collection<RecipeDTO> listOfRecipeDTO = new ArrayList<>();
+        Collection<Recipe> recipes = recipeRepository.getRecipeTitleByCategory(category);
+
+        for (Recipe recipe : recipes) {
+
+            listOfRecipeDTO.add(getRecipeDTO(recipe.getRecipeid()));
 
         }
 
@@ -187,7 +203,6 @@ public class Services {
     public void updateRecipe(RecipeDTO recipeDTO) {
 
         Recipe updatedRecipe = new Recipe();
-        RecipeDTO updatedRecipeDTO = new RecipeDTO();
 
         updatedRecipe.setRecipeid(recipeDTO.getRecipeid());
         updatedRecipe.setUser_id(recipeDTO.getUser_id());
@@ -200,7 +215,7 @@ public class Services {
         System.out.println("UPDATING A RECIPE " + updatedRecipe);
 
         recipeRepository.save(updatedRecipe);
-
+        updateRecipeIngredients(recipeDTO);
     }
 
 
@@ -237,6 +252,43 @@ public class Services {
 //            createRecipe(recipeDTO);
 //        }
 //    }
+
+    public void updateRecipeIngredients(RecipeDTO recipeDTO){
+
+        List<RecipeIngredientDTO> tempIngredients = new ArrayList<>(recipeDTO.getIngredientList());
+        List<RecipeIngredient> recipeIngredients = new ArrayList<>();
+        RecipeIngredient recipeIngredient = new RecipeIngredient();
+
+        for (RecipeIngredientDTO tempIngredient : tempIngredients) {
+
+            //MAKING SURE THE INGREDIENT IS CREATED
+            if (Objects.isNull(ingredientRepository.getIngredientByName(tempIngredient.getName()))) {
+                Ingredient newIngredient = checkOrCreateIngredient(tempIngredient.getName());
+
+                recipeIngredient.setRecipeid(recipeRepository.recipeByTitle(recipeDTO.getTitle()).getRecipeid());
+                recipeIngredient.setIngredientid(newIngredient.getIngredientid());
+                recipeIngredient.setQuantity(tempIngredient.getQuantity());
+                recipeIngredient.setMeasurementunit(tempIngredient.getMeasurementunit());
+                recipeIngredients.add(recipeIngredient);
+
+                recipeIngredientRepository.save(recipeIngredient);
+
+            } else
+                recipeIngredient.setRecipeid(
+                        recipeRepository.recipeByTitle(recipeDTO.getTitle()).getRecipeid());
+            recipeIngredient.setIngredientid(
+                    ingredientRepository.getIngredientByName(tempIngredient.getName()).getIngredientid());
+            recipeIngredient.setQuantity(tempIngredient.getQuantity());
+            recipeIngredient.setMeasurementunit(tempIngredient.getMeasurementunit());
+            recipeIngredients.add(recipeIngredient);
+
+            recipeIngredientRepository.save(recipeIngredient);
+
+        }
+
+        System.out.println(recipeIngredients);
+
+    }
 
     public void createRecipeIngredients(RecipeDTO recipeDTO) {
 

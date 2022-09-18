@@ -52,12 +52,23 @@ public class MainController {
         services.saveMealPlan(mealPlannerDTO, principal.getName());
     }
 
-
+    @PreAuthorize("permitAll")
     @GetMapping(path = "/breakfast")
-    public Object[] testGetRecipeTitleFromCategory() {
-        return services.testGetRecipeTitleByCategory("Breakfast");
+    public Collection<RecipeDTO> getRecipeTitleFromBreakfast() {
+        return services.listOfRecipesByCategory("Breakfast");
     }
-    //  @GetMapping(path = "/pantry/{user_id}")  This broke the code!
+    @PreAuthorize("permitAll")
+    @GetMapping(path = "/lunch")
+    public Collection<RecipeDTO> getRecipeTitleFromLunch() {
+        return services.listOfRecipesByCategory("Lunch");
+    }
+    @PreAuthorize("permitAll")
+    @GetMapping(path = "/dinner")
+    public Collection<RecipeDTO> getRecipeTitleFromDinner() {
+        return services.listOfRecipesByCategory("Dinner");
+    }
+
+
 
     @GetMapping(path = "/pantry")
     public List<PantryDTO> testGetUsersPantry() {
@@ -79,10 +90,11 @@ public class MainController {
         services.updateRecipe(recipeDTO);
     }
 
-   @PermitAll
+    //THIS MIGHT HAVE BROKEN EVERYTHING :D
     @GetMapping(path = "/list")
     public Collection<RecipeDTO> getRecipeList(Principal principal){
-        return services.testListOfRecipes(principal.getName());
+        System.out.println("Get Recipe List Was Pinged!");
+        return services.listOfUsersRecipes(principal.getName());
     }
 
 
@@ -96,7 +108,6 @@ public class MainController {
 
     @RequestMapping(path = "/shoppinglist")
     public List<ShoppingListDTO> shoppingList(Principal principal) {
-        System.out.println(principal.toString());
         return services.getMealPlanShoppingListFromUser(principal.getName());
     }
 
