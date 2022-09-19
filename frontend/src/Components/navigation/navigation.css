@@ -29,9 +29,9 @@ button#nav_createrecipe.btn.btn-secondary {
   height: 38px;
   color: #171c32;
   margin-right: 10px;
-  box-shadow: 1px 6px 40px -3px rgba(0, 0, 0, 0.59) inset;
+  /* box-shadow: 1px 6px 40px -3px rgba(0, 0, 0, 0.59) inset;
   -webkit-box-shadow: 1px 6px 40px -3px rgba(0, 0, 0, 0.59) inset;
-  -moz-box-shadow: 1px 6px 40px -3px rgba(0, 0, 0, 0.59) inset;
+  -moz-box-shadow: 1px 6px 40px -3px rgba(0, 0, 0, 0.59) inset; */
   border-radius: 15px;
   padding:0px;
 }
