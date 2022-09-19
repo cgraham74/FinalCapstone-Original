@@ -21,7 +21,7 @@ import {
 } from "reactstrap";
 import "./recipe.css";
 import { Fade, Stagger } from "react-animation-components";
-
+import defaultImg from "../../images/default.png";
 
 function RenderSavedRecipes({ recipeCard, updatedRecipe, token }) {
   const [modal, setModal] = useState(false);
@@ -103,6 +103,16 @@ function RenderSavedRecipes({ recipeCard, updatedRecipe, token }) {
 
   });
 
+  function fileExists() {
+    try {
+      let file = require(`../../images/${recipeCard.imageUrl}`).default;
+      return true;
+    }
+    catch (err) {
+      return false;
+    }   
+ }
+
   return (
     <Fade in>
       <Card style={{ width: "30rem" }} id="recipecard">
@@ -110,12 +120,11 @@ function RenderSavedRecipes({ recipeCard, updatedRecipe, token }) {
           <CardTitle>
             <h3>{recipeCard.title}</h3>
           </CardTitle>
-          {recipeCard.imageUrl && (
-            <CardImg
+          <CardImg
               alt="not found"
-              src={require(`../../images/${recipeCard.imageUrl}`).default}
-            />
-          )}
+              src={fileExists() ? require(`../../images/${recipeCard.imageUrl}`).default : defaultImg }
+            /> 
+
           <CardSubtitle>Serving Size: {recipeCard.servingSize}</CardSubtitle>
           <h5>Ingredients:</h5>
           <ul>{ingredients}</ul>
