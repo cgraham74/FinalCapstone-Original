@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   FaRegTrashAlt,
   FaCircle,
@@ -23,7 +23,16 @@ import "./recipe.css";
 import { Fade, Stagger } from "react-animation-components";
 import defaultImg from "../../images/default.png";
 
-function RenderSavedRecipes({ recipeCard, updatedRecipe, token }) {
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  listAll,
+  list,
+} from "firebase/storage";
+import { storage } from "./firebase";
+
+function RenderSavedRecipes({ recipeCard, updatedRecipe, token, imgUrls }) {
   const [modal, setModal] = useState(false);
   const [instructions, setInstructions] = useState(recipeCard.instructions);
   const [servingSize, setServingSize] = useState(recipeCard.servingSize);
@@ -34,6 +43,9 @@ function RenderSavedRecipes({ recipeCard, updatedRecipe, token }) {
   const [ingredientQuantity, setIngredientQuantity] = useState();
   const [ingredientMeasurementUnit, setIngredientMeasurementUnit] = useState();
   const toggle = () => setModal(!modal);
+ let image ;
+
+
 
   function addIngredients(event) {
     if (
@@ -104,15 +116,25 @@ function RenderSavedRecipes({ recipeCard, updatedRecipe, token }) {
   });
 
   function fileExists() {
-    try {
-      let file = require(`../../images/${recipeCard.imageUrl}`).default;
-      return true;
+    console.log(recipeCard.imageUrl)
+    let isExist = false;
+  //    try {
+  //      let file = require(`../../images/${recipeCard.imageUrl}`).default;
+  //        return true;
+  //    }
+  //   catch (err) {
+  //     return false;
+  //   }   
+   // console.log("recipe"+" "+ recipeCard.imageUrl);
+   imgUrls.map((url)=>{
+    if(url===recipeCard.imageUrl) {
+      image = url;
+      isExist = true;
     }
-    catch (err) {
-      return false;
-    }   
+   });
+  return isExist;
  }
-
+ 
   return (
     <Fade in>
       <Card style={{ width: "30rem" }} id="recipecard">
@@ -122,7 +144,7 @@ function RenderSavedRecipes({ recipeCard, updatedRecipe, token }) {
           </CardTitle>
           <CardImg
               alt="not found"
-              src={fileExists() ? require(`../../images/${recipeCard.imageUrl}`).default : defaultImg }
+              src={fileExists() ? image : defaultImg }
             /> 
 
           <CardSubtitle>Serving Size: {recipeCard.servingSize}</CardSubtitle>
@@ -218,6 +240,20 @@ function RenderSavedRecipes({ recipeCard, updatedRecipe, token }) {
 }
 
 export default function SavedRecipes(props) {
+  const imagesListRef = ref(storage, "images/");
+  const [imageUrls, setImageUrls] = useState([]);
+  useEffect(() => {
+    listAll(imagesListRef).then((response) => {
+      response.items.forEach((item) => {
+        getDownloadURL(item).then((url) => {
+          setImageUrls((prev) => [...prev, url]);
+          //console.log(url);
+        });
+      });
+    });
+  }, []);
+
+
   const recipeCollections = props.recipes.map((item, id) => {
     return (
       <>
@@ -227,8 +263,13 @@ export default function SavedRecipes(props) {
             updatedRecipe={props.updatedRecipe}
             recipeCard={item}
             token={props.token}
+            imgUrls={imageUrls}
+
           />
         </Stagger>
+        {/* {imageUrls.map((url) => {
+        return <img src={url} />;
+      })} */}
       </>
     );
   });
