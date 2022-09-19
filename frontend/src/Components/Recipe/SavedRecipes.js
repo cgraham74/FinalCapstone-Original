@@ -201,10 +201,10 @@ function RenderSavedRecipes({ recipeCard, updatedRecipe, token }) {
                 ></Input>
 
                 <ModalFooter>
-                  <Button>
-                    Submit Changes
+                  <Button id="modal-update-button">
+                    Update
                   </Button>{" "}
-                  <Button onClick={toggle}>
+                  <Button onClick={toggle} id="modal-cancel-button">
                     Cancel
                   </Button>
                 </ModalFooter>

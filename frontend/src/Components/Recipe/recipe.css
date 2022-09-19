@@ -101,3 +101,6 @@ color: #171c32;
   height: 700px;
   overflow: scroll;
 }
+button#modal-update-button.btn.btn-secondary, button#modal-cancel-button.btn.btn-secondary{
+ color: #171c32;
+}

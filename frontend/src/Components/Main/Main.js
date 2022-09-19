@@ -138,6 +138,14 @@ class Main extends Component {
     }
   }
 
+  // componentDidMount() {
+  //   this.props.fetchRecipes(this.props.token.token);
+  //   this.props.fetchPantryItems(this.props.token.token);
+  //   this.props.fetchMealPlan(this.props.token.token);
+  //   this.props.fetchShoppingList(this.props.token.token); 
+  // }
+
+
   handleLogout = () => {
     this.props.addToken("");
     this.props.deleteUser();

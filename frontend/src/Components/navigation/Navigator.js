@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 function Navigator() {
   return (
     <nav id="navigation_container">
-      <h1>Meal Planner</h1>
+      <h1>Meal Prepping Made Easy</h1>
       <div id="nav_container">
         
           <Button id="nav_home">
@@ -17,7 +17,7 @@ function Navigator() {
             <Link to="/weeklyplanner">Planner</Link>
           </Button>
           <Button id="nav_recipes">
-            <Link to="/recipes">Recipes</Link>
+            <Link to="/recipes">My Recipes</Link>
           </Button>
           <Button id="nav_pantry">
             <Link to="/pantry">Pantry</Link>
