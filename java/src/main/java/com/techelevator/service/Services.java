@@ -169,6 +169,15 @@ public class Services {
         return listOfRecipeDTO;
 
     }
+    public Collection<RecipeDTO> listOfAllRecipes() {
+        Collection<RecipeDTO> listOfRecipeDTO = new ArrayList<>();
+        Collection<Recipe> recipes = recipeRepository.getPublicRecipes();
+        for (Recipe recipe : recipes) {
+            listOfRecipeDTO.add(getRecipeDTO(recipe.getRecipeid()));
+        }
+        return listOfRecipeDTO;
+    }
+
 
     public Collection<RecipeDTO> listOfRecipesByCategory(String category) {
 

@@ -24,6 +24,10 @@ public interface RecipeRepository extends JpaRepository<Recipe, Integer>, CrudRe
     @Query("SELECT r FROM Recipe r WHERE r.user_id = :user_id")
     List<Recipe> getAllUsersRecipes(@Param("user_id") Long user_id);
 
+
+    @Query("SELECT r FROM Recipe r")
+    List<Recipe> getPublicRecipes();
+
 //    @Query("SELECT r FROM Recipe r WHERE r.visibility IS true")
 //    List<Recipe> getPublicRecipes();
 

@@ -97,6 +97,12 @@ public class MainController {
         return services.listOfUsersRecipes(principal.getName());
     }
 
+    //Get a list of ALL recipes in the system.
+    @GetMapping(path = "/listall")
+    public Collection<RecipeDTO> getAllRecipeList(){
+        System.out.println("Get Recipe List for all Was Pinged!");
+        return services.listOfAllRecipes();
+    }
 
     @PostMapping(path = "/save")
     @ResponseBody
