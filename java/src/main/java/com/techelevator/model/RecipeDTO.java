@@ -33,8 +33,5 @@ public class RecipeDTO {
 
     @JsonProperty
     private Integer servingSize;
-//
-//    @JsonProperty
-//    private boolean visibility;
 
 }

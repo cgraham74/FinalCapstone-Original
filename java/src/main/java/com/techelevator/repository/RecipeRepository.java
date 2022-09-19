@@ -25,15 +25,7 @@ public interface RecipeRepository extends JpaRepository<Recipe, Integer>, CrudRe
     List<Recipe> getAllUsersRecipes(@Param("user_id") Long user_id);
 
 
-    @Query("SELECT r FROM Recipe r")
-    List<Recipe> getPublicRecipes();
-
-//    @Query("SELECT r FROM Recipe r WHERE r.visibility IS true")
-//    List<Recipe> getPublicRecipes();
-
-//    @Modifying
-//    @Transactional
-//    @Query("DELETE r FROM Recipe r WHERE r.recipeid = :recipeid")
-//    void deleteRecipe(@Param("recipeid") Integer recipeid);
+    @Query(value = "SELECT DISTINCT ON (title) * FROM recipe", nativeQuery = true)
+    List<Recipe> getDistinctTitleRecipes();
 
 }

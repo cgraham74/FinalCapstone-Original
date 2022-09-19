@@ -22,25 +22,10 @@ import java.util.List;
 @Secured({"ROLE_USER", "ROLE_ADMIN"})
 public class MainController {
 
-
-    UserDao userDao;
-    //-------------------QUERIES-------------------
-
     private final Services services;
 
-//
-//    @GetMapping(path = "/mealplan")
-//    public List<MealPlannerDTO> mealPlanner(String name) {
-//        return services.mealPlanListForUser(name);
-//    }
 
-//    //adding Principal to get current user
-//    @GetMapping(path = "/mealplan")
-//    public List<MealPlannerDTO> mealPlanner(Principal principal) {
-//        return services.mealPlanListForUser(principal.getName());
-//    }
-
-    //adding Principal to get current user
+    //Grabs meal plan based on token's username.
     @GetMapping(path = "/mealplan")
     public List<MealPlan> mealPlanner(Principal principal) {
         return services.mealPlanListForUser(principal.getName());
@@ -70,18 +55,10 @@ public class MainController {
 
 
 
-    @GetMapping(path = "/pantry")
-    public List<PantryDTO> testGetUsersPantry() {
-
-        return services.testGetUserPantryDTO("Ed");
-    }
-
-
     @GetMapping(path = "/get/{recipeid}")
     public RecipeDTO testGetRecipeById(@PathVariable("recipeid") Integer recipeid) {
         return services.getRecipeById(recipeid);
     }
-
 
     @PutMapping(path = "/update/{id}")
     public void update(@RequestBody RecipeDTO recipeDTO, @PathVariable int id) {
@@ -90,18 +67,15 @@ public class MainController {
         services.updateRecipe(recipeDTO);
     }
 
-    //THIS MIGHT HAVE BROKEN EVERYTHING :D
     @GetMapping(path = "/list")
     public Collection<RecipeDTO> getRecipeList(Principal principal){
-        System.out.println("Get Recipe List Was Pinged!");
         return services.listOfUsersRecipes(principal.getName());
     }
 
     //Get a list of ALL recipes in the system.
     @GetMapping(path = "/listall")
     public Collection<RecipeDTO> getAllRecipeList(){
-        System.out.println("Get Recipe List for all Was Pinged!");
-        return services.listOfAllRecipes();
+        return services.listOfAllRecipesByDistinctTitle();
     }
 
     @PostMapping(path = "/save")
@@ -118,12 +92,6 @@ public class MainController {
     }
 
 }
-
-
-//        @GetMapping(path = "/Pantry")
-//        public List<String> getUsersPantry(Principal principal) {
-//            return services.getUserPantry(services.getUserId(principal.getName()));
-//            }
 
     //UNCOMMENT IF YOU DARE!
 
