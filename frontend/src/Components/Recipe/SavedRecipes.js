@@ -135,12 +135,12 @@ function RenderSavedRecipes({ recipeCard, updatedRecipe, token }) {
               Update
             </Button>
 
-            <Modal isOpen={modal} toggle={toggle} {...recipeCard}>
+            <Modal isOpen={modal} toggle={toggle} {...recipeCard} id="modal">
               <ModalHeader toggle={toggle} id="modal-header">
                 {recipeCard.title}
               </ModalHeader>
               <ModalBody id="modal-body"></ModalBody>
-              <Form
+              <Form id="modal-form"
                 onSubmit={(values) => {
                   handleUpdatedRecipe(values);
                   setModal(!modal);
@@ -153,7 +153,7 @@ function RenderSavedRecipes({ recipeCard, updatedRecipe, token }) {
                   value={servingSize}
                   onChange={(e) => setServingSize(e.target.value)}
                 ></Input>
-                <Label>Ingredient List</Label>
+                
                 <Label for="ingredients">Add Ingredient</Label>
                 <Input
                   type="text"
@@ -173,7 +173,7 @@ function RenderSavedRecipes({ recipeCard, updatedRecipe, token }) {
                   placeholder="Measurement Unit"
                   onChange={(e) => setIngredientMeasurementUnit(e.target.value)}
                 ></Input>
-                <Button
+                <Button id="modal-add"
                   type="button"
                   onClick={(event) => addIngredients(event)}
                 >

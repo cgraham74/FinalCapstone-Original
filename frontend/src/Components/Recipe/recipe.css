@@ -1,11 +1,11 @@
 .card {
-  color: black;
+  color: #171c32;
 }
 #ingredient {
   font-size: small;
 }
 li#ingredient {
-  list-style: circle;
+  list-style:circle;
   margin-left: 20px;
 }
 .table > :not(caption) > * > * {
@@ -80,10 +80,12 @@ button.dropdown-toggle.btn.btn-secondary{
   background-color: #1f2746;
 }
 #modal-header, #modal-body{
-color: #171c32;
+  color:#e5e8f2;
+background-color: #1f2746;
 }
 
 #modal-ingredient{
+  background-color: #1f2746;
   display: inline;
   width: 100px;
 }
@@ -101,6 +103,16 @@ color: #171c32;
   height: 700px;
   overflow: scroll;
 }
-button#modal-update-button.btn.btn-secondary, button#modal-cancel-button.btn.btn-secondary{
- color: #171c32;
+
+#modal-add, #modal-update-button, #modal-cancel-button{
+  background-color: #1f2746;
+  color:#e5e8f2;
+}
+#modal-add:hover, #modal-update-button:hover, #modal-cancel-button:hover{
+color:#80F57E;
+}
+
+
+.modal-content{
+  background-color: #1f2746;
 }

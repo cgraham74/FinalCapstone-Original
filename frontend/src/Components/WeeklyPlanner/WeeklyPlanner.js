@@ -494,64 +494,8 @@ export default function WeeklyPlanner(props) {
       <Table>
 
       </Table>
-      <Button onClick={() => props.postNewMealSelection(props.mealselection, props.token.token)}>Submit Meal Plan</Button>
+      <Button onClick={() => props.postNewMealSelection(props.mealselection, props.token.token)} id="planner-submit">Submit Meal Plan</Button>
               
     </div>
   );
 }
-
-
-  // const displayMeal = props.mealselection.map((item) => {
-  //   switch (item) {
-  //     case item.day === "Monday" && item.mealtime === "breakfast":
-  //       return <>{item.recipename}</>;
-  //     case item.day === "Monday" && item.mealtime === "lunch":
-  //       return <>{item.recipename}</>;
-  //     case item.day === "Monday" && item.mealtime === "dinner":
-  //       return <>{item.recipename}</>;
-
-  //     case item.day === "Tuesday" && item.mealtime === "breakfast":
-  //       return <>{item.recipename}</>;
-  //     case item.day === "Tuesday" && item.mealtime === "lunch":
-  //       return <>{item.recipename}</>;
-  //     case item.day === "Tuesday" && item.mealtime === "dinner":
-  //       return <>{item.recipename}</>;
-
-  //     case item.day === "Wednesday" && item.mealtime === "breakfast":
-  //       return <>{item.recipename}</>;
-  //     case item.day === "Wednesday" && item.mealtime === "lunch":
-  //       return <>{item.recipename}</>;
-  //     case item.day === "Wednesday" && item.mealtime === "dinner":
-  //       return <>{item.recipename}</>;
-
-  //     case item.day === "Thursday" && item.mealtime === "breakfast":
-  //       return <>{item.recipename}</>;
-  //     case item.day === "Thursday" && item.mealtime === "lunch":
-  //       return <>{item.recipename}</>;
-  //     case item.day === "Thursday" && item.mealtime === "dinner":
-  //       return <>{item.recipename}</>;
-
-  //     case item.day === "Friday" && item.mealtime === "breakfast":
-  //       return <>{item.recipename}</>;
-  //     case item.day === "Friday" && item.mealtime === "lunch":
-  //       return <>{item.recipename}</>;
-  //     case item.day === "Friday" && item.mealtime === "dinner":
-  //       return <>{item.recipename}</>;
-
-  //     case item.day === "Saturday" && item.mealtime === "breakfast":
-  //       return <>{item.recipename}</>;
-  //     case item.day === "Saturday" && item.mealtime === "lunch":
-  //       return <>{item.recipename}</>;
-  //     case item.day === "Saturday" && item.mealtime === "dinner":
-  //       return <>{item.recipename}</>;
-
-  //     case item.day === "Sunday" && item.mealtime === "breakfast":
-  //       return <>{item.recipename}</>;
-  //     case item.day === "Sunday" && item.mealtime === "lunch":
-  //       return <>{item.recipename}</>;
-  //     case item.day === "Sunday" && item.mealtime === "dinner":
-  //       return <>{item.recipename}</>;
-  //     default:
-  //       return "Test";
-  //   }
-  // });
