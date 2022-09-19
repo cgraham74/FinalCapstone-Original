@@ -69,11 +69,7 @@ form#createrecipe {
   justify-content: flex-end;
   align-items: center;
 }
-/* div.col-md-2 > div#category-dropdown.dropdown{
-  display: flex;
-  align-self: flex-end;
-  justify-self: flex-end;
-} */
+
 button.dropdown-toggle.btn.btn-secondary{
   display: flex;
   align-self: flex-end;
@@ -90,4 +86,31 @@ color: #171c32;
 #modal-ingredient{
   display: inline;
   width: 100px;
+}
+
+#render-saved-recipes{
+  /* first breakpoint*/
+  --w1:800px;
+  --n:7;
+  /* second breakpoint*/
+  --w2:600px;
+  --m:4;
+  /* third breakpoint*/
+  --w3:400px;
+  --p:2;
+  display:grid;
+  grid-template-columns:
+    repeat(auto-fill,
+      minmax(clamp(clamp(clamp(
+            100%/(var(--n) + 1) + 0.1%,
+              (var(--w1) - 100%)*1000,
+            100%/(var(--m) + 1) + 0.1%),
+              (var(--w2) - 100%)*1000,
+            100%/(var(--p) + 1) + 0.1%),
+              (var(--w3) - 100%)*1000,
+            100%), 1fr));
+  gap:1px;
+  overflow:hidden;
+  margin: 1px;
+  resize:horizontal;
 }
