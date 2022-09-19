@@ -163,7 +163,7 @@ public class Services {
     }
     public Collection<RecipeDTO> listOfAllRecipesByDistinctTitle() {
         Collection<RecipeDTO> listOfRecipeDTO = new ArrayList<>();
-        Collection<Recipe> recipes = recipeRepository.getDistinctTitleRecipes();
+        Collection<Recipe> recipes = recipeRepository.findAll();
         for (Recipe recipe : recipes) {
             listOfRecipeDTO.add(getRecipeDTO(recipe.getRecipeid()));
         }
@@ -257,7 +257,8 @@ public class Services {
             if (Objects.isNull(ingredientRepository.getIngredientByName(tempIngredient.getName()))) {
                 Ingredient newIngredient = checkOrCreateIngredient(tempIngredient.getName());
 
-                recipeIngredient.setRecipeid(recipeRepository.recipeByTitle(recipeDTO.getTitle()).getRecipeid());
+                recipeIngredient.setRecipeid(recipeRepository.recipeByTitleAndUser(recipeDTO.getTitle(),
+                        recipeDTO.getUser_id()).getRecipeid());
                 recipeIngredient.setIngredientid(newIngredient.getIngredientid());
                 recipeIngredient.setQuantity(tempIngredient.getQuantity());
                 recipeIngredient.setMeasurementunit(tempIngredient.getMeasurementunit());
@@ -267,7 +268,7 @@ public class Services {
 
             } else
                 recipeIngredient.setRecipeid(
-                        recipeRepository.recipeByTitle(recipeDTO.getTitle()).getRecipeid());
+                        recipeRepository.recipeByTitleAndUser(recipeDTO.getTitle(), recipeDTO.getUser_id()).getRecipeid());
             recipeIngredient.setIngredientid(
                     ingredientRepository.getIngredientByName(tempIngredient.getName()).getIngredientid());
             recipeIngredient.setQuantity(tempIngredient.getQuantity());
@@ -285,7 +286,7 @@ public class Services {
     public void createRecipeIngredients(RecipeDTO recipeDTO) {
 
         //TRIPLE MAKING SURE YOU HAVE A RECIPE FIRST!
-        if (Objects.isNull(recipeRepository.recipeByTitle(recipeDTO.getTitle()))) {
+        if (Objects.isNull(recipeRepository.recipeByTitleAndUser(recipeDTO.getTitle(), recipeDTO.getUser_id()))) {
             createRecipe(recipeDTO);
         }
 
@@ -299,7 +300,8 @@ public class Services {
             if (Objects.isNull(ingredientRepository.getIngredientByName(tempIngredient.getName()))) {
                 Ingredient newIngredient = checkOrCreateIngredient(tempIngredient.getName());
 
-                recipeIngredient.setRecipeid(recipeRepository.recipeByTitle(recipeDTO.getTitle()).getRecipeid());
+                recipeIngredient.setRecipeid(recipeRepository.recipeByTitleAndUser(recipeDTO.getTitle(),
+                        recipeDTO.getUser_id()).getRecipeid());
                 recipeIngredient.setIngredientid(newIngredient.getIngredientid());
                 recipeIngredient.setQuantity(tempIngredient.getQuantity());
                 recipeIngredient.setMeasurementunit(tempIngredient.getMeasurementunit());
@@ -309,15 +311,14 @@ public class Services {
 
             } else
                 recipeIngredient.setRecipeid(
-                        recipeRepository.recipeByTitle(recipeDTO.getTitle()).getRecipeid());
+                        recipeRepository.recipeByTitleAndUser(recipeDTO.getTitle(),
+                                recipeDTO.getUser_id()).getRecipeid());
             recipeIngredient.setIngredientid(
                     ingredientRepository.getIngredientByName(tempIngredient.getName()).getIngredientid());
             recipeIngredient.setQuantity(tempIngredient.getQuantity());
             recipeIngredient.setMeasurementunit(tempIngredient.getMeasurementunit());
             recipeIngredients.add(recipeIngredient);
-
             recipeIngredientRepository.save(recipeIngredient);
-
         }
 
         System.out.println(recipeIngredients);
@@ -328,7 +329,7 @@ public class Services {
 
         Recipe incomingRecipe = new Recipe();
 
-        if (Objects.isNull(recipeRepository.recipeByTitle(recipeDTO.getTitle()))) {
+        if (Objects.isNull(recipeRepository.recipeByTitleAndUser(recipeDTO.getTitle(), recipeDTO.getUser_id()))) {
 
             incomingRecipe.setUser_id(recipeDTO.getUser_id());
             incomingRecipe.setTitle(recipeDTO.getTitle());
@@ -358,7 +359,7 @@ public class Services {
 
         System.out.println("HUZZAH");
 
-        return recipeRepository.recipeByTitle(recipeDTO.getTitle());
+        return recipeRepository.recipeByTitleAndUser(recipeDTO.getTitle(), recipeDTO.getUser_id());
 
     }
 
