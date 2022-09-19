@@ -8,7 +8,7 @@ export default function Recipes(props) {
     <div>
       <Navigator />
       <h3>Recipe Collection</h3>
-      <div id="render-saved-recipes" className="col-12 col-md-5 m-1">
+      <div id="render-saved-recipes">
         <SavedRecipes
           recipes={props.recipes}
           deleteRecipe={props.deleteRecipe}
