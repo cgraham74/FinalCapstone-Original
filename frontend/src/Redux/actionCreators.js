@@ -146,14 +146,14 @@ export const updatedRecipe =
     })
       .then((response) => {
         if (response.ok) {
-          alert("Card updated!");
+          alert("Recipe updated!");
           dispatch(fetchRecipes(token))
           return response;
         }
       })
       .catch((err) => {
         console.error(err);
-        alert("Could not update card!");
+        alert("Could not update the recipe!");
       });
   };
 

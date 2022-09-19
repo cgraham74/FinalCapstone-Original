@@ -14,3 +14,7 @@ li#pantry-list {
     margin: 1px;
   
   }
+  #save-heart{
+    color: #171c32;
+    justify-self: flex-end;
+  }

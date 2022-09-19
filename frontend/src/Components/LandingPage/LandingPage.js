@@ -7,10 +7,10 @@ import purpledot from "../../images/purpledot.png";
 import orangedot from "../../images/orangedot.png";
 import { Link } from "react-router-dom";
 
-
 export default function LandingPage() {
   return (
     <div>
+    
       <ul id="landing-page">
         <li id="li_weekly">
           <img src={yellowdot} alt="large yellow ellipse" />

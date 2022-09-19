@@ -18,18 +18,18 @@ import {
   deletePurchasedItem,
   addPurchasedItem,
   postNewMealSelection,
-  changeMealSelection
+  changeMealSelection,
 } from "../../Redux/actionCreators";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import WeeklyPlanner from "../WeeklyPlanner/WeeklyPlanner";
 import Recipes from "../Recipe/Recipes";
 import ShoppingList from "../ShoppingList/ShoppingList";
-// import Pantry from "../Pantry/Pantry";
 import CreateRecipe from "../Recipe/CreateRecipe";
 import Day from "../Day/Day";
 import AllRecipes from "../Pantry/AllRecipes";
-
+import { Button } from "reactstrap";
+import { FaSignInAlt } from "react-icons/fa";
 
 const mapStateToProps = (state) => {
   return {
@@ -46,7 +46,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-
 const mapDispatchToProps = (dispatch) => ({
   addToken: () => {
     dispatch(addToken());
@@ -57,9 +56,9 @@ const mapDispatchToProps = (dispatch) => ({
   fetchRecipes: (token) => {
     dispatch(fetchRecipes(token));
   },
-fetchAllRecipes:(token) => {
-  dispatch(fetchAllRecipes(token));
-},
+  fetchAllRecipes: (token) => {
+    dispatch(fetchAllRecipes(token));
+  },
   // fetchPantryItems: (token) => {
   //   dispatch(fetchPantryItems(token));
   // },
@@ -77,7 +76,7 @@ fetchAllRecipes:(token) => {
     ingredientList,
     instructions,
     servingSize,
-    category, 
+    category,
     token
   ) =>
     dispatch(
@@ -118,12 +117,15 @@ fetchAllRecipes:(token) => {
         token
       )
     ),
-    newMealSelection: (user, mealtime, day, recipename) => dispatch(newMealSelection(user, mealtime, day, recipename)),
-    changeMealSelection: (mealplanid, user, mealtime, day,  recipename) => dispatch(changeMealSelection(mealplanid, user, mealtime, day, recipename)),
-    deleteShoppingList: (item) => dispatch(deleteShoppingList(item)),
-    deletePurchasedItem:(item) => dispatch(deletePurchasedItem(item)),
-    addPurchasedItem:(item) => dispatch(addPurchasedItem(item)),
-    postNewMealSelection: (mealselection, token) => dispatch(postNewMealSelection(mealselection, token))
+  newMealSelection: (user, mealtime, day, recipename) =>
+    dispatch(newMealSelection(user, mealtime, day, recipename)),
+  changeMealSelection: (mealplanid, user, mealtime, day, recipename) =>
+    dispatch(changeMealSelection(mealplanid, user, mealtime, day, recipename)),
+  deleteShoppingList: (item) => dispatch(deleteShoppingList(item)),
+  deletePurchasedItem: (item) => dispatch(deletePurchasedItem(item)),
+  addPurchasedItem: (item) => dispatch(addPurchasedItem(item)),
+  postNewMealSelection: (mealselection, token) =>
+    dispatch(postNewMealSelection(mealselection, token)),
 });
 
 class Main extends Component {
@@ -131,15 +133,15 @@ class Main extends Component {
   constructor(props) {
     super(props);
   }
-  
+
   //NEEDS TO RETURN TOKENS
   componentDidUpdate(preprops) {
-    if(this.props.token.token !== preprops.token.token) {
-    this.props.fetchRecipes(this.props.token.token);
-    this.props.fetchAllRecipes(this.props.token.token);
-    // this.props.fetchPantryItems(this.props.token.token);
-    this.props.fetchMealPlan(this.props.token.token);
-    this.props.fetchShoppingList(this.props.token.token);
+    if (this.props.token.token !== preprops.token.token) {
+      this.props.fetchRecipes(this.props.token.token);
+      this.props.fetchAllRecipes(this.props.token.token);
+      // this.props.fetchPantryItems(this.props.token.token);
+      this.props.fetchMealPlan(this.props.token.token);
+      this.props.fetchShoppingList(this.props.token.token);
     }
   }
 
@@ -147,27 +149,31 @@ class Main extends Component {
   //   this.props.fetchRecipes(this.props.token.token);
   //   this.props.fetchPantryItems(this.props.token.token);
   //   this.props.fetchMealPlan(this.props.token.token);
-  //   this.props.fetchShoppingList(this.props.token.token); 
+  //   this.props.fetchShoppingList(this.props.token.token);
   // }
-
 
   handleLogout = () => {
     this.props.addToken("");
     this.props.deleteUser();
   };
 
-
   //PASS TOKENS TO THE COMPONENTS
   render() {
     return (
       <div>
         {this.props.token.token !== undefined ? (
-          <div>
+          <div id="log-out-home-button-group">
+            <Button>
             <Link to="/home">Home | </Link>
-            <Link to="/login" onClick={this.handleLogout}>
-              logout
-            </Link>
-            <Redirect to="/home" />
+            </Button>
+            <Button id="log-out-button">
+              <FaSignInAlt />
+              <Link to="/login" onClick={this.handleLogout}>
+                logout
+              </Link>
+            </Button>
+
+            <Redirect to="/home"/>
           </div>
         ) : (
           <Link to="/login">Home | </Link>
@@ -184,10 +190,13 @@ class Main extends Component {
           <Route
             path="/weeklyplanner"
             component={() => (
-              <WeeklyPlanner mealplan={this.props.mealplan.mealplan} user={this.props.user} 
-              mealselection={this.props.mealselection.mealselection}
-              postNewMealSelection={this.props.postNewMealSelection}
-              token={this.props.token}  />
+              <WeeklyPlanner
+                mealplan={this.props.mealplan.mealplan}
+                user={this.props.user}
+                mealselection={this.props.mealselection.mealselection}
+                postNewMealSelection={this.props.postNewMealSelection}
+                token={this.props.token}
+              />
             )}
           />
           <Route
@@ -242,14 +251,15 @@ class Main extends Component {
           <Route
             path="/day"
             component={() => (
-              <Day newMealSelection={this.props.newMealSelection}
-              changeMealSelection={this.props.changeMealSelection}
-              mealselection={this.props.mealselection.mealselection}
-               />
+              <Day
+                newMealSelection={this.props.newMealSelection}
+                changeMealSelection={this.props.changeMealSelection}
+                mealselection={this.props.mealselection.mealselection}
+              />
             )}
           />
           <Route path="/day" component={() => <Day />} />
-          <Route path="/home" component={() => <Home />} />
+          {/* <Route path="/home" component={() => <Home />} /> */}
           <Redirect to="/login" />
         </Switch>
       </div>

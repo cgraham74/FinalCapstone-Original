@@ -3,11 +3,12 @@ import { Button } from "reactstrap";
 import "./navigation.css";
 import { Link } from "react-router-dom";
 
-
 function Navigator() {
   return (
     <nav id="navigation_container">
+       
       <h1>Meal Prepping Made Easy</h1>
+   
       <div id="nav_container">
         
           <Button id="nav_home">

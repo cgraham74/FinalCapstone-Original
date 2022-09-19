@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Card, CardBody, CardImg, CardTitle, CardSubtitle } from "reactstrap";
 import defaultImg from "../../images/default.png";
+import { FaRegHeart } from "react-icons/fa";
 
 function RenderAllRecipes({ recipeCard }) {
   const [ingredientList, setIngredientList] = useState(
@@ -53,7 +54,9 @@ function RenderAllRecipes({ recipeCard }) {
       <Card style={{ width: "30rem" }} id="recipecard">
         <CardBody>
           <CardTitle>
+            <span>
             <h3>{recipeCard.title}</h3>
+            <FaRegHeart id="save-heart"/></span>
           </CardTitle>
           <CardImg
             alt="not found"
