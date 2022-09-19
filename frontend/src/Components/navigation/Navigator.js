@@ -20,7 +20,7 @@ function Navigator() {
             <Link to="/recipes">My Recipes</Link>
           </Button>
           <Button id="nav_pantry">
-            <Link to="/pantry">Pantry</Link>
+            <Link to="/allrecipes">All Recipes</Link>
           </Button>
           <Button id="nav_shopping">
             <Link to="/shoppinglist">Shopping</Link>

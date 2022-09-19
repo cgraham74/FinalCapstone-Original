@@ -32,11 +32,32 @@ export const fetchRecipes = (token) => async (dispatch) => {
     });
 };
 
+//List all recipes for ALL users
+export const fetchAllRecipes = (token) => async (dispatch) => {
+  await fetch(baseUrl + "/recipe/listall", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      return dispatch(addAllRecipe(data));
+    });
+};
+
 export const addRecipe = (recipes) => ({
   type: ActionTypes.ADD_RECIPE,
   payload: recipes,
 });
-
+//for all recipes for all users
+export const addAllRecipe = (allrecipes) => ({
+  type: ActionTypes.ADD_ALL_RECIPES,
+  payload: allrecipes,
+});
 export const updateRecipe = (recipe) => ({
   type: ActionTypes.UPDATE_RECIPE,
   payload: recipe,

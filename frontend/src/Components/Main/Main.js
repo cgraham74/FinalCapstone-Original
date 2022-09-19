@@ -7,7 +7,7 @@ import {
   addToken,
   deleteUser,
   fetchMealPlan,
-  fetchPantryItems,
+  fetchAllRecipes,
   fetchRecipes,
   saveRecipe,
   fetchShoppingList,
@@ -25,9 +25,10 @@ import { withRouter } from "react-router-dom";
 import WeeklyPlanner from "../WeeklyPlanner/WeeklyPlanner";
 import Recipes from "../Recipe/Recipes";
 import ShoppingList from "../ShoppingList/ShoppingList";
-import Pantry from "../Pantry/Pantry";
+// import Pantry from "../Pantry/Pantry";
 import CreateRecipe from "../Recipe/CreateRecipe";
 import Day from "../Day/Day";
+import AllRecipes from "../Pantry/AllRecipes";
 
 
 const mapStateToProps = (state) => {
@@ -38,13 +39,14 @@ const mapStateToProps = (state) => {
     mealplan: state.mealplan,
     ingredient: state.ingredient,
     recipes: state.recipes,
+    allrecipes: state.allrecipes,
     token: state.token,
     user: state.user,
     saveRecipe: state.saveRecipe,
   };
 };
 
-//REMEMBER TO ADD TOKENS
+
 const mapDispatchToProps = (dispatch) => ({
   addToken: () => {
     dispatch(addToken());
@@ -55,10 +57,12 @@ const mapDispatchToProps = (dispatch) => ({
   fetchRecipes: (token) => {
     dispatch(fetchRecipes(token));
   },
-
-  fetchPantryItems: (token) => {
-    dispatch(fetchPantryItems(token));
-  },
+fetchAllRecipes:(token) => {
+  dispatch(fetchAllRecipes(token));
+},
+  // fetchPantryItems: (token) => {
+  //   dispatch(fetchPantryItems(token));
+  // },
   fetchMealPlan: (token) => {
     dispatch(fetchMealPlan(token));
   },
@@ -132,7 +136,8 @@ class Main extends Component {
   componentDidUpdate(preprops) {
     if(this.props.token.token !== preprops.token.token) {
     this.props.fetchRecipes(this.props.token.token);
-    this.props.fetchPantryItems(this.props.token.token);
+    this.props.fetchAllRecipes(this.props.token.token);
+    // this.props.fetchPantryItems(this.props.token.token);
     this.props.fetchMealPlan(this.props.token.token);
     this.props.fetchShoppingList(this.props.token.token);
     }
@@ -198,10 +203,11 @@ class Main extends Component {
             )}
           />
           <Route
-            path="/pantry"
+            path="/allrecipes"
             component={() => (
-              <Pantry
-                ingredient={this.props.ingredient.ingredient}
+              <AllRecipes
+                token={this.props.token.token}
+                allrecipes={this.props.allrecipes.allrecipes}
                 user={this.props.user}
               />
             )}

@@ -22,7 +22,7 @@ export default function LandingPage() {
         </li>
         <li id="li_pantry">
           <img src={greendot} alt="large green dot" />
-          <Link to='Pantry'  className="landing-page">Pantry</Link>
+          <Link to='AllRecipe'  className="landing-page">Pantry</Link>
         </li>
         <li id="li_shopping">
           <img src={bluedot} alt="large blue dot" />
