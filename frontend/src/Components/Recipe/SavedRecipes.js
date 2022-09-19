@@ -118,21 +118,21 @@ function RenderSavedRecipes({ recipeCard, updatedRecipe, token, imgUrls }) {
   function fileExists() {
     console.log(recipeCard.imageUrl)
     let isExist = false;
-  //    try {
-  //      let file = require(`../../images/${recipeCard.imageUrl}`).default;
-  //        return true;
-  //    }
-  //   catch (err) {
-  //     return false;
-  //   }   
-   // console.log("recipe"+" "+ recipeCard.imageUrl);
-   imgUrls.map((url)=>{
-    if(url===recipeCard.imageUrl) {
-      image = url;
-      isExist = true;
-    }
-   });
-  return isExist;
+     try {
+       let file = require(`../../images/${recipeCard.imageUrl}`).default;
+         return true;
+     }
+    catch (err) {
+      return false;
+    }   
+  //  console.log("recipe"+" "+ recipeCard.imageUrl);
+  //  imgUrls.map((url)=>{
+  //   if(url===recipeCard.imageUrl) {
+  //     image = url;
+  //     isExist = true;
+  //   }
+  //  });
+  // return isExist;
  }
  
   return (
@@ -144,7 +144,8 @@ function RenderSavedRecipes({ recipeCard, updatedRecipe, token, imgUrls }) {
           </CardTitle>
           <CardImg
               alt="not found"
-              src={fileExists() ? image : defaultImg }
+              // src={fileExists() ? image : defaultImg }
+               src={fileExists() ? require(`../../images/${recipeCard.imageUrl}`).default : defaultImg }
             /> 
 
           <CardSubtitle>Serving Size: {recipeCard.servingSize}</CardSubtitle>
