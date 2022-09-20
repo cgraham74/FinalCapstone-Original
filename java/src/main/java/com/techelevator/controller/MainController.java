@@ -40,7 +40,7 @@ public class MainController {
     }
 
     //Delete the current user's saved meal plan.
-    @GetMapping(path = "/mealplan/delete")
+    @DeleteMapping(path = "/mealplan/delete")
     public void deleteUsersMealPlan(Principal principal) {
         services.deleteMealPlanForUser(principal.getName());
     }

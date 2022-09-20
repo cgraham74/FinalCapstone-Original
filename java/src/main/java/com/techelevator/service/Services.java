@@ -9,6 +9,7 @@ import com.techelevator.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.*;
 
 @Service
@@ -150,6 +151,7 @@ public class Services {
 
     //-------------------DELETE-------------------
 
+    @Transactional
     public void deleteMealPlanForUser(String username) {
         mealPlanRepository.deleteMealPlanFromUser(getUserId(username));
     }
