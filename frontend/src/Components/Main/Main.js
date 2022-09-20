@@ -29,8 +29,8 @@ import CreateRecipe from "../Recipe/CreateRecipe";
 import Day from "../Day/Day";
 import AllRecipes from "../Pantry/AllRecipes";
 import { Button } from "reactstrap";
-import { FaSignInAlt } from "react-icons/fa";
-import './main.css';
+import { FaSignOutAlt } from "react-icons/fa";
+import "./main.css";
 
 const mapStateToProps = (state) => {
   return {
@@ -60,13 +60,11 @@ const mapDispatchToProps = (dispatch) => ({
   fetchAllRecipes: (token) => {
     dispatch(fetchAllRecipes(token));
   },
-  // fetchPantryItems: (token) => {
-  //   dispatch(fetchPantryItems(token));
-  // },
+
   fetchMealPlan: (token) => {
     dispatch(fetchMealPlan(token));
   },
-  //Removed User from fetchShoppingList
+
   fetchShoppingList: (token) => {
     dispatch(fetchShoppingList(token));
   },
@@ -135,27 +133,20 @@ class Main extends Component {
     super(props);
   }
 
-  //NEEDS TO RETURN TOKENS
   componentDidUpdate(preprops) {
-    if (this.props.token.token !== preprops.token.token) {
+    if (this.props.token.token !== preprops.token.token && this.props.token.token !== undefined) {
       this.props.fetchRecipes(this.props.token.token);
       this.props.fetchAllRecipes(this.props.token.token);
-      // this.props.fetchPantryItems(this.props.token.token);
       this.props.fetchMealPlan(this.props.token.token);
       this.props.fetchShoppingList(this.props.token.token);
     }
   }
 
-  // componentDidMount() {
-  //   this.props.fetchRecipes(this.props.token.token);
-  //   this.props.fetchPantryItems(this.props.token.token);
-  //   this.props.fetchMealPlan(this.props.token.token);
-  //   this.props.fetchShoppingList(this.props.token.token);
-  // }
-
   handleLogout = () => {
+  
     this.props.addToken("");
     this.props.deleteUser();
+    
   };
 
   //PASS TOKENS TO THE COMPONENTS
@@ -163,15 +154,15 @@ class Main extends Component {
     return (
       <div>
         {this.props.token.token !== undefined ? (
-          <div id="log-out-home-button-group">    
+          <div id="log-out-home-button-group">
             <Button id="log-out-button">
-              <FaSignInAlt id="fa-sign-in"/>{" "}
+              <FaSignOutAlt id="fa-sign-in" />{" "}
               <Link to="/login" onClick={this.handleLogout}>
                 logout
               </Link>
             </Button>
 
-            <Redirect to="/home"/>
+            <Redirect to="/home" />
           </div>
         ) : (
           <Link to="/login">Home | </Link>
@@ -245,7 +236,6 @@ class Main extends Component {
               />
             )}
           />
-          {/* testing functionality of day component */}
           <Route
             path="/day"
             component={() => (
@@ -257,7 +247,7 @@ class Main extends Component {
             )}
           />
           <Route path="/day" component={() => <Day />} />
-          {/* <Route path="/home" component={() => <Home />} /> */}
+          <Route path="/home" component={() => <Home />} />
           <Redirect to="/login" />
         </Switch>
       </div>

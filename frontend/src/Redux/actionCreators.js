@@ -25,7 +25,19 @@ export const fetchRecipes = (token) => async (dispatch) => {
     },
   })
     .then((response) => {
-      return response.json();
+      if (response.ok){
+        return response.json();
+      } else {
+        let error = new Error(
+          "Error" + response.status + ": " + response.statusText
+        );
+        error.response = response;
+        throw error;
+      } 
+    },
+    (error) =>{
+      let errmess = new Error(error.message);
+      throw errmess;
     })
     .then((data) => {
       return dispatch(addRecipe(data));
@@ -41,9 +53,21 @@ export const fetchAllRecipes = (token) => async (dispatch) => {
       Authorization: `Bearer ${token}`,
     },
   })
-    .then((response) => {
+  .then((response) => {
+    if (response.ok){
       return response.json();
-    })
+    } else {
+      let error = new Error(
+        "Error" + response.status + ": " + response.statusText
+      );
+      error.response = response;
+      throw error;
+    } 
+  },
+  (error) =>{
+    let errmess = new Error(error.message);
+    throw errmess;
+  })
     .then((data) => {
       return dispatch(addAllRecipe(data));
     });
@@ -98,16 +122,28 @@ export const saveRecipe =
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-    }).then((response) => {
+    }).then(
+      (response) => {
       if (response.ok) {
-        alert("Saved!" + newRecipe);
+        alert("Recipe Created!" + newRecipe);
         dispatch(fetchRecipes(token));
         return response;
+      } else {
+       let error = new Error(
+        "Error " + response.status + ": " + response.statusText
+       );
+       error.response = response;
+       throw error;
       }
-    })
+    },
+    (error) => {
+      let errmess = new Error(error.message);
+      throw errmess;
+    }
+    )
     .catch((err) => {
       console.error(err);
-      alert("Could not save card!" + JSON.stringify(newRecipe));
+      alert("Could not create recipe!");
 
     })
   };
@@ -186,22 +222,22 @@ export const deleteRecipe = (id) => (dispatch) => {
 //   }
 // });
 
-//Calls the fetch to add the ingredients at launch
-export const fetchPantryItems = (token) => async (dispatch) => {
-  await fetch(baseUrl + "/recipe/pantry", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-  })
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      return dispatch(addIngredient(data));
-    });
-};
+// //Calls the fetch to add the ingredients at launch
+// export const fetchPantryItems = (token) => async (dispatch) => {
+//   await fetch(baseUrl + "/recipe/pantry", {
+//     method: "GET",
+//     headers: {
+//       "Content-Type": "application/json",
+//       Authorization: `Bearer ${token}`,
+//     },
+//   })
+//     .then((response) => {
+//       return response.json();
+//     })
+//     .then((data) => {
+//       return dispatch(addIngredient(data));
+//     });
+// };
 
 //Actioncreators for ingredients
 export const addIngredient = (ingredient) => ({
