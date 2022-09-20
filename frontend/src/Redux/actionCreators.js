@@ -15,8 +15,13 @@ export const deleteUser = () => ({
   type: ActionTypes.DELETE_USER,
 });
 
+export const recipesLoading = () => ({
+  type:ActionTypes.RECIPES_LOADING,
+});
+
 //ADDED HEADERS AND TOKENS TO THE SERVER
 export const fetchRecipes = (token) => async (dispatch) => {
+  dispatch(recipesLoading());
   await fetch(baseUrl + "/recipe/list", {
     method: "GET",
     headers: {
@@ -41,11 +46,13 @@ export const fetchRecipes = (token) => async (dispatch) => {
     })
     .then((data) => {
       return dispatch(addRecipe(data));
+ 
     });
 };
 
 //List all recipes for ALL users
 export const fetchAllRecipes = (token) => async (dispatch) => {
+  dispatch(recipesLoading());
   await fetch(baseUrl + "/recipe/listall", {
     method: "GET",
     headers: {
@@ -70,7 +77,9 @@ export const fetchAllRecipes = (token) => async (dispatch) => {
   })
     .then((data) => {
       return dispatch(addAllRecipe(data));
+    
     });
+    
 };
 
 export const addRecipe = (recipes) => ({

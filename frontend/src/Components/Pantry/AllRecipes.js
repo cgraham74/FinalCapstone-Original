@@ -8,14 +8,8 @@ export default function AllRecipes(props) {
     <>
       <Navigator />
       <h3>All Recipes</h3>
-<div id="render-all-recipes">
-
-
-      <RecipeCard
-        allrecipes={props.allrecipes}
-      
-        token={props.token}
-      />
+      <div id="render-all-recipes">
+        <RecipeCard allrecipes={props.allrecipes} token={props.token} />
       </div>
     </>
   );

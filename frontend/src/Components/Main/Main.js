@@ -197,6 +197,7 @@ class Main extends Component {
                 deleteRecipe={this.props.deleteRecipe}
                 updateRecipe={this.props.updateRecipe}
                 updatedRecipe={this.props.updatedRecipe}
+                recipesLoading={this.props.recipes.isLoading}
               />
             )}
           />
@@ -207,6 +208,7 @@ class Main extends Component {
                 token={this.props.token.token}
                 allrecipes={this.props.allrecipes.allrecipes}
                 user={this.props.user}
+                recipesLoading={this.props.allrecipes.isLoading}
               />
             )}
           />

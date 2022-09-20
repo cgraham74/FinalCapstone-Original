@@ -20,9 +20,9 @@ import {
   Table,
 } from "reactstrap";
 import "./recipe.css";
-import { Fade, Stagger } from "react-animation-components";
+import { Fade } from "react-animation-components";
 import defaultImg from "../../images/default.png";
-
+import { Loading } from '../LoadingComponent';
 import {
   ref,
   uploadBytes,
@@ -116,7 +116,6 @@ function RenderSavedRecipes({ recipeCard, updatedRecipe, token, imgUrls }) {
   });
 
   function fileExists() {
-    console.log(recipeCard.imageUrl)
     let isExist = false;
      try {
        let file = require(`../../images/${recipeCard.imageUrl}`).default;
@@ -135,7 +134,10 @@ function RenderSavedRecipes({ recipeCard, updatedRecipe, token, imgUrls }) {
   // return isExist;
  }
  
+
+
   return (
+    
     <Fade in>
       <Card style={{ width: "30rem" }} id="recipecard">
         <CardBody>
@@ -243,36 +245,53 @@ function RenderSavedRecipes({ recipeCard, updatedRecipe, token, imgUrls }) {
 export default function SavedRecipes(props) {
   const imagesListRef = ref(storage, "images/");
   const [imageUrls, setImageUrls] = useState([]);
-  useEffect(() => {
-    listAll(imagesListRef).then((response) => {
-      response.items.forEach((item) => {
-        getDownloadURL(item).then((url) => {
-          setImageUrls((prev) => [...prev, url]);
-          //console.log(url);
-        });
-      });
-    });
-  }, []);
+//  useEffect(() => {
+//     listAll(imagesListRef).then((response) => {
+//       response.items.forEach((item) => {
+//         getDownloadURL(item).then((url) => {
+//           setImageUrls((prev) => [...prev, url]);
+//           //console.log(url);
+//         });
+//       });
+//     });
+//   }, []);
 
 
-  const recipeCollections = props.recipes.map((item, id) => {
+  const recipeCollections = props.recipes.map((item, index) => {
+
+
     return (
-      <>
-        <Stagger in>
-          <RenderSavedRecipes
-            key={id}
+      
+
+      <div key={index}>
+          <RenderSavedRecipes 
+            key={index}  
             updatedRecipe={props.updatedRecipe}
             recipeCard={item}
             token={props.token}
-            imgUrls={imageUrls}
+            // imgUrls={imageUrls}
+            recipesLoading={props.recipesLoading}
 
           />
-        </Stagger>
+
+      
         {/* {imageUrls.map((url) => {
         return <img src={url} />;
       })} */}
-      </>
+      </div>
     );
+
+
+
   });
-  return <>{recipeCollections}</>;
+  if (props.recipesLoading){
+    return(
+      <div>
+        <Loading />
+      </div>
+    )
+  } else {
+     return <>{recipeCollections}</>;
+}
+ 
 }
