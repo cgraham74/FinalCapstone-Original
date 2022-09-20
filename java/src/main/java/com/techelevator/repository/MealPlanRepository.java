@@ -23,7 +23,7 @@ public interface MealPlanRepository extends JpaRepository<MealPlan, Integer> {
     @Query("SELECT m FROM MealPlan m WHERE m.user_id = :user_id")
     MealPlan getMealPlanFromUserId(@Param("user_id") Long user_id);
 
-    @Query("DELETE FROM MealPlam m WHERE m.user_id = :user_id")
+    @Query("DELETE FROM MealPlan m WHERE m.user_id = :user_id")
     void deleteMealPlanFromUser(@Param("user_id") Long user_id);
 
 }
