@@ -1,5 +1,9 @@
 package com.techelevator.service;
 
+import com.techelevator.dto.MealPlannerDTO;
+import com.techelevator.dto.RecipeDTO;
+import com.techelevator.dto.RecipeIngredientDTO;
+import com.techelevator.dto.ShoppingListDTO;
 import com.techelevator.model.*;
 import com.techelevator.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;

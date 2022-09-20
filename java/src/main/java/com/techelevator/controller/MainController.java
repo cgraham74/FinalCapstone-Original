@@ -1,6 +1,8 @@
 package com.techelevator.controller;
 
-import com.techelevator.dao.UserDao;
+import com.techelevator.dto.MealPlannerDTO;
+import com.techelevator.dto.RecipeDTO;
+import com.techelevator.dto.ShoppingListDTO;
 import com.techelevator.model.*;
 import com.techelevator.service.Services;
 import lombok.AllArgsConstructor;
@@ -9,7 +11,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.security.PermitAll;
 import java.security.Principal;
 import java.util.Collection;
 import java.util.List;

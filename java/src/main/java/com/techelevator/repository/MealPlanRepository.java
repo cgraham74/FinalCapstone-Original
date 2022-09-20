@@ -1,7 +1,6 @@
 package com.techelevator.repository;
 
 import com.techelevator.model.MealPlan;
-import com.techelevator.model.MealPlannerDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
