@@ -1,8 +1,5 @@
-import React, { useState,useEffect } from "react";
-import {
-  FaRegTrashAlt,
-  FaCircle,
-} from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { FaRegTrashAlt, FaCircle } from "react-icons/fa";
 import {
   Card,
   CardImg,
@@ -22,7 +19,7 @@ import {
 import "./recipe.css";
 import { Fade } from "react-animation-components";
 import defaultImg from "../../images/default.png";
-import { Loading } from '../LoadingComponent';
+import { Loading } from "../LoadingComponent";
 import {
   ref,
   uploadBytes,
@@ -43,9 +40,7 @@ function RenderSavedRecipes({ recipeCard, updatedRecipe, token, imgUrls }) {
   const [ingredientQuantity, setIngredientQuantity] = useState();
   const [ingredientMeasurementUnit, setIngredientMeasurementUnit] = useState();
   const toggle = () => setModal(!modal);
- let image ;
-
-
+  let image;
 
   function addIngredients(event) {
     if (
@@ -89,55 +84,49 @@ function RenderSavedRecipes({ recipeCard, updatedRecipe, token, imgUrls }) {
       </>
     );
   });
- 
+
   function handleUpdatedRecipe(values) {
     values.preventDefault();
-    
-   updatedRecipe(
-          recipeCard.recipeid,
-          recipeCard.user_id,
-          recipeCard.title,
-          recipeCard.imageUrl,
-          ingredientList,
-          instructions,
-          servingSize,
-          recipeCard.category,
-          token
-        )
+
+    updatedRecipe(
+      recipeCard.recipeid,
+      recipeCard.user_id,
+      recipeCard.title,
+      recipeCard.imageUrl,
+      ingredientList,
+      instructions,
+      servingSize,
+      recipeCard.category,
+      token
+    );
   }
   const ingredients = recipeCard.ingredientList.map((item, index) => {
-
     return (
       <li key={index} id="ingredient">
         {item.name}: {item.quantity} {item.measurementunit}
       </li>
     );
-
   });
 
   function fileExists() {
     let isExist = false;
-     try {
-       let file = require(`../../images/${recipeCard.imageUrl}`).default;
-         return true;
-     }
-    catch (err) {
+    try {
+      let file = require(`../../images/${recipeCard.imageUrl}`).default;
+      return true;
+    } catch (err) {
       return false;
-    }   
-  //  console.log("recipe"+" "+ recipeCard.imageUrl);
-  //  imgUrls.map((url)=>{
-  //   if(url===recipeCard.imageUrl) {
-  //     image = url;
-  //     isExist = true;
-  //   }
-  //  });
-  // return isExist;
- }
- 
-
+    }
+    //  console.log("recipe"+" "+ recipeCard.imageUrl);
+    //  imgUrls.map((url)=>{
+    //   if(url===recipeCard.imageUrl) {
+    //     image = url;
+    //     isExist = true;
+    //   }
+    //  });
+    // return isExist;
+  }
 
   return (
-    
     <Fade in>
       <Card style={{ width: "30rem" }} id="recipecard">
         <CardBody>
@@ -145,11 +134,14 @@ function RenderSavedRecipes({ recipeCard, updatedRecipe, token, imgUrls }) {
             <h3>{recipeCard.title}</h3>
           </CardTitle>
           <CardImg
-              alt="not found"
-              // src={fileExists() ? image : defaultImg }
-               src={fileExists() ? require(`../../images/${recipeCard.imageUrl}`).default : defaultImg }
-            /> 
-
+            alt="not found"
+            // src={fileExists() ? image : defaultImg }
+            src={
+              fileExists()
+                ? require(`../../images/${recipeCard.imageUrl}`).default
+                : defaultImg
+            }
+          />
           <CardSubtitle>Serving Size: {recipeCard.servingSize}</CardSubtitle>
           <h5>Ingredients:</h5>
           <ul>{ingredients}</ul>
@@ -165,7 +157,8 @@ function RenderSavedRecipes({ recipeCard, updatedRecipe, token, imgUrls }) {
                 {recipeCard.title}
               </ModalHeader>
               <ModalBody id="modal-body"></ModalBody>
-              <Form id="modal-form"
+              <Form
+                id="modal-form"
                 onSubmit={(values) => {
                   handleUpdatedRecipe(values);
                   setModal(!modal);
@@ -178,7 +171,7 @@ function RenderSavedRecipes({ recipeCard, updatedRecipe, token, imgUrls }) {
                   value={servingSize}
                   onChange={(e) => setServingSize(e.target.value)}
                 ></Input>
-                
+
                 <Label for="ingredients">Add Ingredient</Label>
                 <Input
                   type="text"
@@ -198,7 +191,8 @@ function RenderSavedRecipes({ recipeCard, updatedRecipe, token, imgUrls }) {
                   placeholder="Measurement Unit"
                   onChange={(e) => setIngredientMeasurementUnit(e.target.value)}
                 ></Input>
-                <Button id="modal-add"
+                <Button
+                  id="modal-add"
                   type="button"
                   onClick={(event) => addIngredients(event)}
                 >
@@ -226,9 +220,7 @@ function RenderSavedRecipes({ recipeCard, updatedRecipe, token, imgUrls }) {
                 ></Input>
 
                 <ModalFooter>
-                  <Button id="modal-update-button">
-                    Update
-                  </Button>{" "}
+                  <Button id="modal-update-button">Update</Button>{" "}
                   <Button onClick={toggle} id="modal-cancel-button">
                     Cancel
                   </Button>
@@ -243,55 +235,44 @@ function RenderSavedRecipes({ recipeCard, updatedRecipe, token, imgUrls }) {
 }
 
 export default function SavedRecipes(props) {
-  const imagesListRef = ref(storage, "images/");
-  const [imageUrls, setImageUrls] = useState([]);
-//  useEffect(() => {
-//     listAll(imagesListRef).then((response) => {
-//       response.items.forEach((item) => {
-//         getDownloadURL(item).then((url) => {
-//           setImageUrls((prev) => [...prev, url]);
-//           //console.log(url);
-//         });
-//       });
-//     });
-//   }, []);
-
+  // const imagesListRef = ref(storage, "images/");
+  // const [imageUrls, setImageUrls] = useState([]);
+  //  useEffect(() => {
+  //     listAll(imagesListRef).then((response) => {
+  //       response.items.forEach((item) => {
+  //         getDownloadURL(item).then((url) => {
+  //           setImageUrls((prev) => [...prev, url]);
+  //           //console.log(url);
+  //         });
+  //       });
+  //     });
+  //   }, []);
 
   const recipeCollections = props.recipes.map((item, index) => {
-
-
     return (
-      
-
       <div key={index}>
-          <RenderSavedRecipes 
-            key={index}  
-            updatedRecipe={props.updatedRecipe}
-            recipeCard={item}
-            token={props.token}
-            // imgUrls={imageUrls}
-            recipesLoading={props.recipesLoading}
+        <RenderSavedRecipes
+          key={index}
+          updatedRecipe={props.updatedRecipe}
+          recipeCard={item}
+          token={props.token}
+          // imgUrls={imageUrls}
+          recipesLoading={props.recipesLoading}
+        />
 
-          />
-
-      
         {/* {imageUrls.map((url) => {
         return <img src={url} />;
       })} */}
       </div>
     );
-
-
-
   });
-  if (props.recipesLoading){
-    return(
+  if (props.recipesLoading) {
+    return (
       <div>
         <Loading />
       </div>
-    )
+    );
   } else {
-     return <>{recipeCollections}</>;
-}
- 
+    return <>{recipeCollections}</>;
+  }
 }
