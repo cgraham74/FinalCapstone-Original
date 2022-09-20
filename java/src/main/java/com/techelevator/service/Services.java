@@ -150,6 +150,11 @@ public class Services {
 
     //-------------------DELETE-------------------
 
+    public void deleteMealPlanForUser(String username) {
+        mealPlanRepository.deleteMealPlanFromUser(getUserId(username));
+    }
+
+
     //THIS IS WAY TOO SCARY, DON'T USE DELETE RECIPE
 //    public void deleteRecipe(Integer recipeId) {
 //        List<RecipeIngredient> listOfRecipeIngredients = recipeIngredientRepository.getRecipeIngredients(recipeId);

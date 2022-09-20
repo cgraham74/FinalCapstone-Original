@@ -32,10 +32,17 @@ public class MainController {
         return services.mealPlanListForUser(principal.getName());
     }
 
+    //Saves the meal plan to the database based on token's username.
     @PostMapping(path = "/mealplan/save")
     public void updateMealPlan(@RequestBody List<MealPlannerDTO> mealPlannerDTO, Principal principal){
 
         services.saveMealPlan(mealPlannerDTO, principal.getName());
+    }
+
+    //Delete the current user's saved meal plan.
+    @GetMapping(path = "/mealplan/delete")
+    public void deleteUsersMealPlan(Principal principal) {
+        services.deleteMealPlanForUser(principal.getName());
     }
 
     @PreAuthorize("permitAll")
