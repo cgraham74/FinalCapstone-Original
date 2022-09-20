@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Card, CardBody, CardImg, CardTitle, CardSubtitle } from "reactstrap";
 import defaultImg from "../../images/default.png";
 import { FaRegHeart } from "react-icons/fa";
-
+import { Loading } from '../LoadingComponent';
 function RenderAllRecipes({ recipeCard }) {
   const [ingredientList, setIngredientList] = useState(
     recipeCard.ingredientList);
@@ -89,7 +89,14 @@ export default function RecipeCard(props) {
       </>
     );
   });
-
+  if (props.allRecipesLoading ){
+    return(
+      <div>
+        <Loading />
+      </div>
+    )
+  } else {
   return <>{recipeAllCollections}</>;
+}
 }
 

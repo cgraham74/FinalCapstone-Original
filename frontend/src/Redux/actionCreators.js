@@ -19,6 +19,10 @@ export const recipesLoading = () => ({
   type:ActionTypes.RECIPES_LOADING,
 });
 
+export const allRecipesLoading = () => ({
+  type:ActionTypes.ALL_RECIPES_LOADING,
+})
+
 //ADDED HEADERS AND TOKENS TO THE SERVER
 export const fetchRecipes = (token) => async (dispatch) => {
   dispatch(recipesLoading());
@@ -52,7 +56,7 @@ export const fetchRecipes = (token) => async (dispatch) => {
 
 //List all recipes for ALL users
 export const fetchAllRecipes = (token) => async (dispatch) => {
-  dispatch(recipesLoading());
+  dispatch(allRecipesLoading());
   await fetch(baseUrl + "/recipe/listall", {
     method: "GET",
     headers: {

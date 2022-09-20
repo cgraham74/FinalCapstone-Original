@@ -208,7 +208,7 @@ class Main extends Component {
                 token={this.props.token.token}
                 allrecipes={this.props.allrecipes.allrecipes}
                 user={this.props.user}
-                recipesLoading={this.props.allrecipes.isLoading}
+                allRecipesLoading ={this.props.allrecipes.isLoading}
               />
             )}
           />

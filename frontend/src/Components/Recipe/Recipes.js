@@ -1,7 +1,7 @@
 import React from "react";
 import SavedRecipes from "./SavedRecipes";
 import Navigator from "../navigation/Navigator";
-import { Loading } from '../LoadingComponent';
+
 
 import "./recipe.css";
 export default function Recipes(props) {
