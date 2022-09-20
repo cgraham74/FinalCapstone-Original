@@ -101,6 +101,7 @@ background-color: #1f2746;
 
 #recipecard {
   height: 700px;
+
   overflow: scroll;
 }
 
@@ -115,4 +116,9 @@ color:#80F57E;
 
 .modal-content{
   background-color: #1f2746;
+}
+.dropdown, .dropend, .dropstart, .dropup {
+  position: relative;
+  display: flex;
+  flex-direction: row-reverse;
 }

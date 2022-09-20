@@ -3,9 +3,9 @@
   /* background-color:#1F2746; */
   color: #e5e8f2;
   text-decoration: none;
-  background-image: url(../../images/mealcalendar.png),url(../../images/blueberry.JPG);
-  background-repeat: no-repeat, no-repeat;
-  background-size:100px, cover;
+  background-image: url(../../images/blueberry.JPG);
+  background-repeat: no-repeat;
+  background-size:cover;
   border-radius: 15px;
   height: 150px;
   

@@ -30,6 +30,7 @@ import Day from "../Day/Day";
 import AllRecipes from "../Pantry/AllRecipes";
 import { Button } from "reactstrap";
 import { FaSignInAlt } from "react-icons/fa";
+import './main.css';
 
 const mapStateToProps = (state) => {
   return {
@@ -162,12 +163,9 @@ class Main extends Component {
     return (
       <div>
         {this.props.token.token !== undefined ? (
-          <div id="log-out-home-button-group">
-            <Button>
-            <Link to="/home">Home | </Link>
-            </Button>
+          <div id="log-out-home-button-group">    
             <Button id="log-out-button">
-              <FaSignInAlt />
+              <FaSignInAlt id="fa-sign-in"/>{" "}
               <Link to="/login" onClick={this.handleLogout}>
                 logout
               </Link>
