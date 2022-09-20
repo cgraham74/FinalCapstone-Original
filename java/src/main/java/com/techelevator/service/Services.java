@@ -1,6 +1,5 @@
 package com.techelevator.service;
 
-import com.techelevator.dao.UserDao;
 import com.techelevator.model.*;
 import com.techelevator.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +11,6 @@ import java.util.*;
 public class Services {
 
     @Autowired
-    PantryRepository pantryRepository;
-    @Autowired
-    PantryIngredientRepository pantryIngredientRepository;
-    @Autowired
     IngredientRepository ingredientRepository;
     @Autowired
     RecipeRepository recipeRepository;
@@ -24,27 +19,16 @@ public class Services {
     @Autowired
     MealPlanRepository mealPlanRepository;
     @Autowired
-    MealRepository mealRepository;
-    @Autowired
-    RecipeMealRepository recipeMealRepository;
-    @Autowired
-    MealPlanMealRepository mealPlanMealRepository;
-    @Autowired
     UserRepository userRepository;
-    @Autowired
-    UserDao userDao;
-
-    //For when we're using Principle names.
-    //-------------------USERS-------------------
-
 
     //-------------------QUERIES-------------------
 
     public List<MealPlan> mealPlanListForUser(String name) {
 
-        return mealPlanRepository.getMealPlanListFromUserId((long) getUserId(name));
+        return mealPlanRepository.getMealPlanListFromUserId(getUserId(name));
     }
 
+    //For when we start searching by breakfast/lunch/dinner.
     public List<Recipe> getRecipeTitleByCategory(String category) {
         return recipeRepository.getRecipeTitleByCategory(category);
     }
@@ -58,7 +42,7 @@ public class Services {
 
         List<ShoppingListDTO> shoppingList = new ArrayList<>();
         List<String> ingredientNames = new ArrayList<>(recipeIngredientRepository.
-                getListOfIngredientNames((long) getUserId(username)));
+                getListOfIngredientNames(getUserId(username)));
 
         for (String ingredientName : ingredientNames) {
             shoppingList.add(new ShoppingListDTO(ingredientName));
@@ -73,7 +57,7 @@ public class Services {
         for (MealPlannerDTO mealPlan : mealPlanList) {
             MealPlan incomingMealPlan = new MealPlan();
             incomingMealPlan.setMealplanid(mealPlan.getMealplanid());
-            incomingMealPlan.setUser_id((long) getUserId(name));
+            incomingMealPlan.setUser_id(getUserId(name));
             incomingMealPlan.setCategory(mealPlan.getCategory());
             incomingMealPlan.setDayofweek(mealPlan.getDayofweek());
             incomingMealPlan.setRecipename(mealPlan.getRecipename());
@@ -82,36 +66,10 @@ public class Services {
     }
 
 
-    //Currently how we're going to get the user's pantry.
-    //-------------------PANTRY-------------------
-//    public List<PantryDTO> testGetUserPantryDTO(String name) {
-//
-//        //Placeholder, this will be the id passed in above
-//        name = "Ed";
-//
-//        List<PantryDTO> usersPantry = new ArrayList<>();
-//
-//        List<PantryIngredient> usersPantryIngredients = new ArrayList<>(pantryIngredientRepository.
-//                pantryIngredientsByUserId(1L));
-//
-//        for (PantryIngredient usersPantryIngredient : usersPantryIngredients) {
-//
-//            String ingredientName = ingredientRepository.getOne(usersPantryIngredient.getIngredientid()).getName();
-//
-//            usersPantry.add(new PantryDTO(ingredientName,
-//                    usersPantryIngredient.getQuantity(),
-//                    usersPantryIngredient.getMeasurementunit()));
-//        }
-//
-//        return usersPantry;
-//    }
-
-
     //Get the recipe's ingredients for the DTO
     //-------------------RECIPES-------------------
     public List<RecipeIngredientDTO> testGetRecipeIngredients(Integer recipeid) {
 
-        //Placeholder, the above id will be passed in
 
         List<RecipeIngredient> recipeIngredients = recipeIngredientRepository.getRecipeIngredients(recipeid);
         List<RecipeIngredientDTO> recipeIngredientsDTO = new ArrayList<>();
@@ -150,7 +108,7 @@ public class Services {
     public Collection<RecipeDTO> listOfUsersRecipes(String username) {
 
         Collection<RecipeDTO> listOfRecipeDTO = new ArrayList<>();
-        Collection<Recipe> recipes = recipeRepository.getAllUsersRecipes((long) getUserId(username));
+        Collection<Recipe> recipes = recipeRepository.getAllUsersRecipes(getUserId(username));
 
         for (Recipe recipe : recipes) {
 
@@ -219,21 +177,6 @@ public class Services {
 
 
     //-------------------CREATE-------------------
-
-//    public MealPlan checkOrCreateMealPlan(String name) {
-//
-//        MealPlan tempMealPlan = new MealPlan();
-//        System.out.println("Line 236: Creating a new meal Plan or adding too it");
-//        if (Objects.isNull(mealPlanRepository.getMealPlanIdFromUserId((long) userDao.findIdByUsername(name)))) {
-//            tempMealPlan.setUser_id((long) userDao.findIdByUsername(name));
-//            mealPlanRepository.save(tempMealPlan);
-//            System.out.println("Line 240: MealPlanId didn't exist so here is the created one! - " + tempMealPlan.getMealplanid());
-//            return tempMealPlan;
-//        }
-//        else
-//            System.out.println("The id was found so it now returns the Id");
-//            return mealPlanRepository.getMealPlanFromUserId((long) userDao.findIdByUsername(name));
-//    }
 
     public Ingredient checkOrCreateIngredient(String name) {
         Ingredient tempIngredient = new Ingredient();
@@ -346,8 +289,8 @@ public class Services {
     }
 
     //-------------------HELPERS-------------------
-    public int getUserId(String username) {
-        return userDao.findIdByUsername(username);
+    public Long getUserId(String username) {
+        return userRepository.getUserIdFromUsername(username);
     }
 
     //-------------------FINAL STRAWS-------------------
