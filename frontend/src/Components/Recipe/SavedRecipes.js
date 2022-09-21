@@ -127,6 +127,7 @@ function RenderSavedRecipes({ recipeCard, updatedRecipe, token, imgUrls }) {
   }
 
   return (
+    <>
     <Fade in>
       <Card style={{ width: "30rem" }} id="recipecard">
         <CardBody>
@@ -231,6 +232,7 @@ function RenderSavedRecipes({ recipeCard, updatedRecipe, token, imgUrls }) {
         </CardBody>
       </Card>
     </Fade>
+    </>
   );
 }
 
@@ -248,11 +250,11 @@ export default function SavedRecipes(props) {
   //     });
   //   }, []);
 
-  const recipeCollections = props.recipes.map((item, index) => {
+  const recipeCollections = props.recipes.map((item, id) => {
     return (
-      <div key={index}>
+      <>
         <RenderSavedRecipes
-          key={index}
+          key={id}
           updatedRecipe={props.updatedRecipe}
           recipeCard={item}
           token={props.token}
@@ -263,7 +265,7 @@ export default function SavedRecipes(props) {
         {/* {imageUrls.map((url) => {
         return <img src={url} />;
       })} */}
-      </div>
+      </>
     );
   });
   if (props.recipesLoading) {

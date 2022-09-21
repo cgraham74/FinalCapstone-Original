@@ -54,7 +54,11 @@ export default function ShoppingList(props) {
       <h3>ShoppingList</h3>
 
       {props.shoppingList.length !== 0 && (
-        <ul id="shopping-items">{shoppingItem} </ul>
+        <ul id="shopping-items">
+          <>
+          {shoppingItem}
+          </>
+          </ul>
       )}
       <br></br>
     </>

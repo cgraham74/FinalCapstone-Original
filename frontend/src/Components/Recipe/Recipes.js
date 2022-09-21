@@ -12,7 +12,6 @@ export default function Recipes(props) {
       <h3>Recipe Collection</h3>
       <div id="render-saved-recipes">
         <SavedRecipes
-        key={props.key}
           recipes={props.recipes}
           deleteRecipe={props.deleteRecipe}
           updatedRecipe={props.updatedRecipe}
