@@ -20,14 +20,14 @@ import "./recipe.css";
 import { Fade } from "react-animation-components";
 import defaultImg from "../../images/default.png";
 import { Loading } from "../LoadingComponent";
-import {
-  ref,
-  uploadBytes,
-  getDownloadURL,
-  listAll,
-  list,
-} from "firebase/storage";
-import { storage } from "./firebase";
+// import {
+//   ref,
+//   uploadBytes,
+//   getDownloadURL,
+//   listAll,
+//   list,
+// } from "firebase/storage";
+// import { storage } from "./firebase";
 
 function RenderSavedRecipes({ recipeCard, updatedRecipe, token, imgUrls }) {
   const [modal, setModal] = useState(false);
@@ -40,7 +40,7 @@ function RenderSavedRecipes({ recipeCard, updatedRecipe, token, imgUrls }) {
   const [ingredientQuantity, setIngredientQuantity] = useState();
   const [ingredientMeasurementUnit, setIngredientMeasurementUnit] = useState();
   const toggle = () => setModal(!modal);
-  let image;
+  // let image;
 
   function addIngredients(event) {
     if (
@@ -109,7 +109,7 @@ function RenderSavedRecipes({ recipeCard, updatedRecipe, token, imgUrls }) {
   });
 
   function fileExists() {
-    let isExist = false;
+    // let isExist = false;
     try {
       let file = require(`../../images/${recipeCard.imageUrl}`).default;
       return true;

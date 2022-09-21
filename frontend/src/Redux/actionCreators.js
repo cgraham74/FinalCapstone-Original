@@ -105,6 +105,39 @@ export const createRecipe = (recipe) => ({
   payload: recipe,
 });
 
+export const clearMealPlan = (token) => (dispatch) => {
+  return fetch(baseUrl + "/recipe/mealplan/delete", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  }).then(
+    (response) => {
+    if (response.ok) {
+      alert("Cleared Meal Plan");
+      dispatch(fetchMealPlan(token));
+      return response;
+    } else {
+     let error = new Error(
+      "Error " + response.status + ": " + response.statusText
+     );
+     error.response = response;
+     throw error;
+    }
+  },
+  (error) => {
+    let errmess = new Error(error.message);
+    throw errmess;
+  }
+  )
+  .catch((err) => {
+    console.error(err);
+    alert("Could not clear meal plan!");
+
+  })
+};
+
 export const saveRecipe =
   (
     user_id,
@@ -138,7 +171,8 @@ export const saveRecipe =
     }).then(
       (response) => {
       if (response.ok) {
-        alert("Recipe Created!" + newRecipe);
+        alert("Recipe Created!");
+        dispatch(fetchAllRecipes(token))
         dispatch(fetchRecipes(token));
         return response;
       } else {

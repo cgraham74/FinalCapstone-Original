@@ -1,38 +1,24 @@
-import React, { useState } from "react";
 import { Card, CardBody, CardImg, CardTitle, CardSubtitle } from "reactstrap";
 import defaultImg from "../../images/default.png";
-import { FaRegHeart } from "react-icons/fa";
-import { Loading } from '../LoadingComponent';
-function RenderAllRecipes({ recipeCard }) {
-  const [ingredientList, setIngredientList] = useState(
-    recipeCard.ingredientList);
-  const [instructions, setInstructions] = useState(recipeCard.instructions);
-  const [servingSize, setServingSize] = useState(recipeCard.servingSize);
-  const [ingredientName, setIngredientName] = useState();
-  const [ingredientQuantity, setIngredientQuantity] = useState();
-  const [ingredientMeasurementUnit, setIngredientMeasurementUnit] = useState();
+import { FaHeart } from "react-icons/fa";
+import { Loading } from "../LoadingComponent";
 
-  function addIngredients(event) {
-    if (
-      ingredientName !== "" &&
-      ingredientQuantity !== "" &&
-      ingredientMeasurementUnit !== ""
-    ) {
-      event.preventDefault();
-      setIngredientList(() => [
-        ...ingredientList,
-        {
-          name: ingredientName,
-          quantity: ingredientQuantity,
-          measurementunit: ingredientMeasurementUnit,
-        },
-      ]);
-
-      setIngredientName("");
-      setIngredientQuantity("");
-      setIngredientMeasurementUnit("");
-    }
+function RenderAllRecipes({ recipeCard, user, token, saveRecipe }) {
+  function handleClick(e) {
+    e.preventDefault();
+    console.log(user.id + " " + token);
+    saveRecipe(
+      user.id,
+      recipeCard.title,
+      recipeCard.imageUrl,
+      recipeCard.ingredientList,
+      recipeCard.instructions,
+      recipeCard.servingSize,
+      recipeCard.category,
+      token
+    );
   }
+
   function fileExists() {
     try {
       let file = require(`../../images/${recipeCard.imageUrl}`).default;
@@ -54,9 +40,14 @@ function RenderAllRecipes({ recipeCard }) {
       <Card style={{ width: "30rem" }} id="recipecard">
         <CardBody>
           <CardTitle>
-            <span>
-            <h3>{recipeCard.title}</h3>
-            <FaRegHeart id="save-heart"/></span>
+            <div id="cardtitle">
+              <h3>{recipeCard.title}</h3>
+              <FaHeart
+                className="fas fa-heart fa-2x"
+                id="save-heart"
+                onClick={(e) => handleClick(e)}
+              />
+            </div>
           </CardTitle>
           <CardImg
             alt="not found"
@@ -66,9 +57,7 @@ function RenderAllRecipes({ recipeCard }) {
                 : defaultImg
             }
           />
-          <CardSubtitle>
-            Serving Size: {recipeCard.servingSize}
-          </CardSubtitle>
+          <CardSubtitle>Serving Size: {recipeCard.servingSize}</CardSubtitle>
           <h5>Ingredients:</h5>
           <ul>{ingredients}</ul>
           <h5>Instructions:</h5> {recipeCard.instructions}
@@ -79,24 +68,29 @@ function RenderAllRecipes({ recipeCard }) {
 }
 
 export default function RecipeCard(props) {
-  const recipeAllCollections = props.allrecipes.map((item, id) => {
+  const filterCollection = props.allrecipes.filter(
+    (item) => item.user_id !== props.user.id
+  );
+  const recipeAllCollections = filterCollection.map((item, id) => {
     return (
       <>
-        <RenderAllRecipes 
-        key={id} 
-        recipeCard={item} 
-        token={props.token} />
+        <RenderAllRecipes
+          key={id}
+          user={props.user}
+          saveRecipe={props.saveRecipe}
+          recipeCard={item}
+          token={props.token}
+        />
       </>
     );
   });
-  if (props.allRecipesLoading ){
-    return(
+  if (props.allRecipesLoading) {
+    return (
       <div>
         <Loading />
       </div>
-    )
+    );
   } else {
-  return <>{recipeAllCollections}</>;
+    return <>{recipeAllCollections}</>;
+  }
 }
-}
-

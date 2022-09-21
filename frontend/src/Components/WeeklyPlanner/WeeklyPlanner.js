@@ -494,8 +494,8 @@ export default function WeeklyPlanner(props) {
       <Table>
 
       </Table>
-      <Button onClick={() => props.postNewMealSelection(props.mealselection, props.token.token)} id="planner-submit">Submit Meal Plan</Button>
-              
+      <Button onClick={() => props.postNewMealSelection(props.mealselection, props.token.token)} id="planner-submit">Submit Meal Plan</Button>{ "  " }
+      <Button onClick={() => props.clearMealPlan(props.token.token)} id="planner-delete">Clear Meal Plan</Button>        
     </div>
   );
 }

@@ -19,6 +19,7 @@ import {
   addPurchasedItem,
   postNewMealSelection,
   changeMealSelection,
+  clearMealPlan
 } from "../../Redux/actionCreators";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -125,6 +126,7 @@ const mapDispatchToProps = (dispatch) => ({
   addPurchasedItem: (item) => dispatch(addPurchasedItem(item)),
   postNewMealSelection: (mealselection, token) =>
     dispatch(postNewMealSelection(mealselection, token)),
+  clearMealPlan: (token) => dispatch(clearMealPlan(token))
 });
 
 class Main extends Component {
@@ -185,6 +187,7 @@ class Main extends Component {
                 mealselection={this.props.mealselection.mealselection}
                 postNewMealSelection={this.props.postNewMealSelection}
                 token={this.props.token}
+                clearMealPlan={this.props.clearMealPlan}
               />
             )}
           />
@@ -207,6 +210,7 @@ class Main extends Component {
               <AllRecipes
                 token={this.props.token.token}
                 allrecipes={this.props.allrecipes.allrecipes}
+                saveRecipe={this.props.saveRecipe}
                 user={this.props.user}
                 allRecipesLoading ={this.props.allrecipes.isLoading}
               />
