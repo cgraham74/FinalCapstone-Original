@@ -1,20 +1,9 @@
 import { Card, CardBody, CardImg, CardTitle, CardSubtitle } from "reactstrap";
-import React, { useState, useEffect } from "react";
 import defaultImg from "../../images/default.png";
 import { FaHeart } from "react-icons/fa";
 import { Loading } from "../LoadingComponent";
-import {
-  ref,
-  uploadBytes,
-  getDownloadURL,
-  listAll,
-  list,
-} from "firebase/storage";
-import { storage } from "./firebase";
 
-function RenderAllRecipes({ recipeCard, user, token, saveRecipe, imgUrls }) {
-  let image;
-
+function RenderAllRecipes({ recipeCard, user, token, saveRecipe }) {
   function handleClick(e) {
     e.preventDefault();
     console.log(user.id + " " + token);
@@ -30,29 +19,14 @@ function RenderAllRecipes({ recipeCard, user, token, saveRecipe, imgUrls }) {
     );
   }
 
-  // function fileExists() {
-  //   try {
-  //     let file = require(`../../images/${recipeCard.imageUrl}`).default;
-  //     return true;
-  //   } catch (err) {
-  //     return false;
-  //   }
-  // }
-
   function fileExists() {
-    let isExist = false;
- 
-     console.log("recipe: " + recipeCard.imageUrl);
-     imgUrls.map((url)=>{
-      if(url===recipeCard.imageUrl) {
-        image = url;
-        isExist = true;
-      }
-     });
-    return isExist;
+    try {
+      let file = require(`../../images/${recipeCard.imageUrl}`).default;
+      return true;
+    } catch (err) {
+      return false;
+    }
   }
-
-
   const ingredients = recipeCard.ingredientList.map((item, index) => {
     return (
       <li key={index} id="ingredient">
@@ -76,8 +50,12 @@ function RenderAllRecipes({ recipeCard, user, token, saveRecipe, imgUrls }) {
             </div>
           </CardTitle>
           <CardImg
-                alt="not found"
-                src={fileExists() ? image : defaultImg }
+            alt="not found"
+            src={
+              fileExists()
+                ? require(`../../images/${recipeCard.imageUrl}`).default
+                : defaultImg
+            }
           />
           <CardSubtitle>Serving Size: {recipeCard.servingSize}</CardSubtitle>
           <h5>Ingredients:</h5>
@@ -90,21 +68,7 @@ function RenderAllRecipes({ recipeCard, user, token, saveRecipe, imgUrls }) {
 }
 
 export default function RecipeCard(props) {
-
-  const imagesListRef = ref(storage, "images/");
-  const [imageUrls, setImageUrls] = useState([]);
-   useEffect(() => {
-      listAll(imagesListRef).then((response) => {
-        response.items.forEach((item) => {
-          getDownloadURL(item).then((url) => {
-            setImageUrls((prev) => [...prev, url]);
-            console.log(url);
-          });
-        });
-      });
-    }, []);
-
-    const filterCollection = props.allrecipes.filter(
+  const filterCollection = props.allrecipes.filter(
     (item) => item.user_id !== props.user.id
   );
   const recipeAllCollections = filterCollection.map((item, id) => {
@@ -116,7 +80,6 @@ export default function RecipeCard(props) {
           saveRecipe={props.saveRecipe}
           recipeCard={item}
           token={props.token}
-          imgUrls={imageUrls}
         />
       </>
     );
