@@ -158,7 +158,7 @@ export default function CreateRecipe(props) {
                 name="title"
                 placeholder={saveRecipe.title}
                 type="text"
-                pattern="[a-zA-Z ]*"
+                pattern="[a-zA-Z ',]*"
                 required={true}
               ></Input>
             </Col>
