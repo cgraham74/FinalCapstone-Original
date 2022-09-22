@@ -8,7 +8,6 @@ import com.techelevator.model.*;
 import com.techelevator.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.transaction.Transactional;
 import java.util.*;
 
@@ -184,11 +183,13 @@ public class Services {
 
         recipeRepository.save(updatedRecipe);
         updateRecipeIngredients(recipeDTO);
+
     }
 
 
     //-------------------CREATE-------------------
 
+    //Weening this out.
     public Ingredient checkOrCreateIngredient(String name) {
         Ingredient tempIngredient = new Ingredient();
 
@@ -199,11 +200,23 @@ public class Services {
         } else return ingredientRepository.getIngredientByName(name);
     }
 
+    public Ingredient createIngredient(String name) {
+        Ingredient tempIngredient = new Ingredient();
+
+        tempIngredient.setName(name);
+        ingredientRepository.save(tempIngredient);
+
+        return tempIngredient;
+
+    }
+
+
     public void updateRecipeIngredients(RecipeDTO recipeDTO){
 
         List<RecipeIngredientDTO> tempIngredients = new ArrayList<>(recipeDTO.getIngredientList());
         List<RecipeIngredient> recipeIngredients = new ArrayList<>();
         RecipeIngredient recipeIngredient = new RecipeIngredient();
+
 
         for (RecipeIngredientDTO tempIngredient : tempIngredients) {
 
@@ -236,13 +249,13 @@ public class Services {
         System.out.println(recipeIngredients);
 
     }
-
+    @Transactional
     public void createRecipeIngredients(RecipeDTO recipeDTO) {
 
         //TRIPLE MAKING SURE YOU HAVE A RECIPE FIRST!
-        if (Objects.isNull(recipeRepository.recipeByTitleAndUser(recipeDTO.getTitle(), recipeDTO.getUser_id()))) {
-            createRecipe(recipeDTO);
-        }
+//        if (Objects.isNull(recipeRepository.recipeByTitleAndUser(recipeDTO.getTitle(), recipeDTO.getUser_id()))) {
+//            createRecipe(recipeDTO);
+//        }
 
         List<RecipeIngredientDTO> tempIngredients = new ArrayList<>(recipeDTO.getIngredientList());
         List<RecipeIngredient> recipeIngredients = new ArrayList<>();
@@ -263,16 +276,28 @@ public class Services {
 
                 recipeIngredientRepository.save(recipeIngredient);
 
-            } else
+            } else {
+
                 recipeIngredient.setRecipeid(
                         recipeRepository.recipeByTitleAndUser(recipeDTO.getTitle(),
                                 recipeDTO.getUser_id()).getRecipeid());
-            recipeIngredient.setIngredientid(
-                    ingredientRepository.getIngredientByName(tempIngredient.getName()).getIngredientid());
-            recipeIngredient.setQuantity(tempIngredient.getQuantity());
-            recipeIngredient.setMeasurementunit(tempIngredient.getMeasurementunit());
-            recipeIngredients.add(recipeIngredient);
-            recipeIngredientRepository.save(recipeIngredient);
+                recipeIngredient.setIngredientid(ingredientRepository.getIngredientByName(tempIngredient.getName()).getIngredientid());
+                recipeIngredient.setQuantity(tempIngredient.getQuantity());
+                recipeIngredient.setMeasurementunit(tempIngredient.getMeasurementunit());
+                recipeIngredients.add(recipeIngredient);
+
+                System.out.println("Recipe ingredient before insert: " + recipeIngredient.getIngredientid());
+
+                insertIntoRecipeIngredients(
+                        recipeIngredient.getRecipeid(),
+                        recipeIngredient.getIngredientid(),
+                        recipeIngredient.getQuantity(),
+                        recipeIngredient.getMeasurementunit());
+
+                System.out.println("Recipe ingredient after insert: " + recipeIngredient.getIngredientid());
+
+            }
+
         }
 
         System.out.println(recipeIngredients);
@@ -295,6 +320,8 @@ public class Services {
             System.out.println("THIS IS INCOMING RECIPE! " + incomingRecipe);
 
             recipeRepository.save(incomingRecipe);
+
+            System.out.println("HUZZAH, THE RECIPE WAS SAVED: " + incomingRecipe.getTitle());
         }
 
     }
@@ -304,8 +331,20 @@ public class Services {
         return userRepository.getUserIdFromUsername(username);
     }
 
+    @Transactional
+    public void insertIntoRecipeIngredients(Integer recipeid, Integer ingredientid, String quantity, String measurementunit) {
+        recipeIngredientRepository.createNewRecipeIngredient(recipeid, ingredientid, quantity, measurementunit);
+    }
+
+//    @Transactional
+//    public void deleteRecipeIngredientsByRecipeId(Integer recipeId) {
+//        System.out.println("OH NO, WE DELETED THE INGREDIENTS FOR: " + recipeId);
+//        recipeIngredientRepository.deleteIngredientsFromRecipeID(recipeId);
+//    }
+
     //-------------------FINAL STRAWS-------------------
 
+    @Transactional
     public Recipe saveRecipeAndIngredients(RecipeDTO recipeDTO) {
 
         createRecipe(recipeDTO);

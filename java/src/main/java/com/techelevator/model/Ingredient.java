@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 @ToString
 public class Ingredient {
 
+    //Getting rid of the generation maybe?!
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ingredientid")

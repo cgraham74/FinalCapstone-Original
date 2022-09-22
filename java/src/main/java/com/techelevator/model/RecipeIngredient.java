@@ -14,6 +14,7 @@ import java.io.Serializable;
 @ToString
 public class RecipeIngredient implements Serializable {
 
+
     @Column(name = "recipeid")
     @NotNull
     private Integer recipeid;
