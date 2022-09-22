@@ -69,7 +69,7 @@ public class MainController {
         return services.getRecipeById(recipeid);
     }
 
-    @DeleteMapping(path = "/update/{id}")
+    @PutMapping(path = "/update/{id}")
     public void update(@RequestBody RecipeDTO recipeDTO, @PathVariable int id) {
         System.out.println("Update was touched! Current Id: " + id);
         recipeDTO.setRecipeid(id);
