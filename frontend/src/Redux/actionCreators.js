@@ -117,6 +117,7 @@ export const clearMealPlan = (token) => (dispatch) => {
     if (response.ok) {
       alert("Cleared Meal Plan");
       dispatch(fetchMealPlan(token));
+      dispatch(fetchShoppingList(token));
       return response;
     } else {
      let error = new Error(
