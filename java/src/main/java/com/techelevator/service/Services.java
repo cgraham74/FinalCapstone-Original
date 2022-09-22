@@ -336,11 +336,11 @@ public class Services {
         recipeIngredientRepository.createNewRecipeIngredient(recipeid, ingredientid, quantity, measurementunit);
     }
 
-//    @Transactional
-//    public void deleteRecipeIngredientsByRecipeId(Integer recipeId) {
-//        System.out.println("OH NO, WE DELETED THE INGREDIENTS FOR: " + recipeId);
-//        recipeIngredientRepository.deleteIngredientsFromRecipeID(recipeId);
-//    }
+    @Transactional
+    public void deleteRecipeIngredientsByRecipeId(Integer recipeId) {
+        System.out.println("OH NO, WE DELETED THE INGREDIENTS FOR: " + recipeId);
+        recipeIngredientRepository.deleteIngredientsFromRecipeID(recipeId);
+    }
 
     //-------------------FINAL STRAWS-------------------
 

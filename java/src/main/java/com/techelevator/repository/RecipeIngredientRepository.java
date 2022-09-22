@@ -30,9 +30,9 @@ public interface RecipeIngredientRepository extends JpaRepository<RecipeIngredie
             "WHERE m.user_id = :user_id", nativeQuery = true)
     List<String> getListOfIngredientNames(@Param("user_id") Long user_id);
 
-//    @Modifying
-//    @Query("DELETE FROM RecipeIngredient r WHERE r.recipeid = :recipeid")
-//    void deleteIngredientsFromRecipeID(@Param("recipeid") Integer recipeid);
+    @Modifying
+    @Query("DELETE FROM RecipeIngredient r WHERE r.recipeid = :recipeid")
+    void deleteIngredientsFromRecipeID(@Param("recipeid") Integer recipeid);
 
 
 

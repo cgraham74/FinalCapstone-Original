@@ -74,7 +74,7 @@ public class MainController {
         System.out.println("Update was touched! Current Id: " + id);
         recipeDTO.setRecipeid(id);
         System.out.println("The recipeDTO's id! " + recipeDTO.getRecipeid());
-//        services.deleteRecipeIngredientsByRecipeId(recipeDTO.getRecipeid());
+        services.deleteRecipeIngredientsByRecipeId(recipeDTO.getRecipeid());
         services.updateRecipe(recipeDTO);
     }
 
